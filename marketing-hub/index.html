@@ -1,0 +1,3067 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>UNTIL · Marketing Material Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+
+<style>
+  @font-face {
+    font-family: "DIN 2014";
+    src: url("fonts/DIN_2014_Bold.otf") format("opentype");
+    font-weight: 700 900;
+    font-style: normal;
+    font-display: block;
+  }
+  @font-face {
+    font-family: "Tungsten";
+    src: url("fonts/Tungsten-Semibold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: block;
+  }
+  @font-face {
+    font-family: "Tungsten";
+    src: url("assets/brand/fonts/Tungsten-Light.otf") format("opentype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: block;
+  }
+  @font-face {
+    font-family: "Tungsten";
+    src: url("assets/brand/fonts/Tungsten-Bold.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: block;
+  }
+
+  :root {
+    --font-display: "DIN 2014", "DM Sans", system-ui, sans-serif;
+    --font-tungsten: "Tungsten", "DIN 2014", "DM Sans", system-ui, sans-serif;
+    --font-body: "DM Sans", system-ui, sans-serif;
+    --font-serif: "DM Serif Display", "Times New Roman", serif;
+
+    /* UNTIL brand palette — official sign-off */
+    /* Primary */
+    --blue-900:  #01030E;  /* deepest ink */
+    --blue-800:  #04082A;
+    --paper:     #FFFFFF;
+
+    /* Secondary blues */
+    --blue-700:  #080F53;
+    --blue-600:  #111EA6;
+    --blue-500:  #1526D0;
+    --blue-400:  #4451D9;
+    --blue-300:  #737DE3;
+    --blue-200:  #A1A8EC;
+    --blue-100:  #B9BEF1;
+    --blue-50:   #D0D4F6;
+    --blue-25:   #E0E2F4;
+
+    /* Greys */
+    --gray-900:  #101828;
+    --gray-700:  #344054;
+    --gray-600:  #475467;
+    --gray-500:  #667085;
+    --gray-400:  #667085;
+    --gray-300:  #D0D5DD;
+    --gray-200:  #D0D5DD;
+    --gray-100:  #F2F4F7;
+    --gray-50:   #F9FAFB;
+    --gray-25:   #FCFCFD;
+
+    /* Approved next-gen accents */
+    --c-sage:    #809EA0;  /* sage green */
+    --c-grey:    #B7B9AE;  /* warm neutral grey */
+    --c-bluegrey:#B7C0C1;  /* cool light grey — new brand */
+
+    /* Working aliases */
+    --ink:       var(--blue-900);
+    --bone:      var(--gray-100);    /* events poster bg — light brand grey */
+    --stone:     var(--gray-50);     /* maintenance poster bg — even lighter */
+    --navy:      var(--blue-900);
+    --charcoal:  var(--blue-900);
+
+    --rule:      rgba(1,3,14,0.15);
+  }
+
+  html, body { margin: 0; padding: 0; background: var(--gray-50); font-family: var(--font-body); color: var(--ink); }
+  body { padding: 20px 20px 60px; min-height: 100vh; box-sizing: border-box; }
+
+  /* ── Top bar ─────────────────────────────────────────── */
+  .topbar {
+    max-width: 1440px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+  }
+  .topbar-brand {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .topbar-brand img { height: 20px; width: auto; display: block; }
+  .topbar-brand .sep {
+    width: 1px; height: 20px;
+    background: rgba(0,0,0,0.12);
+  }
+  .topbar h1 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 16px;
+  }
+  .topbar p {
+    margin: 2px 0 0 0;
+    font-size: 11.5px;
+    opacity: 0.6;
+  }
+  .topbar-right {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .crumb {
+    font: 500 11px/1 var(--font-body);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .crumb .arrow { opacity: 0.4; }
+
+  /* ── Buttons ─────────────────────────────────────────── */
+  .btn {
+    appearance: none;
+    border: 1px solid #2C2A26;
+    background: #2C2A26;
+    color: #fff;
+    font: 500 13px/1 var(--font-body);
+    letter-spacing: 0.05em;
+    padding: 12px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .btn:hover { background: #000; }
+  .btn[data-busy="1"] { opacity: 0.6; cursor: wait; }
+  .btn-ghost {
+    appearance: none;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.18);
+    color: #2C2A26;
+    font: 500 12px/1 var(--font-body);
+    letter-spacing: 0.08em;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .btn-ghost:hover { background: rgba(0,0,0,0.04); }
+  .reset-btn {
+    appearance: none;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.15);
+    color: #2C2A26;
+    font: 500 11px/1 var(--font-body);
+    letter-spacing: 0.06em;
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .reset-btn:hover { opacity: 1; }
+  .bleed-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 6px;
+    font: 500 10.5px/1 var(--font-body);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #2C2A26;
+    cursor: pointer;
+    user-select: none;
+  }
+  .bleed-check input { accent-color: #2C2A26; cursor: pointer; margin: 0; }
+
+  .fmt-select {
+    appearance: none;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.18);
+    color: #2C2A26;
+    font: 500 11px/1 var(--font-body);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 9px 28px 9px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%232C2A26' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+
+  /* ── HOME view ───────────────────────────────────────── */
+  .home {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  .home-intro {
+    margin-bottom: 28px;
+    padding: 8px 4px;
+  }
+  .home-intro h2 {
+    margin: 0 0 6px 0;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.1;
+    color: var(--navy);
+  }
+  .home-intro p {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: #2C2A26;
+    opacity: 0.7;
+    max-width: 560px;
+  }
+
+  .club-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 1100px) {
+    .club-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 540px) {
+    .club-grid { grid-template-columns: 1fr; }
+  }
+  /* ── LANDING (elevated entry) ───────────────────────── */
+  .landing { max-width: 1080px; margin: 0 auto; padding-top: 40px; }
+  .landing-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+  }
+  @media (max-width: 760px) { .landing-grid { grid-template-columns: 1fr; } }
+  .landing-tile {
+    appearance: none; text-align: left; cursor: pointer;
+    border: 1px solid rgba(1,3,14,0.1);
+    border-radius: 16px;
+    padding: 40px 36px 32px;
+    min-height: 300px;
+    display: flex; flex-direction: column; gap: 14px;
+    font-family: var(--font-body);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    position: relative; overflow: hidden;
+  }
+  .landing-tile[data-dest="club"] { background: var(--blue-900); color: var(--paper); border-color: transparent; }
+  .landing-tile[data-dest="corporate"] { background: #fff; color: var(--blue-900); }
+  .landing-tile:hover { transform: translateY(-3px); box-shadow: 0 22px 50px rgba(1,3,14,0.16); }
+  .lt-eyebrow {
+    font-family: var(--font-display); font-weight: 700; font-size: 11px;
+    letter-spacing: 0.26em; text-transform: uppercase; opacity: 0.55;
+  }
+  .lt-title {
+    font-family: var(--font-tungsten); font-weight: 600; font-size: 64px;
+    line-height: 0.92; letter-spacing: 0.01em; text-transform: uppercase; margin: 0;
+  }
+  .lt-desc { font-family: var(--font-serif); font-size: 19px; line-height: 1.4; margin: 0; opacity: 0.85; max-width: 30ch; }
+  .lt-cta {
+    margin-top: auto; font-family: var(--font-display); font-weight: 700;
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .lt-cta::after { content: "→"; transition: transform 0.2s ease; }
+  .landing-tile:hover .lt-cta::after { transform: translateX(5px); }
+
+  /* ── CORPORATE assets ───────────────────────────────── */
+  .corporate { max-width: 1280px; margin: 0 auto; }
+  .corp-nav {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px;
+  }
+  .corp-nav a {
+    font: 500 11px/1 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--blue-900); text-decoration: none;
+    border: 1px solid rgba(1,3,14,0.18); border-radius: 999px;
+    padding: 9px 14px; transition: all 0.15s ease;
+  }
+  .corp-nav a:hover { background: var(--blue-900); color: var(--paper); border-color: transparent; }
+  .corp { display: flex; flex-direction: column; gap: 40px; }
+  .corp-group { scroll-margin-top: 90px; }
+  .corp-h {
+    font-family: var(--font-display); font-weight: 700; font-size: 13px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue-900);
+    opacity: 0.6; margin: 0 0 16px 0;
+    border-bottom: 1px solid rgba(1,3,14,0.12); padding-bottom: 10px;
+  }
+  .corp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  @media (max-width: 1000px) { .corp-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .corp-grid { grid-template-columns: 1fr; } }
+  .corp-asset {
+    margin: 0; background: #fff; border-radius: 12px; overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.05); display: flex; flex-direction: column;
+  }
+  .corp-prev {
+    aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;
+    padding: 28px; background: var(--gray-100);
+  }
+  .corp-prev.dark { background: var(--blue-900); }
+  .corp-prev.light { background: var(--gray-50); }
+  .corp-prev img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .corp-asset figcaption {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 14px 16px;
+    font-family: var(--font-display); font-weight: 700; font-size: 12px;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--blue-900);
+  }
+  .corp-dl {
+    font: 500 10.5px/1 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--paper); background: var(--blue-900);
+    padding: 8px 12px; border-radius: 6px; text-decoration: none; white-space: nowrap;
+  }
+  .corp-dl:hover { background: #000; }
+
+  .corp-note { font-size: 12px; opacity: 0.55; margin: 12px 0 0; }
+  .swatch-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; }
+  @media (max-width: 1000px) { .swatch-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 560px) { .swatch-grid { grid-template-columns: repeat(2, 1fr); } }
+  .swatch {
+    background: #fff; border-radius: 10px; overflow: hidden; cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05); display: flex; flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .sw-chip { height: 72px; background: var(--sw); display: block; }
+  .sw-name { font: 700 11px/1 var(--font-display); letter-spacing: 0.06em; text-transform: uppercase; color: var(--blue-900); padding: 10px 10px 2px; }
+  .sw-hex { font: 500 10.5px/1 var(--font-body); letter-spacing: 0.04em; color: var(--blue-900); opacity: 0.55; padding: 0 10px 12px; }
+
+  .lib-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .lib-filter {
+    appearance: none; cursor: pointer;
+    font: 500 11px/1 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--blue-900); background: transparent;
+    border: 1px solid rgba(1,3,14,0.18); border-radius: 999px; padding: 9px 14px;
+  }
+  .lib-filter[aria-pressed="true"] { background: var(--blue-900); color: var(--paper); border-color: transparent; }
+  .lib-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 1000px) { .lib-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 640px) { .lib-grid { grid-template-columns: repeat(2, 1fr); } }
+  .lib-item { position: relative; border-radius: 10px; overflow: hidden; background: var(--gray-100); aspect-ratio: 3/4; }
+  .lib-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .lib-item .lib-dl {
+    position: absolute; right: 8px; bottom: 8px;
+    font: 500 10px/1 var(--font-body); letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--paper); background: rgba(1,3,14,0.78); padding: 7px 10px; border-radius: 6px;
+    text-decoration: none; opacity: 0; transition: opacity 0.15s ease;
+  }
+  .lib-item:hover .lib-dl { opacity: 1; }
+  .lib-tag {
+    position: absolute; left: 8px; top: 8px;
+    font: 700 9px/1 var(--font-display); letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--paper); background: rgba(1,3,14,0.6); padding: 5px 8px; border-radius: 999px;
+  }
+  .lib-name {
+    position: absolute; left: 8px; bottom: 8px;
+    font: 700 11px/1 var(--font-display); letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--paper); background: var(--blue-600); padding: 6px 9px; border-radius: 6px;
+  }
+  .lib-picker { position: fixed; inset: 0; background: rgba(1,3,14,0.6); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .lib-picker-box { background: #fff; border-radius: 14px; width: min(900px, 96vw); max-height: 86vh; overflow: auto; box-shadow: 0 30px 80px rgba(0,0,0,0.4); }
+  .lib-picker-hd { position: sticky; top: 0; background: #fff; display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid rgba(0,0,0,0.08); font-family: var(--font-serif); font-size: 18px; }
+  .lib-picker-x { appearance: none; border: none; background: transparent; font-size: 16px; cursor: pointer; }
+  .lib-picker-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 20px; }
+  @media (max-width: 640px) { .lib-picker-grid { grid-template-columns: repeat(2, 1fr); } }
+  .lib-pick { appearance: none; border: none; background: var(--gray-100); border-radius: 10px; overflow: hidden; cursor: pointer; padding: 0; position: relative; }
+  .lib-pick img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; }
+  .lib-pick span { position: absolute; left: 6px; bottom: 6px; font: 700 10px/1 var(--font-display); letter-spacing: 0.06em; text-transform: uppercase; color: #fff; background: rgba(1,3,14,0.7); padding: 5px 7px; border-radius: 5px; }
+  .lib-pick:hover { outline: 3px solid var(--blue-600); }
+
+  .club-tile {
+    appearance: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    background: var(--tile-bg, var(--ink));
+    color: var(--tile-fg, var(--paper));
+    border-radius: 10px;
+    padding: 22px 22px 20px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    font-family: var(--font-body);
+  }
+  .club-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.12);
+  }
+  /* Per-club accents — primaries lead; sage + a true neutral grey balance.
+     No purple-leaning blues (Blue 50/100/200 etc) on the home tiles. */
+  .club-tile[data-id="soho"]       { --tile-bg: var(--blue-800); --tile-fg: var(--paper); }
+  .club-tile[data-id="marylebone"] { --tile-bg: var(--gray-100); --tile-fg: var(--blue-900); }
+  .club-tile[data-id="liverpool"]  { --tile-bg: var(--c-sage);   --tile-fg: var(--paper); }
+  .club-tile[data-id="canary"]     { --tile-bg: var(--blue-900); --tile-fg: var(--paper); }
+  .club-tile[data-tone="bone"] {
+    background: var(--bone);
+    color: var(--navy);
+  }
+  .club-tile[data-tone="navy"] {
+    background: var(--navy);
+    color: var(--bone);
+  }
+  .tile-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .tile-logo { height: 18px; width: auto; opacity: 0.85; }
+  .club-tile[data-tone="bone"] .tile-logo { filter: none; }  .tile-badge {
+    font: 500 9.5px/1 var(--font-body);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+  .tile-name {
+    font-family: var(--font-tungsten);
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 0.94;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .tile-name.long { font-size: 32px; }
+  .tile-meta {
+    font: 500 9.5px/1.55 var(--font-body);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-top: 4px;
+  }
+  .tile-cta {
+    font: 500 10.5px/1 var(--font-body);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tile-cta::after {
+    content: "→";
+    transition: transform 0.18s ease;
+  }
+  .club-tile:hover .tile-cta::after {
+    transform: translateX(4px);
+  }
+
+  /* ── CLUB view ───────────────────────────────────────── */
+  .club-view { display: none; }
+  .club-view.is-active { display: block; }
+  .home.is-hidden { display: none; }
+
+  .tabs {
+    max-width: 1440px;
+    margin: 0 auto 20px;
+    display: flex;
+    gap: 4px;
+    padding: 5px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+    width: fit-content;
+  }
+  .tab {
+    appearance: none;
+    border: none;
+    background: transparent;
+    font: 500 12px/1 var(--font-body);
+    letter-spacing: 0.06em;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: #2C2A26;
+    opacity: 0.55;
+    transition: all 0.15s ease;
+  }
+  .tab:hover { opacity: 0.85; }
+  .tab[aria-selected="true"] {
+    background: #2C2A26;
+    color: #fff;
+    opacity: 1;
+  }
+  .tab-panel { display: none; }
+  .tab-panel.is-active { display: block; }
+
+  /* ── Grid (designs in club view) ─────────────────────── */
+  .grid {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .grid > * { min-width: 0; }
+  .grid.solo { grid-template-columns: minmax(0, 1fr); max-width: 520px; }
+  @media (max-width: 1100px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: minmax(0, 1fr); }
+    .grid.solo { max-width: 100%; }
+  }
+  .item {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+  }
+  .item-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .item-head h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .item-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .item-help { margin: 0; font-size: 12px; color: #2C2A26; opacity: 0.55; }
+
+  .preview {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #2C2A26;
+    position: relative;
+  }
+  .preview-card { aspect-ratio: 1 / 1; }
+  .preview-poster { aspect-ratio: 210 / 297; background: var(--bone); }
+  .preview .scale-wrap { transform-origin: top left; }
+
+  .preview [contenteditable] { outline: none; cursor: text; }
+  .preview-card [contenteditable]:hover { background: rgba(255,255,255,0.06); border-radius: 4px; }
+  .preview-card [contenteditable]:focus {
+    background: rgba(255,255,255,0.10);
+    outline: 1px dashed rgba(255,255,255,0.4);
+    outline-offset: 4px; border-radius: 4px;
+  }
+  .preview-poster [contenteditable]:hover { background: rgba(2,4,23,0.05); border-radius: 4px; }
+  .preview-poster [contenteditable]:focus {
+    background: rgba(2,4,23,0.08);
+    outline: 1px dashed rgba(2,4,23,0.35);
+    outline-offset: 4px; border-radius: 4px;
+  }
+
+  /* ── Wi-Fi card (1080×1080) ─────────────────────────── */
+  .card {
+    width: 1080px; height: 1080px;
+    background: var(--charcoal); color: #fff;
+    font-family: var(--font-body);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 80px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-head { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .head-logo { height: 38px; width: auto; display: block; }
+  .head-branches {
+    font-family: var(--font-body); font-weight: 500; font-size: 14px;
+    letter-spacing: 0.2em; text-transform: uppercase; color: #fff;
+    display: flex; gap: 10px; align-items: center; white-space: nowrap; flex-shrink: 0;
+  }
+  .head-branches .b { opacity: 0.4; white-space: nowrap; }
+  .head-branches .b.is-current { opacity: 1; }
+  .head-branches .dot { opacity: 0.4; font-weight: 700; transform: translateY(-0.08em); }
+  .card-hero { display: flex; flex-direction: column; justify-content: center; gap: 56px; padding: 60px 0; }
+  .welcome {
+    font-family: var(--font-serif); font-weight: 400; font-size: 48px;
+    line-height: 1; color: #fff; opacity: 0.85; margin: 0 0 24px 0;
+  }
+  .location {
+    font-family: var(--font-display); font-weight: 700; font-size: 88px;
+    line-height: 1; letter-spacing: -0.005em; text-transform: uppercase; color: #fff; margin: 0;
+  }
+  .location.long { font-size: 76px; line-height: 0.98; }
+  .wifi-block {
+    display: flex; flex-direction: column; gap: 32px;
+    border-top: 1px solid rgba(245,241,234,.18);
+    border-bottom: 1px solid rgba(245,241,234,.18);
+    padding: 48px 0;
+  }
+  .wifi-fields { display: flex; flex-direction: column; gap: 32px; }
+  .wifi-row { display: flex; flex-direction: column; gap: 4px; }
+  .wifi-label {
+    font-family: var(--font-body); font-weight: 500; font-size: 14px;
+    letter-spacing: 0.32em; text-transform: uppercase; color: #fff; opacity: 0.55;
+  }
+  .wifi-value {
+    font-family: var(--font-tungsten); font-weight: 600; font-size: 96px;
+    line-height: 1; letter-spacing: 0.005em; color: #fff;
+    text-transform: uppercase; font-variant-numeric: tabular-nums;
+  }
+  .wifi-value.long { font-size: 84px; }
+  .wifi-value.xlong { font-size: 72px; }
+  .card-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
+  .foot-tagline {
+    font-family: var(--font-serif); font-weight: 400; font-size: 40px;
+    line-height: 1.15; color: #fff; max-width: 540px; margin: 0;
+  }
+  .foot-addr {
+    font-family: var(--font-body); font-weight: 500; font-size: 18px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: #fff;
+    line-height: 1.6; opacity: 0.85; text-align: right;
+  }
+  .foot-addr > span { display: inline-block; margin-inline-end: -0.18em; }
+
+  /* Per-club accent applied via data-club. Used as small accent moments —
+     icon halo on maintenance posters, month badge on events, accent rules. */
+  [data-club="soho"]       { --club-accent: var(--blue-800); --club-accent-fg: var(--paper); }
+  [data-club="marylebone"] { --club-accent: var(--c-grey);   --club-accent-fg: var(--blue-900); }
+  [data-club="liverpool"]  { --club-accent: var(--c-sage);   --club-accent-fg: var(--paper); }
+  [data-club="canary"]     { --club-accent: var(--blue-900); --club-accent-fg: var(--paper); }
+
+  /* ── A4 posters (shared) ─────────────────────────────── */
+  .poster, .mposter {
+    width: 794px; height: 1123px;
+    background: var(--bone); color: var(--navy);
+    font-family: var(--font-body);
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  /* Maintenance posters get a cool stone tint to visually distinguish them
+     from the warm cream events poster. */
+  .mposter { background: var(--stone); }
+  .preview-poster.preview-maint { background: var(--stone); }
+  .poster-frame, .mposter-frame {
+    position: absolute; inset: 30px;
+    border: 1px solid rgba(2,4,23,0.18);
+    pointer-events: none;
+  }
+  .p-logo, .mp-logo { height: 24px; width: auto; display: block; }
+  .p-branches, .mp-branches {
+    font-family: var(--font-display); font-weight: 700; font-size: 9.5px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--navy);
+    display: flex; gap: 10px; align-items: center; white-space: nowrap;
+  }
+  .p-branches .b, .mp-branches .b { opacity: 0.4; }
+  .p-branches .b.is-current, .mp-branches .b.is-current { opacity: 1; }
+  .p-branches .dot, .mp-branches .dot { opacity: 0.4; font-weight: 700; transform: translateY(-0.06em); }
+
+  /* Events poster */
+  .poster { padding: 54px 60px 50px; }
+  .p-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(2,4,23,0.18);
+  }
+  .p-hero {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .p-eyebrow {
+    font-family: var(--font-serif); font-weight: 400; font-size: 18px;
+    color: var(--navy); margin: 0 0 10px 0;
+  }
+  .p-title {
+    font-family: var(--font-tungsten); font-weight: 600;
+    font-size: 110px; line-height: 0.86;
+    letter-spacing: 0.005em;
+    color: var(--navy); margin: 0;
+    text-transform: uppercase;
+  }
+  .p-month {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--club-accent-fg, var(--ink));
+    text-align: right;
+    padding: 8px 14px;
+    background: var(--club-accent, var(--c-grey));
+    border-radius: 999px;
+    align-self: end;
+    margin-bottom: 8px;
+  }
+  .p-divider { height: 1px; background: rgba(2,4,23,0.18); margin: 28px 0 0; }
+  .events { list-style: none; margin: 0; padding: 0; flex: 1 1 auto; display: flex; flex-direction: column; }
+  .ev {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px; align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(2,4,23,0.18);
+  }
+  .ev:last-child { border-bottom: none; }
+  .ev-date { display: flex; flex-direction: column; gap: 4px; }
+  .ev-dow {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+    opacity: 0.55;
+  }
+  .ev-day {
+    font-family: var(--font-tungsten); font-weight: 600;
+    font-size: 64px; line-height: 0.86; color: var(--navy);
+  }
+  .ev-mon {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 15px; line-height: 1; opacity: 0.7; margin-top: 2px;
+  }
+  .ev-body { min-width: 0; }
+  .ev-title {
+    font-family: var(--font-tungsten); font-weight: 600;
+    font-size: 38px; line-height: 1.02; letter-spacing: 0.005em;
+    text-transform: uppercase; margin: 0 0 7px 0; color: var(--navy);
+  }
+  .ev-meta {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 17px; line-height: 1.35;
+    color: var(--navy); opacity: 0.78; margin: 0;
+  }
+  .p-foot {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid rgba(2,4,23,0.18);
+    display: flex; align-items: flex-end;
+    justify-content: space-between; gap: 24px;
+    flex-shrink: 0;
+  }
+  .p-foot-line {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 18px; line-height: 1.3; margin: 0; max-width: 70%;
+  }
+  .p-foot-addr {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; text-align: right;
+    opacity: 0.75; line-height: 1.7;
+  }
+  .p-foot-addr > span { display: inline-block; margin-inline-end: -0.2em; }
+
+  /* Digital-screen (9:16, 1080×1920) — scale the design UP to own the taller,
+     wider canvas instead of stranding the A4 layout at the top. Larger hero,
+     roomier event rows that spread down the full height. */
+  .poster.fmt-screen { padding: 90px 80px 80px; }
+  .poster.fmt-screen .p-logo { height: 34px; }
+  .poster.fmt-screen .p-branches { font-size: 13px; letter-spacing: 0.24em; gap: 14px; }
+  .poster.fmt-screen .p-head { padding-bottom: 26px; }
+  .poster.fmt-screen .p-hero { margin-top: 70px; }
+  .poster.fmt-screen .p-eyebrow { font-size: 30px; margin-bottom: 18px; }
+  .poster.fmt-screen .p-title { font-size: 188px; line-height: 0.84; }
+  .poster.fmt-screen .p-month { font-size: 18px; padding: 12px 20px; }
+  .poster.fmt-screen .p-divider { margin-top: 46px; }
+  .poster.fmt-screen .ev { grid-template-columns: 220px 1fr; gap: 40px; padding: 30px 0; }
+  .poster.fmt-screen .ev-dow { font-size: 15px; letter-spacing: 0.28em; }
+  .poster.fmt-screen .ev-day { font-size: 104px; }
+  .poster.fmt-screen .ev-mon { font-size: 26px; }
+  .poster.fmt-screen .ev-title { font-size: 50px; margin-bottom: 12px; }
+  .poster.fmt-screen .ev-meta { font-size: 24px; }
+  .poster.fmt-screen .p-foot { padding-top: 30px; }
+  .poster.fmt-screen .p-foot-line { font-size: 28px; }
+  .poster.fmt-screen .p-foot-addr { font-size: 15px; }
+  .poster.fmt-screen .poster-frame { inset: 40px; }
+
+  /* Maintenance poster */
+  .mposter { padding: 70px 70px 60px; }
+  .mp-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(2,4,23,0.18);
+  }
+  .mp-body {
+    flex: 1 1 auto;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    gap: 36px;
+    padding: 24px 20px;
+  }
+  /* Icon sits inside a soft accent halo — picks up the club color cleanly
+     without flooding the poster with ink. When the accent is dark (Canary,
+     Liverpool) the icon flips to paper so it reads against the halo. */
+  .mp-icon-wrap {
+    width: 240px; height: 240px;
+    background: var(--blue-800);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .mp-icon { width: 130px; height: 130px; color: var(--paper); flex-shrink: 0; }
+  .mp-icon svg { width: 100%; height: 100%; display: block; }
+  .mp-eyebrow {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 11px; letter-spacing: 0.32em;
+    text-transform: uppercase; color: var(--paper);
+    background: var(--blue-800);
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin: 0;
+  }
+  .mp-headline {
+    font-family: var(--font-tungsten); font-weight: 600;
+    font-size: 96px; line-height: 0.9;
+    letter-spacing: 0.005em;
+    text-transform: uppercase; color: var(--ink);
+    margin: 0; max-width: 600px;
+  }
+  .mp-message {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 20px; line-height: 1.4;
+    color: var(--ink); opacity: 0.85;
+    margin: 0; max-width: 480px;
+  }
+  .mp-foot {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid rgba(2,4,23,0.18);
+    display: flex; align-items: flex-end;
+    justify-content: space-between; gap: 24px;
+    flex-shrink: 0;
+  }
+  .mp-foot-line {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 16px; line-height: 1.3; margin: 0; max-width: 70%;
+  }
+  .mp-foot-addr {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; text-align: right;
+    opacity: 0.75; line-height: 1.7;
+  }
+  .mp-foot-addr > span { display: inline-block; margin-inline-end: -0.2em; }
+
+  /* Feedback signage — shares the maintenance frame/header/footer, adds a QR. */
+  .fbposter {
+    width: 794px; height: 1123px;
+    background: var(--stone); color: var(--navy);
+    font-family: var(--font-body);
+    box-sizing: border-box; position: relative;
+    display: flex; flex-direction: column;
+    padding: 70px 70px 60px;
+  }
+  .fb-body {
+    flex: 1 1 auto;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; gap: 26px;
+    padding: 20px 10px;
+  }
+  .fb-audience {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--blue-900); opacity: 0.6; margin: 0;
+  }
+  .fb-headline {
+    font-family: var(--font-tungsten); font-weight: 600;
+    font-size: 78px; line-height: 0.92; letter-spacing: 0.005em;
+    text-transform: uppercase; color: var(--blue-900); margin: 0; max-width: 600px;
+  }
+  .fb-message {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 19px; line-height: 1.4; color: var(--blue-900);
+    opacity: 0.85; margin: 0; max-width: 460px;
+  }
+  .fb-qr {
+    width: 240px; height: 240px;
+    background: #fff;
+    border: 1px solid rgba(1,3,14,0.12);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; margin-top: 8px;
+  }
+  .fb-qr img { width: 100%; height: 100%; object-fit: contain; }
+  .fb-qr-ph {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 22px; letter-spacing: 0.18em; line-height: 1.2;
+    color: rgba(1,3,14,0.3); text-align: center;
+  }
+  .fb-qrcap {
+    font-family: var(--font-body); font-weight: 500;
+    font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--blue-900); opacity: 0.7; margin: 0;
+  }
+
+  /* Feedback digital-screen scale-up (1080×1920) */
+  .fbposter.fmt-screen { padding: 90px 80px 80px; }
+  .fbposter.fmt-screen .mp-logo { height: 34px; }
+  .fbposter.fmt-screen .mp-branches { font-size: 13px; letter-spacing: 0.24em; }
+  .fbposter.fmt-screen .fb-body { gap: 40px; }
+  .fbposter.fmt-screen .fb-audience { font-size: 20px; }
+  .fbposter.fmt-screen .fb-headline { font-size: 132px; }
+  .fbposter.fmt-screen .fb-message { font-size: 30px; max-width: 720px; }
+  .fbposter.fmt-screen .fb-qr { width: 380px; height: 380px; }
+  .fbposter.fmt-screen .fb-qr-ph { font-size: 34px; }
+  .fbposter.fmt-screen .fb-qrcap { font-size: 21px; }
+  .fbposter.fmt-screen .mp-foot-line { font-size: 28px; }
+  .fbposter.fmt-screen .mp-foot-addr { font-size: 15px; }
+  .fbposter.fmt-screen .mposter-frame { inset: 40px; }
+
+  /* Maintenance digital-screen scale-up (1080×1920) — bank holiday / fire drill */
+  .mposter.fmt-screen { padding: 90px 80px 80px; }
+  .mposter.fmt-screen .mp-logo { height: 34px; }
+  .mposter.fmt-screen .mp-branches { font-size: 13px; letter-spacing: 0.24em; }
+  .mposter.fmt-screen .mp-head { padding-bottom: 26px; }
+  .mposter.fmt-screen .mp-body { gap: 56px; }
+  .mposter.fmt-screen .mp-icon-wrap { width: 340px; height: 340px; }
+  .mposter.fmt-screen .mp-icon { width: 190px; height: 190px; }
+  .mposter.fmt-screen .mp-eyebrow { font-size: 20px; }
+  .mposter.fmt-screen .mp-headline { font-size: 148px; }
+  .mposter.fmt-screen .mp-message { font-size: 30px; max-width: 760px; }
+  .mposter.fmt-screen .mp-foot-line { font-size: 28px; }
+  .mposter.fmt-screen .mp-foot-addr { font-size: 15px; }
+  .mposter.fmt-screen .mposter-frame { inset: 40px; }
+
+  /* Featured single-event spotlight — bold navy field, confident and enticing */
+  .spposter {
+    width: 794px; height: 1123px;
+    background: var(--blue-800); color: var(--paper);
+    font-family: var(--font-body);
+    box-sizing: border-box; position: relative;
+    display: flex; flex-direction: column;
+    padding: 64px 64px 56px;
+    overflow: hidden;
+  }
+  .spposter::after {
+    content: ""; position: absolute;
+    right: -120px; top: -120px;
+    width: 360px; height: 360px; border-radius: 50%;
+    background: var(--blue-600); opacity: 0.5;
+  }
+  .sp-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    position: relative; z-index: 1;
+  }
+  .sp-logo { height: 24px; width: auto; display: block; }
+  .sp-branches {
+    font-family: var(--font-display); font-weight: 700; font-size: 9.5px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--paper);
+    display: flex; gap: 10px; align-items: center; white-space: nowrap;
+  }
+  .sp-branches .b { opacity: 0.4; }
+  .sp-branches .b.is-current { opacity: 1; }
+  .sp-branches .dot { opacity: 0.4; font-weight: 700; }
+  .sp-body {
+    flex: 1 1 auto; position: relative; z-index: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 24px;
+  }
+  .sp-eyebrow {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 13px; letter-spacing: 0.34em; text-transform: uppercase;
+    color: var(--paper); opacity: 0.8; margin: 0;
+  }
+  .sp-title {
+    font-family: var(--font-tungsten); font-weight: 600;
+    font-size: 116px; line-height: 0.84; letter-spacing: 0.005em;
+    text-transform: uppercase; color: var(--paper); margin: 0;
+  }
+  .sp-when {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 18px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--paper);
+  }
+  .sp-when .sp-dot { opacity: 0.5; }
+  .sp-desc {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 22px; line-height: 1.4; color: var(--paper);
+    opacity: 0.92; margin: 0; max-width: 560px;
+  }
+  .sp-cta {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--paper); opacity: 0.7; margin: 4px 0 0 0;
+  }
+  .sp-foot {
+    margin-top: auto; padding-top: 18px; position: relative; z-index: 1;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+  }
+  .sp-foot-line {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 18px; line-height: 1.3; margin: 0; max-width: 70%; color: var(--paper);
+  }
+  .sp-foot-addr {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    text-align: right; opacity: 0.75; line-height: 1.7; color: var(--paper);
+  }
+  .sp-foot-addr > span { display: inline-block; margin-inline-end: -0.2em; }
+
+  .spposter.fmt-screen { padding: 90px 80px 80px; }
+  .spposter.fmt-screen .sp-logo { height: 34px; }
+  .spposter.fmt-screen .sp-branches { font-size: 13px; letter-spacing: 0.24em; }
+  .spposter.fmt-screen::after { width: 540px; height: 540px; right: -160px; top: -160px; }
+  .spposter.fmt-screen .sp-eyebrow { font-size: 22px; }
+  .spposter.fmt-screen .sp-title { font-size: 196px; }
+  .spposter.fmt-screen .sp-when { font-size: 30px; }
+  .spposter.fmt-screen .sp-desc { font-size: 34px; max-width: 780px; }
+  .spposter.fmt-screen .sp-cta { font-size: 22px; }
+  .spposter.fmt-screen .sp-foot-line { font-size: 28px; }
+  .spposter.fmt-screen .sp-foot-addr { font-size: 15px; }
+
+  /* New-practitioner welcome card (square 1080, charcoal like Wi-Fi) */
+  .welcard {
+    width: 1080px; height: 1080px;
+    background: var(--charcoal); color: #fff;
+    font-family: var(--font-body);
+    display: grid; grid-template-rows: auto 1fr auto;
+    padding: 80px; box-sizing: border-box; position: relative; overflow: hidden;
+  }
+  .wel-body { display: flex; flex-direction: column; justify-content: center; gap: 22px; }
+  .wel-eyebrow {
+    font-family: var(--font-display); font-weight: 700; font-size: 22px;
+    letter-spacing: 0.28em; text-transform: uppercase; color: #fff; opacity: 0.6; margin: 0;
+  }
+  .wel-name {
+    font-family: var(--font-tungsten); font-weight: 600; font-size: 108px;
+    line-height: 0.88; letter-spacing: 0.01em; text-transform: uppercase; color: #fff; margin: 0;
+  }
+  .wel-message {
+    font-family: var(--font-serif); font-weight: 400; font-size: 28px;
+    line-height: 1.32; color: #fff; opacity: 0.92; margin: 0; max-width: 700px;
+  }
+
+  /* Member of the month (A4/A5/screen, photo + celebratory) */
+  .mbposter {
+    width: 794px; height: 1123px;
+    background: var(--blue-900); color: var(--paper);
+    font-family: var(--font-body);
+    box-sizing: border-box; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; padding: 56px;
+  }
+  .mb-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .mb-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(1,3,14,0.92) 8%, rgba(1,3,14,0.5) 42%, rgba(1,3,14,0.15) 70%, rgba(1,3,14,0.35) 100%); }
+  .mbposter > * { position: relative; z-index: 1; }
+  .mb-body {
+    flex: 1 1 auto; display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: flex-end; text-align: left; gap: 14px;
+  }
+  .mb-branches { color: var(--paper); }
+  .mb-photo {
+    width: 480px; height: 480px; border-radius: 50%;
+    background: var(--blue-800); overflow: hidden;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .mb-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .mb-photo-ph {
+    font-family: var(--font-display); font-weight: 700; font-size: 20px;
+    letter-spacing: 0.2em; color: rgba(255,255,255,0.7);
+  }
+  .mb-eyebrow {
+    font-family: var(--font-display); font-weight: 700; font-size: 13px;
+    letter-spacing: 0.32em; text-transform: uppercase; color: var(--paper);
+    background: var(--blue-600); padding: 6px 14px; border-radius: 999px; margin: 0 0 4px 0;
+  }
+  .mb-name {
+    font-family: var(--font-tungsten); font-weight: 600; font-size: 96px;
+    line-height: 0.86; letter-spacing: 0.01em; text-transform: uppercase; color: var(--paper); margin: 0;
+  }
+  .mb-discipline {
+    font-family: var(--font-display); font-weight: 700; font-size: 16px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--paper); opacity: 0.75; margin: 0;
+  }
+  .mb-quote {
+    font-family: var(--font-serif); font-weight: 400; font-size: 26px;
+    line-height: 1.4; color: var(--paper); opacity: 0.92; margin: 10px 0 0 0; max-width: 580px;
+  }
+  .mbposter .mp-foot {
+    margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.22);
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+  }
+  .mbposter .mp-foot-line, .mbposter .mp-foot-addr { color: var(--paper); }
+  .mbposter.fmt-screen { padding: 80px; }
+  .mbposter.fmt-screen .mp-logo { height: 34px; }
+  .mbposter.fmt-screen .mb-name { font-size: 150px; }
+  .mbposter.fmt-screen .mb-quote { font-size: 38px; max-width: 800px; }
+  .mbposter.fmt-screen .mb-discipline { font-size: 24px; }
+  .mbposter.fmt-screen .mb-eyebrow { font-size: 20px; }
+
+  /* Featured single-event spotlight — editorial, full-bleed motion image */
+  .spposter {
+    width: 794px; height: 1123px;
+    background: var(--blue-50); color: var(--blue-900);
+    font-family: var(--font-body);
+    box-sizing: border-box; position: relative;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .sp-photo {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(160deg, #cfd6dd, #a7b3bd);
+  }
+  .sp-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(1) brightness(1.05) contrast(1.02);
+    mix-blend-mode: luminosity;
+  }
+  .sp-photo-ph {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 26px; letter-spacing: 0.2em; color: rgba(1,3,14,0.32);
+  }
+  /* faint registration grid */
+  .sp-grid { position: absolute; inset: 0; pointer-events: none; }
+  .sp-grid i { position: absolute; background: rgba(1,3,14,0.14); }
+  .sp-grid i:nth-child(1) { left: 8%; top: 0; bottom: 0; width: 1px; }
+  .sp-grid i:nth-child(2) { right: 12%; top: 0; bottom: 0; width: 1px; }
+  .sp-grid i:nth-child(3) { left: 0; right: 0; bottom: 232px; height: 1px; }
+
+  .sp-head {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding: 44px 48px 0;
+  }
+  .sp-logo { height: 22px; width: auto; display: block; }
+  .sp-branches {
+    font-family: var(--font-display); font-weight: 700; font-size: 9px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue-900);
+    display: flex; gap: 9px; align-items: center; white-space: nowrap;
+  }
+  .sp-branches .b { opacity: 0.4; }
+  .sp-branches .b.is-current { opacity: 1; }
+  .sp-branches .dot { opacity: 0.4; }
+
+  /* bottom information band sits over the image */
+  .sp-band {
+    position: relative; z-index: 2; margin-top: auto;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: end; gap: 24px;
+    padding: 0 48px 52px;
+  }
+  .sp-word {
+    font-family: var(--font-tungsten); font-weight: 600;
+    font-size: 150px; line-height: 0.72; letter-spacing: 0.01em;
+    text-transform: uppercase; color: var(--blue-900); margin: 0;
+  }
+  .sp-meta { display: flex; flex-direction: column; gap: 12px; padding-bottom: 10px; }
+  .sp-meta-head {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase;
+    line-height: 1.3; color: var(--blue-900);
+    display: flex; flex-direction: column;
+  }
+  .sp-meta-head span:last-child { opacity: 0.55; }
+  .sp-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .sp-chip {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--blue-900);
+    border: 1px solid rgba(1,3,14,0.5); border-radius: 999px;
+    padding: 5px 11px; white-space: nowrap;
+  }
+  .sp-tech {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+    padding-bottom: 12px; text-align: right; max-width: 200px;
+  }
+  .sp-lozenge {
+    width: 64px; height: 22px; border-radius: 999px;
+    background: var(--blue-900);
+  }
+  .sp-tech-txt {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    line-height: 1.5; color: var(--blue-900); opacity: 0.85; margin: 0;
+  }
+  .sp-code {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 9px; letter-spacing: 0.1em; color: var(--blue-900); opacity: 0.5; margin: 0;
+  }
+
+  .spposter.fmt-screen .sp-head { padding: 60px 64px 0; }
+  .spposter.fmt-screen .sp-logo { height: 32px; }
+  .spposter.fmt-screen .sp-band { padding: 0 64px 72px; gap: 32px; }
+  .spposter.fmt-screen .sp-word { font-size: 260px; }
+  .spposter.fmt-screen .sp-meta-head { font-size: 22px; }
+  .spposter.fmt-screen .sp-chip { font-size: 17px; padding: 8px 16px; }
+  .spposter.fmt-screen .sp-tech { max-width: 320px; }
+  .spposter.fmt-screen .sp-tech-txt { font-size: 13px; }
+  .spposter.fmt-screen .sp-code { font-size: 13px; }
+  .spposter.fmt-screen .sp-lozenge { width: 96px; height: 32px; }
+  .spposter.fmt-screen .sp-grid i:nth-child(3) { bottom: 360px; }
+
+  /* Featured event — TYPOGRAPHIC variant (editorial, no photo) */
+  .sptype {
+    width: 794px; height: 1123px;
+    background: var(--gray-100); color: var(--blue-900);
+    font-family: var(--font-body);
+    box-sizing: border-box; position: relative; overflow: hidden;
+    padding: 48px;
+  }
+  .st-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .st-logo { height: 22px; width: auto; display: block; }
+  .st-branches {
+    font-family: var(--font-display); font-weight: 700; font-size: 9px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue-900);
+    display: flex; gap: 9px; align-items: center; white-space: nowrap;
+  }
+  .st-branches .b { opacity: 0.4; }
+  .st-branches .b.is-current { opacity: 1; }
+  .st-tech {
+    position: absolute; right: 48px;
+    font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+    font-size: 10px; line-height: 1.5; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--blue-900);
+    display: flex; flex-direction: column; gap: 16px; text-align: left;
+  }
+  .st-tech-top { top: 110px; }
+  .st-tech-bottom { bottom: 56px; }
+  .st-tech p { margin: 0; }
+  .st-addr {
+    position: absolute; top: 150px; left: 0; right: 0;
+    text-align: center;
+    font-family: var(--font-serif); font-weight: 400; font-size: 30px;
+    line-height: 1.2; color: var(--blue-900);
+  }
+  .st-headline {
+    position: absolute; left: 48px; right: 48px; top: 50%; transform: translateY(-50%);
+  }
+  .st-pre {
+    display: block;
+    font-family: var(--font-display); font-weight: 700; font-size: 16px;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue-900);
+    opacity: 0.55; margin-bottom: 10px;
+  }
+  .st-h1 {
+    margin: 0;
+    font-family: var(--font-tungsten); font-weight: 600;
+    font-size: 130px; line-height: 0.82; letter-spacing: 0.005em;
+    text-transform: uppercase; color: var(--blue-900);
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .st-mark { height: 0.42em; width: auto; }
+  .st-mission {
+    position: absolute; left: 0; right: 0; bottom: 150px;
+    text-align: center; margin: 0;
+    font-family: var(--font-serif); font-weight: 400; font-size: 32px;
+    line-height: 1.25; color: var(--blue-900); max-width: 520px;
+    margin-left: auto; margin-right: auto;
+  }
+  .sptype.fmt-screen { padding: 64px; }
+  .sptype.fmt-screen .st-logo { height: 32px; }
+  .sptype.fmt-screen .st-addr { top: 230px; font-size: 44px; }
+  .sptype.fmt-screen .st-h1 { font-size: 220px; }
+  .sptype.fmt-screen .st-pre { font-size: 26px; }
+  .sptype.fmt-screen .st-mission { font-size: 48px; max-width: 800px; bottom: 230px; }
+  .sptype.fmt-screen .st-tech { font-size: 15px; right: 64px; }
+  .sptype.fmt-screen .st-tech-top { top: 150px; }
+  .sptype.fmt-screen .st-tech-bottom { bottom: 80px; }
+
+  /* Off-screen render stage */
+  #stage { position: fixed; top: 0; left: 100vw; pointer-events: none; }
+
+  .status {
+    max-width: 1440px;
+    margin: 20px auto 0;
+    padding: 10px 14px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #2C2A26;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+    min-height: 16px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <img src="assets/logo-navy.svg" alt="UNTIL" />
+    <div class="sep"></div>
+    <div>
+      <h1>Marketing Material Hub</h1>
+      <p>Print-ready templates for club managers. Pick a club to begin.</p>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="crumb" id="crumb"></div>
+    <button class="btn-ghost" id="home-btn" style="display:none">← All Clubs</button>
+  </div>
+</div>
+
+<!-- HOME view -->
+<!-- LANDING view (first screen) -->
+<section class="landing" id="landing">
+  <div class="home-intro">
+    <h2>What are you looking for?</h2>
+    <p>Choose a path to get started.</p>
+  </div>
+  <div class="landing-grid">
+    <button class="landing-tile" data-dest="club">
+      <span class="lt-eyebrow">For club teams</span>
+      <h3 class="lt-title">Club Materials</h3>
+      <p class="lt-desc">Editable, print-ready signage for your club: Wi-Fi cards, events posters, maintenance signs, feedback signage, welcome cards and member spotlights.</p>
+      <span class="lt-cta">Choose your club</span>
+    </button>
+    <button class="landing-tile" data-dest="corporate">
+      <span class="lt-eyebrow">For the wider team</span>
+      <h3 class="lt-title">Brand &amp; Corporate</h3>
+      <p class="lt-desc">Shared brand assets, logos, templates and guidelines for use across the business.</p>
+      <span class="lt-cta">Open assets</span>
+    </button>
+  </div>
+</section>
+
+<!-- CORPORATE view (assets to come) -->
+<section class="corporate" id="corporate">
+  <div class="home-intro">
+    <h2>Brand &amp; Corporate</h2>
+    <p>Shared brand assets and templates for the wider team. More coming soon.</p>
+  </div>
+  <div class="corp">
+    <nav class="corp-nav">
+      <a href="#corp-logos">Primary logo</a>
+      <a href="#corp-lockups">Club lockups</a>
+      <a href="#corp-colours">Colours</a>
+      <a href="#corp-library">Image library</a>
+      <a href="#corp-concierge">Health Concierge</a>
+      <a href="#corp-social">Social</a>
+      <a href="#corp-type">Typefaces</a>
+    </nav>
+    <section class="corp-group" id="corp-logos">
+      <h3 class="corp-h">Primary logo</h3>
+      <div class="corp-grid">
+        <figure class="corp-asset">
+          <div class="corp-prev dark"><img src="assets/brand/UNTIL-Logo-WHT.png" alt="UNTIL logo white"/></div>
+          <figcaption>Logo · White<a class="corp-dl" href="assets/brand/UNTIL-Logo-WHT.png" download>Download PNG</a></figcaption>
+        </figure>
+        <figure class="corp-asset">
+          <div class="corp-prev light"><img src="assets/brand/UNTIL-Logo-NVY.png" alt="UNTIL logo navy"/></div>
+          <figcaption>Logo · Navy<a class="corp-dl" href="assets/brand/UNTIL-Logo-NVY.png" download>Download PNG</a></figcaption>
+        </figure>
+        <figure class="corp-asset">
+          <div class="corp-prev light"><img src="assets/brand/Until-Logo-NVY.svg" alt="UNTIL logo navy vector"/></div>
+          <figcaption>Logo · Navy (vector)<a class="corp-dl" href="assets/brand/Until-Logo-NVY.svg" download>Download SVG</a></figcaption>
+        </figure>
+        <figure class="corp-asset">
+          <div class="corp-prev light"><img src="assets/brand/Until-Logo-BLK.svg" alt="UNTIL logo black vector"/></div>
+          <figcaption>Logo · Black (vector)<a class="corp-dl" href="assets/brand/Until-Logo-BLK.svg" download>Download SVG</a></figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="corp-group" id="corp-lockups">
+      <h3 class="corp-h">Club lockups</h3>
+      <div class="corp-grid">
+        <figure class="corp-asset">
+          <div class="corp-prev dark"><img src="assets/brand/Until-Soho-WHT.png" alt="UNTIL Soho"/></div>
+          <figcaption>Soho · White<a class="corp-dl" href="assets/brand/Until-Soho-WHT.png" download>Download PNG</a></figcaption>
+        </figure>
+        <figure class="corp-asset">
+          <div class="corp-prev light"><img src="assets/brand/Until-Marylebone-Logo.png" alt="UNTIL Marylebone"/></div>
+          <figcaption>Marylebone · Navy<a class="corp-dl" href="assets/brand/Until-Marylebone-Logo.png" download>Download PNG</a></figcaption>
+        </figure>
+        <figure class="corp-asset">
+          <div class="corp-prev light"><img src="assets/brand/Until-LivSt-Logo.png" alt="UNTIL Liverpool St"/></div>
+          <figcaption>Liverpool St · Navy<a class="corp-dl" href="assets/brand/Until-LivSt-Logo.png" download>Download PNG</a></figcaption>
+        </figure>
+        <figure class="corp-asset">
+          <div class="corp-prev light"><img src="assets/brand/Until-Mayfair-Logo.png" alt="UNTIL Mayfair"/></div>
+          <figcaption>Mayfair · Navy<a class="corp-dl" href="assets/brand/Until-Mayfair-Logo.png" download>Download PNG</a></figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="corp-group" id="corp-colours">
+      <h3 class="corp-h">Colours · Current branding <span style="opacity:0.5;font-weight:500;">(in use)</span></h3>
+      <div class="swatch-grid">
+        <div class="swatch" style="--sw:#01030E"><span class="sw-chip"></span><span class="sw-name">Blue 900</span><span class="sw-hex">#01030E</span></div>
+        <div class="swatch" style="--sw:#04082A"><span class="sw-chip"></span><span class="sw-name">Blue 800</span><span class="sw-hex">#04082A</span></div>
+        <div class="swatch" style="--sw:#111EA6"><span class="sw-chip"></span><span class="sw-name">Blue 600</span><span class="sw-hex">#111EA6</span></div>
+        <div class="swatch" style="--sw:#1526D0"><span class="sw-chip"></span><span class="sw-name">Blue 500</span><span class="sw-hex">#1526D0</span></div>
+        <div class="swatch" style="--sw:#4451D9"><span class="sw-chip"></span><span class="sw-name">Blue 400</span><span class="sw-hex">#4451D9</span></div>
+        <div class="swatch" style="--sw:#737DE3"><span class="sw-chip"></span><span class="sw-name">Blue 300</span><span class="sw-hex">#737DE3</span></div>
+        <div class="swatch" style="--sw:#A1A8EC"><span class="sw-chip"></span><span class="sw-name">Blue 200</span><span class="sw-hex">#A1A8EC</span></div>
+        <div class="swatch" style="--sw:#D0D4F6"><span class="sw-chip"></span><span class="sw-name">Blue 50</span><span class="sw-hex">#D0D4F6</span></div>
+        <div class="swatch" style="--sw:#101828"><span class="sw-chip"></span><span class="sw-name">Gray 900</span><span class="sw-hex">#101828</span></div>
+        <div class="swatch" style="--sw:#475467"><span class="sw-chip"></span><span class="sw-name">Gray 600</span><span class="sw-hex">#475467</span></div>
+        <div class="swatch" style="--sw:#D0D5DD"><span class="sw-chip"></span><span class="sw-name">Gray 200</span><span class="sw-hex">#D0D5DD</span></div>
+        <div class="swatch" style="--sw:#F2F4F7"><span class="sw-chip"></span><span class="sw-name">Gray 100</span><span class="sw-hex">#F2F4F7</span></div>
+        <div class="swatch" style="--sw:#FFFFFF"><span class="sw-chip"></span><span class="sw-name">White</span><span class="sw-hex">#FFFFFF</span></div>
+      </div>
+      <h3 class="corp-h" style="margin-top:32px;">Colours · New branding <span style="opacity:0.5;font-weight:500;">(rolling out — not yet signed off)</span></h3>
+      <div class="swatch-grid">
+        <div class="swatch" style="--sw:#809EA0"><span class="sw-chip"></span><span class="sw-name">Sage</span><span class="sw-hex">#809EA0</span></div>
+        <div class="swatch" style="--sw:#B7C0C1"><span class="sw-chip"></span><span class="sw-name">Blue-grey</span><span class="sw-hex">#B7C0C1</span></div>
+        <div class="swatch" style="--sw:#B7B9AE"><span class="sw-chip"></span><span class="sw-name">Warm grey</span><span class="sw-hex">#B7B9AE</span></div>
+        <div class="swatch" style="--sw:#E3DFBB"><span class="sw-chip"></span><span class="sw-name">Cream</span><span class="sw-hex">#E3DFBB</span></div>
+        <div class="swatch" style="--sw:#F5F1EA"><span class="sw-chip"></span><span class="sw-name">Bone</span><span class="sw-hex">#F5F1EA</span></div>
+      </div>
+      <p class="corp-note">Click a swatch to copy its hex. The current (blue/grey) palette is signed off and used on all live materials; the new palette is still being finalised.</p>
+    </section>
+    <section class="corp-group" id="corp-library">
+      <h3 class="corp-h">Image library</h3>
+      <div class="lib-filters" id="lib-filters"></div>
+      <div class="lib-grid" id="lib-grid"></div>
+    </section>
+    <section class="corp-group" id="corp-concierge">
+      <h3 class="corp-h">Health Concierge</h3>
+      <div class="corp-grid">
+        <figure class="corp-asset">
+          <div class="corp-prev"><img src="assets/brand/concierge/01-LOOKING-front.jpg" alt="Looking for a practitioner"/></div>
+          <figcaption>Looking For A…<a class="corp-dl" href="assets/brand/concierge/01-LOOKING.pdf" download>Download PDF</a></figcaption>
+        </figure>
+        <figure class="corp-asset">
+          <div class="corp-prev"><img src="assets/brand/concierge/02-GIFT-front.jpg" alt="Gift of health"/></div>
+          <figcaption>Gift Of Health<a class="corp-dl" href="assets/brand/concierge/02-GIFT.pdf" download>Download PDF</a></figcaption>
+        </figure>
+        <figure class="corp-asset">
+          <div class="corp-prev"><img src="assets/brand/concierge/03-BESPOKE-front.jpg" alt="Bespoke package"/></div>
+          <figcaption>Bespoke Package<a class="corp-dl" href="assets/brand/concierge/03-BESPOKE.pdf" download>Download PDF</a></figcaption>
+        </figure>
+        <figure class="corp-asset">
+          <div class="corp-prev"><img src="assets/brand/concierge/04-INSURANCE-front.jpg" alt="Health insurance"/></div>
+          <figcaption>Health Insurance<a class="corp-dl" href="assets/brand/concierge/04-INSURANCE.pdf" download>Download PDF</a></figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="corp-group" id="corp-social">
+      <h3 class="corp-h">Social</h3>
+      <div class="corp-grid">
+        <figure class="corp-asset">
+          <div class="corp-prev"><img src="assets/brand/Until-LGBTQ.jpg" alt="UNTIL Pride"/></div>
+          <figcaption>Pride mark<a class="corp-dl" href="assets/brand/Until-LGBTQ.jpg" download>Download JPG</a></figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="corp-group" id="corp-type">
+      <h3 class="corp-h">Typefaces</h3>
+      <div class="corp-grid">
+        <figure class="corp-asset">
+          <div class="corp-prev light"><span style="font-family:'Tungsten','DIN 2014',sans-serif;font-weight:600;font-size:64px;color:var(--blue-900);text-transform:uppercase;">Tungsten</span></div>
+          <figcaption>Tungsten · Semibold<a class="corp-dl" href="assets/brand/fonts/Tungsten-Semibold.otf" download>Download OTF</a></figcaption>
+        </figure>
+        <figure class="corp-asset">
+          <div class="corp-prev light"><span style="font-family:'Tungsten','DIN 2014',sans-serif;font-weight:700;font-size:64px;color:var(--blue-900);text-transform:uppercase;">Tungsten</span></div>
+          <figcaption>Tungsten · Bold<a class="corp-dl" href="assets/brand/fonts/Tungsten-Bold.otf" download>Download OTF</a></figcaption>
+        </figure>
+        <figure class="corp-asset">
+          <div class="corp-prev light"><span style="font-family:'Tungsten','DIN 2014',sans-serif;font-weight:300;font-size:64px;color:var(--blue-900);text-transform:uppercase;">Tungsten</span></div>
+          <figcaption>Tungsten · Light<a class="corp-dl" href="assets/brand/fonts/Tungsten-Light.otf" download>Download OTF</a></figcaption>
+        </figure>
+        <figure class="corp-asset">
+          <div class="corp-prev light"><span style="font-family:'DIN 2014',sans-serif;font-weight:700;font-size:40px;color:var(--blue-900);">DIN 2014</span></div>
+          <figcaption>DIN 2014 · Bold<a class="corp-dl" href="assets/brand/fonts/DIN-2014-Bold.otf" download>Download OTF</a></figcaption>
+        </figure>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- HOME view -->
+<section class="home" id="home">
+  <div class="home-intro">
+    <h2>Choose your club</h2>
+    <p>Each club has its own set of editable templates: Wi-Fi card, events poster, and maintenance signs, all preloaded with the right branch, address and details.</p>
+  </div>
+  <div class="club-grid" id="club-grid"></div>
+</section>
+
+<!-- CLUB view (single, dynamically populated) -->
+<section class="club-view" id="club-view">
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-tab="wifi">Wi-Fi Card</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="events">Events Poster</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="maintenance">Maintenance Posters</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="feedback">Feedback Signage</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="welcome">Welcome Cards</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="spotlight">Member Spotlight</button>
+  </div>
+  <div class="tab-panel is-active" id="panel-wifi"><div class="grid solo" id="wifi-grid"></div></div>
+  <div class="tab-panel" id="panel-events"><div class="grid solo" id="events-grid"></div></div>
+  <div class="tab-panel" id="panel-maintenance"><div class="grid" id="maintenance-grid"></div></div>
+  <div class="tab-panel" id="panel-feedback"><div class="grid" id="feedback-grid"></div></div>
+  <div class="tab-panel" id="panel-welcome"><div class="grid solo" id="welcome-grid"></div></div>
+  <div class="tab-panel" id="panel-spotlight"><div class="grid solo" id="spotlight-grid"></div></div>
+</section>
+
+<div id="stage"></div>
+
+<script>
+// ─────────────────────────────────────────────────────────
+// Data
+// ─────────────────────────────────────────────────────────
+const BRANCHES = ['Soho', 'Marylebone', 'Liverpool Street', 'Canary Wharf'];
+const LOGO_DARK = 'assets/logo-navy.svg';
+const LOGO_LIGHT = 'assets/until-wordmark-white.png';
+const HOUSE_LINE = "London's best health professionals are here.";
+
+// Per-club identity: name, network, address. Each club gets its own
+// templates with these values pre-filled and its branch highlighted.
+const CLUBS = [
+  {
+    id: 'soho', name: 'Soho', tone: 'charcoal',
+    network: 'UNTIL_SOHO', password: 'WELCOME24',
+    addr1: '111 CHARING CROSS RD', addr2: 'LONDON WC2H 0DT', addr3: 'UNTIL.CO.UK',
+    address: '111 Charing Cross Rd', postcode: 'London WC2H 0DT',
+    monthDefault: 'JUNE 2026',
+  },
+  {
+    id: 'marylebone', name: 'Marylebone', tone: 'bone',
+    network: 'UNTIL_MARYLEBONE', password: 'WELCOME24',
+    addr1: '1 ORCHARD STREET', addr2: 'LONDON W1H 6HJ', addr3: 'UNTIL.CO.UK',
+    address: '1 Orchard Street', postcode: 'London W1H 6HJ',
+    monthDefault: 'JUNE 2026',
+  },
+  {
+    id: 'liverpool', name: 'Liverpool Street', tone: 'navy',
+    network: 'UNTIL_LIVERPOOL', password: 'WELCOME24',
+    addr1: '280 BISHOPSGATE', addr2: 'LONDON EC2M 4RB', addr3: 'UNTIL.CO.UK',
+    address: '280 Bishopsgate', postcode: 'London EC2M 4RB',
+    monthDefault: 'JUNE 2026',
+  },
+  {
+    id: 'canary', name: 'Canary Wharf', tone: 'charcoal',
+    network: 'UNTIL_WHARF', password: 'WELCOME24',
+    addr1: 'UNIT 7, YY, 30 S COLONNADE', addr2: 'CANARY WHARF, LONDON E14 5HX', addr3: 'UNTIL.CO.UK',
+    address: 'Unit 7, YY, 30 South Colonnade', postcode: 'Canary Wharf, London E14 5HX',
+    monthDefault: 'JUNE 2026',
+  },
+];
+const CLUB_BY_ID = Object.fromEntries(CLUBS.map(c => [c.id, c]));
+
+// Events poster defaults — per club, branch + address + month auto-filled.
+function defaultPoster(club) {
+  return {
+    eyebrow: `What's on at ${club.name}`,
+    title1: 'UPCOMING',
+    title2: 'EVENTS',
+    month: club.monthDefault,
+    events: [
+      { dow: 'MON', day: '09', mon: 'June', title: 'Community Lunch', meta: '12pm  ·  Theme: Salad Bar' },
+      { dow: 'MON', day: '16', mon: 'June', title: 'VALD Intermediate Workshop', meta: '10am–12pm  ·  CPD Room' },
+      { dow: 'TUE', day: '17', mon: 'June', title: 'Ambitious about Autism Bake Sale', meta: '10am' },
+      { dow: 'TUE', day: '24', mon: 'June', title: 'Community Brunch', meta: '10am  ·  Theme: Avocado Toast Bar' },
+    ],
+    footLine: HOUSE_LINE,
+    addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+  };
+}
+
+// Featured single-event spotlight — bold, enticing, one event only.
+function defaultSpotlight(club) {
+  return {
+    eyebrow: 'EVERY THURSDAY',
+    title1: 'RUN',
+    title2: 'RUNNING CLUB',
+    day: 'THU 26 JUNE',
+    time: '6:30AM',
+    desc: 'HOSTED BY UNTIL ' + club.name.toUpperCase() + '. OPEN TO ALL MEMBERS AND GUESTS.',
+    cta: 'ALL PACES',
+    footLine: HOUSE_LINE,
+    addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+  };
+}
+const ICONS = {
+  fridge: `<svg viewBox="0 0 100 140" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="18" y="8" width="64" height="124" rx="5"/>
+    <line x1="18" y1="52" x2="82" y2="52"/>
+    <line x1="69" y1="22" x2="69" y2="40"/>
+    <line x1="69" y1="66" x2="69" y2="86"/>
+  </svg>`,
+  clock: `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="50" cy="50" r="42"/>
+    <path d="M50 22 L50 50 L68 58"/>
+    <line x1="50" y1="12" x2="50" y2="16"/>
+    <line x1="50" y1="84" x2="50" y2="88"/>
+    <line x1="12" y1="50" x2="16" y2="50"/>
+    <line x1="84" y1="50" x2="88" y2="50"/>
+  </svg>`,
+  shower: `<svg viewBox="0 0 100 130" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M50 6 L50 24"/>
+    <path d="M22 38 C 22 30 32 24 50 24 C 68 24 78 30 78 38 L 78 42 L 22 42 Z"/>
+    <line x1="32" y1="54" x2="28" y2="74"/>
+    <line x1="42" y1="54" x2="38" y2="80"/>
+    <line x1="50" y1="54" x2="48" y2="86"/>
+    <line x1="58" y1="54" x2="62" y2="80"/>
+    <line x1="68" y1="54" x2="72" y2="74"/>
+  </svg>`,
+  calendar: `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="14" y="20" width="72" height="66" rx="6"/>
+    <line x1="14" y1="38" x2="86" y2="38"/>
+    <line x1="32" y1="12" x2="32" y2="26"/>
+    <line x1="68" y1="12" x2="68" y2="26"/>
+    <line x1="40" y1="56" x2="60" y2="56"/>
+  </svg>`,
+  sun: `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="50" cy="50" r="20"/>
+    <line x1="50" y1="12" x2="50" y2="20"/>
+    <line x1="50" y1="80" x2="50" y2="88"/>
+    <line x1="12" y1="50" x2="20" y2="50"/>
+    <line x1="80" y1="50" x2="88" y2="50"/>
+    <line x1="23" y1="23" x2="29" y2="29"/>
+    <line x1="71" y1="71" x2="77" y2="77"/>
+    <line x1="23" y1="77" x2="29" y2="71"/>
+    <line x1="71" y1="29" x2="77" y2="23"/>
+  </svg>`,
+  fire: `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M50 12 C 58 30 72 36 72 58 a22 22 0 0 1 -44 0 C 28 44 38 40 40 30 C 48 36 52 44 50 54 C 56 50 58 42 50 12 Z"/>
+  </svg>`,
+  locker: `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="26" y="46" width="48" height="40" rx="6"/>
+    <path d="M36 46 V34 a14 14 0 0 1 28 0 V46"/>
+    <circle cx="50" cy="64" r="3.5"/>
+    <line x1="50" y1="67" x2="50" y2="74"/>
+  </svg>`,
+  toilet: `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M30 22 v22 a20 20 0 0 0 40 0 V22"/>
+    <path d="M38 63 l-4 19 h32 l-4 -19"/>
+    <line x1="30" y1="22" x2="70" y2="22"/>
+  </svg>`,
+  event: `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 40 L50 18 L80 40"/>
+    <path d="M28 40 V82 H72 V40"/>
+    <path d="M44 82 V60 h12 v22"/>
+  </svg>`,
+  hello: `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 30 h56 a6 6 0 0 1 6 6 v34 a6 6 0 0 1 -6 6 H44 l-16 14 v-14 h-6 a6 6 0 0 1 -6 -6 V36 a6 6 0 0 1 6 -6 Z"/>
+    <line x1="36" y1="48" x2="64" y2="48"/>
+    <line x1="36" y1="58" x2="56" y2="58"/>
+  </svg>`,
+};
+
+function defaultMaint(club) {
+  return {
+    fridge: {
+      id: 'fridge', iconKey: 'fridge', title: 'Fridges emptied every Saturday',
+      eyebrow: 'KITCHEN NOTICE',
+      headline: 'FRIDGES EMPTIED EVERY SATURDAY',
+      message: 'Please label and date anything you’d like to keep. Unlabelled items are cleared every Saturday afternoon.',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+    back5: {
+      id: 'back5', iconKey: 'clock', title: 'Back in 5 minutes',
+      eyebrow: 'PLEASE EXCUSE US',
+      headline: 'BACK IN FIVE MINUTES',
+      message: 'We’ve stepped away from the desk and will be back shortly. Please ring the bell or take a seat.',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+    shower: {
+      id: 'shower', iconKey: 'shower', title: 'Shower out of order',
+      eyebrow: 'OUT OF SERVICE',
+      headline: 'SHOWER OUT OF ORDER',
+      message: 'This shower is temporarily out of order, with no hot water. Please use an alternative in the meantime.',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+    cpd: {
+      id: 'cpd', iconKey: 'calendar', title: 'CPD room reserved', fmts: ['a4', 'a5'],
+      eyebrow: 'ROOM RESERVED',
+      headline: 'CPD ROOM RESERVED',
+      message: 'This room is reserved for ' + club.name + ' on Mon 9 June, 10am–12pm. Please leave the room empty by 12pm. Thank you.',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+    bankholiday: {
+      id: 'bankholiday', iconKey: 'sun', title: 'Bank holiday hours', fmts: ['a4', 'a5', 'screen'],
+      eyebrow: 'BANK HOLIDAY HOURS',
+      headline: 'WE’RE OPEN TODAY',
+      message: 'UNTIL ' + club.name + ' is open 7am–3pm this bank holiday. Normal hours resume tomorrow.',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+    fire: {
+      id: 'fire', iconKey: 'fire', title: 'Fire evacuation drill', fmts: ['a4', 'a5', 'screen'],
+      eyebrow: 'PLANNED DRILL',
+      headline: 'FIRE EVACUATION DRILL',
+      message: 'Fire evacuation drill on Mon 9 June, 10am. Bookings are closed for 30 minutes while we run it.',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+    daylockers: {
+      id: 'daylockers', iconKey: 'locker', title: 'Day lockers', fmts: ['a4', 'a5'], clubs: ['canary'],
+      eyebrow: 'DAY LOCKERS',
+      headline: 'PLEASE TAKE YOUR BELONGINGS',
+      message: 'These lockers are for day use only. Please take your belongings with you; anything left is cleared at the end of the day.',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+    bathroom: {
+      id: 'bathroom', iconKey: 'toilet', title: 'Bathroom out of order', fmts: ['a4', 'a5'],
+      eyebrow: 'OUT OF SERVICE',
+      headline: 'BATHROOM OUT OF ORDER',
+      message: 'This bathroom is temporarily out of order. Please use an alternative in the meantime.',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+    privateevent: {
+      id: 'privateevent', iconKey: 'event', title: 'Closed for a private event', fmts: ['a4', 'a5', 'screen'],
+      eyebrow: 'PRIVATE EVENT',
+      headline: 'CLOSED FOR A PRIVATE EVENT TODAY',
+      message: 'We’re hosting a private event today, so the club is closed to members and guests. We’ll be back to normal tomorrow. Thank you for understanding.',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+    firstvisit: {
+      id: 'firstvisit', iconKey: 'hello', title: 'First visit?', fmts: ['a4', 'a5'],
+      eyebrow: 'WELCOME',
+      headline: 'FIRST VISIT?',
+      message: 'Welcome to UNTIL ' + club.name + '. Speak to a member of the team and we’ll show you around and get you settled in.',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+  };
+}
+const MAINT_ORDER = ['fridge', 'back5', 'shower', 'bathroom', 'privateevent', 'firstvisit', 'cpd', 'bankholiday', 'fire', 'daylockers'];
+// Some posters are club-specific. Returns the ordered ids available for a club.
+function maintIdsFor(club) {
+  const all = defaultMaint(club);
+  return MAINT_ORDER.filter(id => {
+    const clubs = all[id].clubs;
+    return !clubs || clubs.includes(club.id);
+  });
+}
+
+// Feedback signage — two posters per club in one tab:
+//  • member  → practitioner feedback on the UNTIL space
+//  • guest   → Google review request for visiting clients
+// Each carries a QR slot the club drops their own code into.
+function defaultFeedback(club) {
+  return {
+    member: {
+      id: 'member', audience: 'FOR UNTIL MEMBERS',
+      headline: 'HOW’S YOUR SPACE WORKING FOR YOU?',
+      message: 'You’re building something here, and your space should help, never hold you back. Tell us what’s working and what we could do better at UNTIL ' + club.name + '.',
+      qrcap: 'Scan to share your thoughts',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+    guest: {
+      id: 'guest', audience: 'FOR OUR GUESTS',
+      headline: 'HOW WAS YOUR VISIT?',
+      message: 'We’d love to hear about your time at UNTIL ' + club.name + '. Share your experience in a Google review. It takes a moment and means the world.',
+      qrcap: 'Scan to leave a Google review',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+  };
+}
+const FEEDBACK_ORDER = ['member', 'guest'];
+// Per-club QR images (data URLs / asset paths) keyed by club.id + type.
+// Populated when the user supplies real QR codes; null shows a placeholder.
+const FEEDBACK_QR = {
+  soho:       { guest: 'assets/qr-guest-soho.png' },
+  marylebone: { guest: 'assets/qr-guest-marylebone.png' },
+  liverpool:  { guest: 'assets/qr-guest-liverpool.png' },
+  canary:     { guest: 'assets/qr-guest-canary.png' },
+};
+function feedbackQr(clubId, type) { return (FEEDBACK_QR[clubId] && FEEDBACK_QR[clubId][type]) || null; }
+
+// New-practitioner welcome card (square, like the Wi-Fi card).
+function defaultWelcome(club) {
+  return {
+    eyebrow: 'WELCOME TO THE COMMUNITY',
+    name: 'WELCOME',
+    message: 'We’re so glad you’re here. This is your space now — to grow your practice, meet your people and do your best work. Let’s get started.',
+    signoff: 'The UNTIL ' + club.name + ' team',
+  };
+}
+// Member of the month spotlight (A4/A5/screen, with a practitioner photo).
+function defaultMember(club) {
+  return {
+    eyebrow: 'MEMBER SPOTLIGHT',
+    name: 'JAMIE CRAVEN',
+    discipline: 'Physiotherapist',
+    quote: '“UNTIL gave me the space and the community to build something I’m proud of.”',
+    footLine: HOUSE_LINE,
+    addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+  };
+}
+// Per-club member photo (data URL), set by GMs via the upload control.
+const MEMBER_PHOTO = {};
+function memberPhoto(clubId) { return MEMBER_PHOTO[clubId] || (loadObj(lsKey('memberphoto', clubId)).src) || null; }
+// Per-club featured-event photo for the editorial spotlight poster.
+const SPOTLIGHT_PHOTO = {};
+function spotlightPhoto(clubId) { return SPOTLIGHT_PHOTO[clubId] || (loadObj(lsKey('spotphoto', clubId)).src) || null; }
+
+// ─────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────
+function netCls(n) { return n.length > 14 ? 'xlong' : n.length > 10 ? 'long' : 'short'; }
+function locCls(n) { return n.length > 8 ? 'long' : 'short'; }
+function esc(s) { return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+// Persistence keyed by club id so each club has its own edits.
+// v2 bumps the schema after the address + palette refresh — old edits don't
+// shadow the new defaults.
+function lsKey(kind, clubId) { return `until-${kind}-${clubId}-v2`; }
+function loadObj(key) { try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch { return {}; } }
+function saveObj(key, o) { localStorage.setItem(key, JSON.stringify(o)); }
+
+function applyWifi(c) { return Object.assign({}, c, loadObj(lsKey('wifi', c.id))); }
+function applyPoster(c) {
+  const def = defaultPoster(c);
+  const saved = loadObj(lsKey('poster', c.id));
+  if (!Object.keys(saved).length) return def;
+  return Object.assign({}, def, saved, {
+    events: (saved.events && saved.events.length) ? saved.events : def.events,
+  });
+}
+function applySpotlight(c) {
+  return Object.assign({}, defaultSpotlight(c), loadObj(lsKey('spotlight', c.id)));
+}
+function applyMaint(c, id) {
+  const def = defaultMaint(c)[id];
+  const all = loadObj(lsKey('maint', c.id));
+  return Object.assign({}, def, all[id] || {});
+}
+function applyFeedback(c, type) {
+  const def = defaultFeedback(c)[type];
+  const all = loadObj(lsKey('feedback', c.id));
+  return Object.assign({}, def, all[type] || {});
+}
+function applyWelcome(c) { return Object.assign({}, defaultWelcome(c), loadObj(lsKey('welcome', c.id))); }
+function applyMember(c) { return Object.assign({}, defaultMember(c), loadObj(lsKey('member', c.id))); }
+
+function branchesHtml(current) {
+  return BRANCHES.map((b, i) => {
+    const cur = b === current;
+    const sep = i < BRANCHES.length - 1 ? '<span class="dot">·</span>' : '';
+    return `<span class="b${cur ? ' is-current' : ''}">${esc(b)}</span>${sep}`;
+  }).join('');
+}
+
+// ─────────────────────────────────────────────────────────
+// Markup
+// ─────────────────────────────────────────────────────────
+function cardHtml(c, opts = {}) {
+  const editable = opts.editable ? 'contenteditable="true" spellcheck="false"' : '';
+  return `<section class="card" data-club="${c.id}">
+    <header class="card-head">
+      <img class="head-logo" src="${LOGO_LIGHT}" alt="UNTIL" crossorigin="anonymous" />
+      <nav class="head-branches">${branchesHtml(c.name)}</nav>
+    </header>
+    <div class="card-hero">
+      <div>
+        <p class="welcome" ${editable} data-field="welcome">Welcome to</p>
+        <h1 class="location ${locCls(c.name)}" ${editable} data-field="name">${esc(c.name)}</h1>
+      </div>
+      <div class="wifi-block">
+        <div class="wifi-fields">
+          <div class="wifi-row">
+            <span class="wifi-label" ${editable} data-field="networkLabel">Wi-Fi Network</span>
+            <span class="wifi-value ${netCls(c.network)}" ${editable} data-field="network">${esc(c.network)}</span>
+          </div>
+          <div class="wifi-row">
+            <span class="wifi-label" ${editable} data-field="passwordLabel">Password</span>
+            <span class="wifi-value" ${editable} data-field="password">${esc(c.password)}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="card-foot">
+      <p class="foot-tagline">London's best health professionals are <em>here</em>.</p>
+      <div class="foot-addr">
+        <span ${editable} data-field="address">${esc(c.address)}</span><br/>
+        <span ${editable} data-field="postcode">${esc(c.postcode)}</span><br/>
+        <span ${editable} data-field="url">until.co.uk</span>
+      </div>
+    </footer>
+  </section>`;
+}
+
+function posterHtml(state, club, opts = {}) {
+  const editable = opts.editable ? 'contenteditable="true" spellcheck="false"' : '';
+  const [pw, ph] = opts.dims || [794, 1123];
+  const fmtCls = opts.fmtKey === 'screen' ? ' fmt-screen' : '';
+  const eventsList = state.events.map((e, i) => `
+    <li class="ev" data-ev="${i}">
+      <div class="ev-date">
+        <span class="ev-dow" ${editable} data-evfield="dow">${esc(e.dow)}</span>
+        <span class="ev-day" ${editable} data-evfield="day">${esc(e.day)}</span>
+        <span class="ev-mon" ${editable} data-evfield="mon">${esc(e.mon)}</span>
+      </div>
+      <div class="ev-body">
+        <h3 class="ev-title" ${editable} data-evfield="title">${esc(e.title)}</h3>
+        <p class="ev-meta" ${editable} data-evfield="meta">${esc(e.meta)}</p>
+      </div>
+    </li>
+  `).join('');
+
+  return `<article class="poster${fmtCls}" data-club="${club.id}" data-iw="${pw}" data-ih="${ph}" style="width:${pw}px;height:${ph}px;">
+    <div class="poster-frame"></div>
+    <header class="p-head">
+      <img class="p-logo" src="${LOGO_DARK}" alt="UNTIL" crossorigin="anonymous" />
+      <nav class="p-branches">${branchesHtml(club.name)}</nav>
+    </header>
+    <section class="p-hero">
+      <div>
+        <p class="p-eyebrow" ${editable} data-pfield="eyebrow">${esc(state.eyebrow)}</p>
+        <h1 class="p-title">
+          <span ${editable} data-pfield="title1">${esc(state.title1)}</span><br/>
+          <span ${editable} data-pfield="title2">${esc(state.title2)}</span>
+        </h1>
+      </div>
+      <p class="p-month" ${editable} data-pfield="month">${esc(state.month)}</p>
+    </section>
+    <div class="p-divider"></div>
+    <ol class="events">${eventsList}</ol>
+    <footer class="p-foot">
+      <p class="p-foot-line">${esc(state.footLine)}</p>
+      <div class="p-foot-addr">
+        <span ${editable} data-pfield="addr1">${esc(state.addr1)}</span><br/>
+        <span ${editable} data-pfield="addr2">${esc(state.addr2)}</span><br/>
+        <span ${editable} data-pfield="addr3">${esc(state.addr3)}</span>
+      </div>
+    </footer>
+  </article>`;
+}
+
+function spotlightHtml(state, club, opts = {}) {
+  if ((opts.style || 'motion') === 'type') return spotlightTypeHtml(state, club, opts);
+  const editable = opts.editable ? 'contenteditable="true" spellcheck="false"' : '';
+  const [pw, ph] = opts.dims || [794, 1123];
+  const fmtCls = opts.fmtKey === 'screen' ? ' fmt-screen' : '';
+  const photo = spotlightPhoto(club.id);
+  const photoInner = photo
+    ? `<img src="${photo}" alt="" crossorigin="anonymous" />`
+    : `<span class="sp-photo-ph">ADD PHOTO</span>`;
+  const code = '[UNTIL.2026//' + club.name.replace(/[^A-Za-z]/g, '').toUpperCase().slice(0,4) + ']';
+  return `<article class="spposter${fmtCls}" data-club="${club.id}" data-iw="${pw}" data-ih="${ph}" style="width:${pw}px;height:${ph}px;">
+    <div class="sp-photo">${photoInner}</div>
+    <div class="sp-grid" aria-hidden="true"><i></i><i></i><i></i></div>
+    <header class="sp-head">
+      <img class="sp-logo" src="${LOGO_DARK}" alt="UNTIL" crossorigin="anonymous" />
+      <nav class="sp-branches">${branchesHtml(club.name)}</nav>
+    </header>
+    <div class="sp-band">
+      <h1 class="sp-word" ${editable} data-spfield="title1">${esc(state.title1)}</h1>
+      <div class="sp-meta">
+        <div class="sp-meta-head">
+          <span ${editable} data-spfield="title2">${esc(state.title2)}</span>
+          <span ${editable} data-spfield="eyebrow">${esc(state.eyebrow)}</span>
+        </div>
+        <div class="sp-chips">
+          <span class="sp-chip" ${editable} data-spfield="day">${esc(state.day)}</span>
+          <span class="sp-chip" ${editable} data-spfield="time">${esc(state.time)}</span>
+          <span class="sp-chip" ${editable} data-spfield="cta">${esc(state.cta)}</span>
+        </div>
+      </div>
+      <div class="sp-tech">
+        <span class="sp-lozenge" aria-hidden="true"></span>
+        <p class="sp-tech-txt" ${editable} data-spfield="desc">${esc(state.desc)}</p>
+        <p class="sp-code">${esc(code)}</p>
+      </div>
+    </div>
+  </article>`;
+}
+
+function spotlightTypeHtml(state, club, opts = {}) {
+  const editable = opts.editable ? 'contenteditable="true" spellcheck="false"' : '';
+  const [pw, ph] = opts.dims || [794, 1123];
+  const fmtCls = opts.fmtKey === 'screen' ? ' fmt-screen' : '';
+  const code = '[UNTIL.2026//' + club.name.replace(/[^A-Za-z]/g, '').toUpperCase().slice(0,4) + ']';
+  return `<article class="sptype${fmtCls}" data-club="${club.id}" data-iw="${pw}" data-ih="${ph}" style="width:${pw}px;height:${ph}px;">
+    <header class="st-head">
+      <img class="st-logo" src="${LOGO_DARK}" alt="UNTIL" crossorigin="anonymous" />
+      <nav class="st-branches">${branchesHtml(club.name)}</nav>
+    </header>
+    <div class="st-tech st-tech-top">
+      <p>UNTIL ${esc(club.name.toUpperCase())}<br/>EVENT SERIES</p>
+      <p>${esc(code)}</p>
+    </div>
+    <div class="st-addr">
+      <span ${editable} data-spfield="title2">${esc(state.title2)}</span><br/>
+      <span ${editable} data-spfield="day">${esc(state.day)}</span><br/>
+      <span ${editable} data-spfield="time">${esc(state.time)}</span>
+    </div>
+    <div class="st-headline">
+      <span class="st-pre" ${editable} data-spfield="eyebrow">${esc(state.eyebrow)}</span>
+      <h1 class="st-h1">
+        <span ${editable} data-spfield="title1">${esc(state.title1)}</span>
+        <img class="st-mark" src="${LOGO_DARK}" alt="UNTIL" crossorigin="anonymous" />
+      </h1>
+    </div>
+    <p class="st-mission" ${editable} data-spfield="desc">${esc(state.desc)}</p>
+    <div class="st-tech st-tech-bottom">
+      <p>UNTIL ${esc(club.name.toUpperCase())}<br/>${esc(state.addr1)}<br/>${esc(state.addr2)}</p>
+      <p ${editable} data-spfield="cta">${esc(state.cta)}</p>
+    </div>
+  </article>`;
+}
+
+function maintHtml(state, club, opts = {}) {
+  const editable = opts.editable ? 'contenteditable="true" spellcheck="false"' : '';
+  const [pw, ph] = opts.dims || [794, 1123];
+  const fmtCls = opts.fmtKey === 'screen' ? ' fmt-screen' : '';
+  return `<article class="mposter${fmtCls}" data-club="${club.id}" data-maint="${state.id}" data-iw="${pw}" data-ih="${ph}" style="width:${pw}px;height:${ph}px;">
+    <div class="mposter-frame"></div>
+    <header class="mp-head">
+      <img class="mp-logo" src="${LOGO_DARK}" alt="UNTIL" crossorigin="anonymous" />
+      <nav class="mp-branches">${branchesHtml(club.name)}</nav>
+    </header>
+    <div class="mp-body">
+      <div class="mp-icon-wrap">
+        <div class="mp-icon">${ICONS[state.iconKey] || ''}</div>
+      </div>
+      <p class="mp-eyebrow" ${editable} data-mfield="eyebrow">${esc(state.eyebrow)}</p>
+      <h1 class="mp-headline" ${editable} data-mfield="headline">${esc(state.headline)}</h1>
+      <p class="mp-message" ${editable} data-mfield="message">${esc(state.message)}</p>
+    </div>
+    <footer class="mp-foot">
+      <p class="mp-foot-line">${esc(state.footLine)}</p>
+      <div class="mp-foot-addr">
+        <span ${editable} data-mfield="addr1">${esc(state.addr1)}</span><br/>
+        <span ${editable} data-mfield="addr2">${esc(state.addr2)}</span><br/>
+        <span ${editable} data-mfield="addr3">${esc(state.addr3)}</span>
+      </div>
+    </footer>
+  </article>`;
+}
+
+function welcomeHtml(state, club, opts = {}) {
+  const editable = opts.editable ? 'contenteditable="true" spellcheck="false"' : '';
+  return `<section class="welcard" data-club="${club.id}">
+    <header class="card-head">
+      <img class="head-logo" src="${LOGO_LIGHT}" alt="UNTIL" crossorigin="anonymous" />
+      <nav class="head-branches">${branchesHtml(club.name)}</nav>
+    </header>
+    <div class="wel-body">
+      <p class="wel-eyebrow" ${editable} data-welfield="eyebrow">${esc(state.eyebrow)}</p>
+      <h1 class="wel-name" ${editable} data-welfield="name">${esc(state.name)}</h1>
+      <p class="wel-message" ${editable} data-welfield="message">${esc(state.message)}</p>
+    </div>
+    <footer class="card-foot">
+      <p class="foot-tagline">London's best health professionals are <em>here</em>.</p>
+      <div class="foot-addr">
+        <span ${editable} data-welfield="signoff">${esc(state.signoff)}</span><br/>
+        until.co.uk
+      </div>
+    </footer>
+  </section>`;
+}
+
+function memberHtml(state, club, opts = {}) {
+  const editable = opts.editable ? 'contenteditable="true" spellcheck="false"' : '';
+  const [pw, ph] = opts.dims || [794, 1123];
+  const fmtCls = opts.fmtKey === 'screen' ? ' fmt-screen' : '';
+  const photo = memberPhoto(club.id) || 'assets/brand/members/dr-saira.jpg';
+  return `<article class="mbposter${fmtCls}" data-club="${club.id}" data-iw="${pw}" data-ih="${ph}" style="width:${pw}px;height:${ph}px;">
+    <img class="mb-bg" src="${photo}" alt="${esc(state.name)}" crossorigin="anonymous" />
+    <div class="mb-scrim"></div>
+    <header class="mp-head">
+      <img class="mp-logo" src="${LOGO_LIGHT}" alt="UNTIL" crossorigin="anonymous" />
+      <nav class="mp-branches mb-branches">${branchesHtml(club.name)}</nav>
+    </header>
+    <div class="mb-body">
+      <p class="mb-eyebrow" ${editable} data-mbfield="eyebrow">${esc(state.eyebrow)}</p>
+      <h1 class="mb-name" ${editable} data-mbfield="name">${esc(state.name)}</h1>
+      <p class="mb-discipline" ${editable} data-mbfield="discipline">${esc(state.discipline)}</p>
+      <p class="mb-quote" ${editable} data-mbfield="quote">${esc(state.quote)}</p>
+    </div>
+    <footer class="mp-foot mb-foot">
+      <p class="mp-foot-line">${esc(state.footLine)}</p>
+      <div class="mp-foot-addr">
+        <span ${editable} data-mbfield="addr1">${esc(state.addr1)}</span><br/>
+        <span ${editable} data-mbfield="addr2">${esc(state.addr2)}</span><br/>
+        <span ${editable} data-mbfield="addr3">${esc(state.addr3)}</span>
+      </div>
+    </footer>
+  </article>`;
+}
+
+function feedbackHtml(state, club, opts = {}) {
+  const editable = opts.editable ? 'contenteditable="true" spellcheck="false"' : '';
+  const fbStart = true;
+  const [pw, ph] = opts.dims || [794, 1123];
+  const fmtCls = opts.fmtKey === 'screen' ? ' fmt-screen' : '';
+  const qr = feedbackQr(club.id, state.id);
+  const qrInner = qr
+    ? `<img src="${qr}" alt="QR code" crossorigin="anonymous" />`
+    : `<span class="fb-qr-ph">QR<br/>CODE</span>`;
+  return `<article class="fbposter${fmtCls}" data-club="${club.id}" data-fb="${state.id}" data-iw="${pw}" data-ih="${ph}" style="width:${pw}px;height:${ph}px;">
+    <div class="mposter-frame"></div>
+    <header class="mp-head">
+      <img class="mp-logo" src="${LOGO_DARK}" alt="UNTIL" crossorigin="anonymous" />
+      <nav class="mp-branches">${branchesHtml(club.name)}</nav>
+    </header>
+    <div class="fb-body">
+      <p class="fb-audience" ${editable} data-fbfield="audience">${esc(state.audience)}</p>
+      <h1 class="fb-headline" ${editable} data-fbfield="headline">${esc(state.headline)}</h1>
+      <p class="fb-message" ${editable} data-fbfield="message">${esc(state.message)}</p>
+      <div class="fb-qr">${qrInner}</div>
+      <p class="fb-qrcap" ${editable} data-fbfield="qrcap">${esc(state.qrcap)}</p>
+    </div>
+    <footer class="mp-foot">
+      <p class="mp-foot-line">${esc(state.footLine)}</p>
+      <div class="mp-foot-addr">
+        <span ${editable} data-fbfield="addr1">${esc(state.addr1)}</span><br/>
+        <span ${editable} data-fbfield="addr2">${esc(state.addr2)}</span><br/>
+        <span ${editable} data-fbfield="addr3">${esc(state.addr3)}</span>
+      </div>
+    </footer>
+  </article>`;
+}
+
+// ─────────────────────────────────────────────────────────
+// HOME — club picker
+// ─────────────────────────────────────────────────────────
+const clubGrid = document.getElementById('club-grid');
+for (const c of CLUBS) {
+  const tile = document.createElement('button');
+  tile.className = 'club-tile';
+  tile.dataset.tone = c.tone;
+  tile.dataset.id = c.id;
+  // Light logo for dark tile backgrounds, dark logo for light backgrounds.
+  // Currently only Marylebone (Gray 100) is a light tile.
+  const logoSrc = c.id === 'marylebone' ? LOGO_DARK : LOGO_LIGHT;
+  tile.innerHTML = `
+    <div class="tile-head">
+      <img class="tile-logo" src="${logoSrc}" alt="UNTIL" />
+      <span class="tile-badge">London</span>
+    </div>
+    <div>
+      <h3 class="tile-name${c.name.length > 8 ? ' long' : ''}">${esc(c.name)}</h3>
+      <p class="tile-meta">${esc(c.address.toUpperCase())} · ${esc(c.postcode.toUpperCase())}</p>
+    </div>
+    <div class="tile-cta">Open templates</div>
+  `;
+  clubGrid.appendChild(tile);
+}
+
+// ─────────────────────────────────────────────────────────
+// CLUB view — populated when a club is selected
+// ─────────────────────────────────────────────────────────
+let currentClub = null;
+
+function actionsHtml(extra = '') {
+  return `<div class="item-actions">
+    ${extra}
+    <label class="bleed-check" title="Adds 3mm bleed and corner crop marks">
+      <input type="checkbox" data-bleed/> Bleed + crops
+    </label>
+    <button class="reset-btn" data-action="reset">Reset</button>
+    <button class="btn" data-action="download">Download PDF</button>
+  </div>`;
+}
+
+// Events poster formats. A4/A5 export as PDF (paper); the digital screen
+// exports as a high-res PNG sized for a portrait display.
+const EVENTS_FORMATS = {
+  a4:     { label: 'A4 — PDF',                 dims: [794, 1123],  out: 'pdf', mm: [210, 297] },
+  a5:     { label: 'A5 — PDF',                 dims: [794, 1123],  out: 'pdf', mm: [148, 210] },
+  screen: { label: 'Digital screen 9:16 — PNG', dims: [1080, 1920], out: 'png' },
+};
+const eventsFmtByClub = {};                 // club.id -> format key (default a4)
+function eventsFmt(clubId) { return eventsFmtByClub[clubId] || 'a4'; }
+const spotlightFmtByClub = {};
+function spotlightFmt(clubId) { return spotlightFmtByClub[clubId] || 'a4'; }
+const spotlightStyleByClub = {};
+function spotlightStyle(clubId) { return spotlightStyleByClub[clubId] || 'motion'; }
+
+function renderEventsItem(club) {
+  const fmtKey = eventsFmt(club.id);
+  const fmt = EVENTS_FORMATS[fmtKey];
+  const [pw, ph] = fmt.dims;
+  const options = Object.entries(EVENTS_FORMATS).map(([k, f]) =>
+    `<option value="${k}"${k === fmtKey ? ' selected' : ''}>${f.label}</option>`).join('');
+
+  // Featured single-event spotlight (bolder, more enticing) — own format state.
+  const sKey = spotlightFmt(club.id);
+  const sFmt = EVENTS_FORMATS[sKey];
+  const [spw, sph] = sFmt.dims;
+  const sStyle = spotlightStyle(club.id);
+  const sOptions = Object.entries(EVENTS_FORMATS).map(([k, f]) =>
+    `<option value="${k}"${k === sKey ? ' selected' : ''}>${f.label}</option>`).join('');
+  const sStyleOptions = [['motion','Motion image'],['type','Typographic']].map(([k,l]) =>
+    `<option value="${k}"${k === sStyle ? ' selected' : ''}>${l}</option>`).join('');
+
+  document.getElementById('events-grid').innerHTML = `
+    <div class="item" data-kind="events" data-id="${club.id}">
+      <div class="item-head">
+        <h2>${esc(club.name)} · Upcoming Events</h2>
+        <div class="item-actions">
+          <select class="fmt-select" data-fmt aria-label="Format">${options}</select>
+          <label class="bleed-check" title="Adds 3mm bleed and corner crop marks (print only)">
+            <input type="checkbox" data-bleed/> Bleed + crops
+          </label>
+          <button class="reset-btn" data-action="reset">Reset</button>
+          <button class="btn" data-action="download">Download</button>
+        </div>
+      </div>
+      <p class="item-help">${fmtKey === 'screen'
+        ? 'Portrait digital-screen artwork (1080 × 1920). High-res PNG, ready to upload to an in-club screen.'
+        : 'Click any text to edit. ' + (fmtKey === 'a5' ? 'A5' : 'A4') + ' PDF, prints edge-to-edge.'}</p>
+      <div class="preview preview-poster" style="aspect-ratio:${pw}/${ph}">
+        <div class="scale-wrap">${posterHtml(applyPoster(club), club, { editable: true, dims: fmt.dims, fmtKey })}</div>
+      </div>
+    </div>
+    <div class="item" data-kind="spotlight" data-id="${club.id}">
+      <div class="item-head">
+        <h2>${esc(club.name)} · Featured Event</h2>
+        <div class="item-actions">
+          <button class="reset-btn" data-action="photo">Add photo</button>
+          <select class="fmt-select" data-spstyle aria-label="Style">${sStyleOptions}</select>
+          <select class="fmt-select" data-fmt aria-label="Format">${sOptions}</select>
+          <label class="bleed-check" title="Adds 3mm bleed and corner crop marks (print only)">
+            <input type="checkbox" data-bleed/> Bleed + crops
+          </label>
+          <button class="reset-btn" data-action="reset">Reset</button>
+          <button class="btn" data-action="download">Download</button>
+        </div>
+      </div>
+      <p class="item-help">Editorial single-event poster. Add a motion/action photo, then edit the text.</p>
+      <div class="preview preview-poster" style="aspect-ratio:${spw}/${sph}">
+        <div class="scale-wrap">${spotlightHtml(applySpotlight(club), club, { editable: true, dims: sFmt.dims, fmtKey: sKey, style: sStyle })}</div>
+      </div>
+    </div>
+  `;
+  observePreviews();
+  fitSoon();
+}
+
+// Feedback signage — two posters (member + guest) in one tab, each with its own
+// format selector. Format state keyed by `${club}:${type}`.
+const feedbackFmtByKey = {};
+function feedbackFmt(clubId, type) { return feedbackFmtByKey[`${clubId}:${type}`] || 'a4'; }
+
+// Maintenance format state (A4/A5/screen per poster, restricted by each
+// entry's `fmts`). Keyed by `${club}:${id}`.
+const maintFmtByKey = {};
+function maintFmt(clubId, id, allowed) {
+  const v = maintFmtByKey[`${clubId}:${id}`];
+  return (v && allowed.includes(v)) ? v : allowed[0];
+}
+function renderMaintItems(club) {
+  const maintGrid = document.getElementById('maintenance-grid');
+  maintGrid.innerHTML = '';
+  for (const id of maintIdsFor(club)) {
+    const m = applyMaint(club, id);
+    const allowed = m.fmts || ['a4'];
+    const fmtKey = maintFmt(club.id, id, allowed);
+    const fmt = EVENTS_FORMATS[fmtKey];
+    const [pw, ph] = fmt.dims;
+    const options = allowed.map(k =>
+      `<option value="${k}"${k === fmtKey ? ' selected' : ''}>${EVENTS_FORMATS[k].label}</option>`).join('');
+    const item = document.createElement('div');
+    item.className = 'item';
+    item.dataset.kind = 'maint';
+    item.dataset.id = club.id;
+    item.dataset.maintId = id;
+    item.innerHTML = `
+      <div class="item-head">
+        <h2>${esc(m.title)}</h2>
+        <div class="item-actions">
+          ${allowed.length > 1 ? `<select class="fmt-select" data-fmt aria-label="Format">${options}</select>` : ''}
+          <label class="bleed-check" title="Adds 3mm bleed and corner crop marks (print only)">
+            <input type="checkbox" data-bleed/> Bleed + crops
+          </label>
+          <button class="reset-btn" data-action="reset">Reset</button>
+          <button class="btn" data-action="download">Download</button>
+        </div>
+      </div>
+      <p class="item-help">Click any text to edit${(id === 'cpd' || id === 'fire' || id === 'bankholiday') ? ' — set the date & time in the message' : ''}.</p>
+      <div class="preview preview-poster" style="aspect-ratio:${pw}/${ph}">
+        <div class="scale-wrap">${maintHtml(m, club, { editable: true, dims: fmt.dims, fmtKey })}</div>
+      </div>
+    `;
+    maintGrid.appendChild(item);
+  }
+  observePreviews();
+  fitSoon();
+}
+
+function renderFeedbackItem(club) {
+  const titles = { member: 'Member Feedback', guest: 'Guest Google Review' };
+  const html = FEEDBACK_ORDER.map(type => {
+    const fmtKey = feedbackFmt(club.id, type);
+    const fmt = EVENTS_FORMATS[fmtKey];
+    const [pw, ph] = fmt.dims;
+    const options = Object.entries(EVENTS_FORMATS).map(([k, f]) =>
+      `<option value="${k}"${k === fmtKey ? ' selected' : ''}>${f.label}</option>`).join('');
+    return `
+      <div class="item" data-kind="feedback" data-id="${club.id}" data-fb-type="${type}">
+        <div class="item-head">
+          <h2>${esc(club.name)} · ${titles[type]}</h2>
+          <div class="item-actions">
+            <select class="fmt-select" data-fmt aria-label="Format">${options}</select>
+            <label class="bleed-check" title="Adds 3mm bleed and corner crop marks (print only)">
+              <input type="checkbox" data-bleed/> Bleed + crops
+            </label>
+            <button class="reset-btn" data-action="reset">Reset</button>
+            <button class="btn" data-action="download">Download</button>
+          </div>
+        </div>
+        <p class="item-help">${feedbackQr(club.id, type)
+          ? 'Click any text to edit.' : 'Click any text to edit. Drop your QR code into the box — tell me when ready and I’ll embed it.'}</p>
+        <div class="preview preview-poster" style="aspect-ratio:${pw}/${ph}">
+          <div class="scale-wrap">${feedbackHtml(applyFeedback(club, type), club, { editable: true, dims: fmt.dims, fmtKey })}</div>
+        </div>
+      </div>`;
+  }).join('');
+  document.getElementById('feedback-grid').innerHTML = html;
+  observePreviews();
+  fitSoon();
+}
+
+function renderWelcomeItem(club) {
+  document.getElementById('welcome-grid').innerHTML = `
+    <div class="item" data-kind="welcome" data-id="${club.id}">
+      <div class="item-head">
+        <h2>${esc(club.name)} · New Practitioner Welcome</h2>
+        <div class="item-actions">
+          <label class="bleed-check" title="Adds 3mm bleed and corner crop marks (print only)">
+            <input type="checkbox" data-bleed/> Bleed + crops
+          </label>
+          <button class="reset-btn" data-action="reset">Reset</button>
+          <button class="btn" data-action="download">Download</button>
+        </div>
+      </div>
+      <p class="item-help">Square card (1080 × 1080), like the Wi-Fi card. Click any text to edit.</p>
+      <div class="preview preview-card">
+        <div class="scale-wrap">${welcomeHtml(applyWelcome(club), club, { editable: true })}</div>
+      </div>
+    </div>
+  `;
+  observePreviews(); fitSoon();
+}
+
+const memberFmtByClub = {};
+function memberFmt(clubId) { return memberFmtByClub[clubId] || 'a4'; }
+function renderMemberItem(club) {
+  const fmtKey = memberFmt(club.id);
+  const fmt = EVENTS_FORMATS[fmtKey];
+  const [pw, ph] = fmt.dims;
+  const options = Object.entries(EVENTS_FORMATS).map(([k, f]) =>
+    `<option value="${k}"${k === fmtKey ? ' selected' : ''}>${f.label}</option>`).join('');
+  document.getElementById('spotlight-grid').innerHTML = `
+    <div class="item" data-kind="member" data-id="${club.id}">
+      <div class="item-head">
+        <h2>${esc(club.name)} · Member of the Month</h2>
+        <div class="item-actions">
+          <button class="reset-btn" data-action="photo">Replace from library</button>
+          <select class="fmt-select" data-fmt aria-label="Format">${options}</select>
+          <label class="bleed-check" title="Adds 3mm bleed and corner crop marks (print only)">
+            <input type="checkbox" data-bleed/> Bleed + crops
+          </label>
+          <button class="reset-btn" data-action="reset">Reset</button>
+          <button class="btn" data-action="download">Download</button>
+        </div>
+      </div>
+      <p class="item-help">Celebrate a member. Click "Add photo" to drop in a practitioner image, then edit the text.</p>
+      <div class="preview preview-poster" style="aspect-ratio:${pw}/${ph}">
+        <div class="scale-wrap">${memberHtml(applyMember(club), club, { editable: true, dims: fmt.dims, fmtKey })}</div>
+      </div>
+    </div>
+  `;
+  observePreviews(); fitSoon();
+}
+
+function renderClubView(club) {
+  currentClub = club;
+  document.getElementById('wifi-grid').innerHTML = `
+    <div class="item" data-kind="wifi" data-id="${club.id}">
+      <div class="item-head">
+        <h2>${esc(club.name)} · Wi-Fi Card</h2>
+        ${actionsHtml()}
+      </div>
+      <p class="item-help">Square 1080 × 1080. Click any text to edit.</p>
+      <div class="preview preview-card">
+        <div class="scale-wrap">${cardHtml(applyWifi(club), { editable: true })}</div>
+      </div>
+    </div>
+  `;
+
+  // Events (own renderer — supports format selection)
+  renderEventsItem(club);
+
+  // Feedback signage (member + guest, with format selection)
+  renderFeedbackItem(club);
+
+  // Maintenance (own renderer — per-poster format selection + club-specific posters)
+  renderMaintItems(club);
+
+  // Welcome cards + Member spotlight
+  renderWelcomeItem(club);
+  renderMemberItem(club);
+
+  document.getElementById('home').classList.add('is-hidden');
+  document.getElementById('club-view').classList.add('is-active');
+  showView('club-view');
+  document.getElementById('home-btn').style.display = '';
+  document.getElementById('crumb').innerHTML = `Marketing Hub <span class="arrow">›</span> ${esc(club.name)}`;
+  window.scrollTo(0, 0);
+  observePreviews();
+  fitSoon();
+}
+
+let currentView = 'landing';
+function showView(v) {
+  currentView = v;
+  ['landing', 'corporate', 'home', 'club-view'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = (id === v) ? '' : 'none';
+  });
+  const back = document.getElementById('home-btn');
+  const crumb = document.getElementById('crumb');
+  if (v === 'landing') { back.style.display = 'none'; crumb.innerHTML = ''; }
+  else if (v === 'home') { back.style.display = ''; back.textContent = '← Start'; crumb.innerHTML = 'Marketing Hub <span class="arrow">›</span> Club Materials'; }
+  else if (v === 'corporate') { back.style.display = ''; back.textContent = '← Start'; crumb.innerHTML = 'Marketing Hub <span class="arrow">›</span> Brand & Corporate'; }
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  // Context-aware back: club → club list; club list / corporate → landing.
+  if (currentView === 'club-view') { currentClub = null; showView('home'); }
+  else { showView('landing'); }
+}
+
+document.querySelectorAll('.landing-tile').forEach(t => {
+  t.addEventListener('click', () => {
+    showView(t.dataset.dest === 'corporate' ? 'corporate' : 'home');
+  });
+});
+
+clubGrid.addEventListener('click', (e) => {
+  const tile = e.target.closest('.club-tile');
+  if (!tile) return;
+  const club = CLUB_BY_ID[tile.dataset.id];
+  if (club) renderClubView(club);
+});
+
+document.getElementById('home-btn').addEventListener('click', goHome);
+
+// ─────────────────────────────────────────────────────────
+// Fit-to-container scaler
+// ─────────────────────────────────────────────────────────
+// Intrinsic (unscaled) pixel size of a design root. Posters can carry an
+// explicit format via data-iw/data-ih (set by the format selector); fall back
+// to A4 / square-card defaults.
+function previewIntrinsic(child) {
+  if (child.classList.contains('card') || child.classList.contains('welcard')) return [1080, 1080];
+  const w = parseInt(child.dataset.iw, 10) || 794;
+  const h = parseInt(child.dataset.ih, 10) || 1123;
+  return [w, h];
+}
+
+function fitOne(preview) {
+  const wrap = preview.querySelector('.scale-wrap');
+  if (!wrap) return;
+  const child = wrap.firstElementChild;
+  if (!child) return;
+  const w = preview.clientWidth;
+  if (!w) return;                       // hidden tab → skip; observer re-fires when shown
+  const [iw, ih] = previewIntrinsic(child);
+  const s = w / iw;
+  wrap.style.transform = `scale(${s})`;
+  wrap.style.width = (iw * s) + 'px';
+  wrap.style.height = (ih * s) + 'px';
+}
+
+function fitAll() { document.querySelectorAll('.preview').forEach(fitOne); }
+
+// Robust multi-pass fit. Layout/zoom bugs came from fitting on a single frame
+// before the panel had its width (or before web-fonts reflowed). Re-running
+// across several frames + short timeouts guarantees the scale lands even when
+// the heavy CDN libs delay first paint.
+function fitSoon() {
+  fitAll();
+  requestAnimationFrame(fitAll);
+  setTimeout(fitAll, 60);
+  setTimeout(fitAll, 200);
+  setTimeout(fitAll, 500);
+}
+
+// A ResizeObserver re-fits each preview the moment it actually gets its width —
+// this kills the "zoomed-in until you switch tabs" race (a hidden tab reports
+// 0 width, then fits automatically when revealed) without relying on timers.
+const _fitObserver = (typeof ResizeObserver !== 'undefined')
+  ? new ResizeObserver(entries => { for (const e of entries) fitOne(e.target); })
+  : null;
+const _observed = new WeakSet();
+function observePreviews() {
+  document.querySelectorAll('.preview').forEach(p => {
+    if (_fitObserver && !_observed.has(p)) {
+      _fitObserver.observe(p);
+      _observed.add(p);
+    }
+    // Stop the browser from scrolling the caret (and the whole scaled design)
+    // out of the frame while editing contenteditable text.
+    if (!p.dataset.scrollLock) {
+      p.dataset.scrollLock = '1';
+      p.addEventListener('scroll', () => { p.scrollLeft = 0; p.scrollTop = 0; });
+    }
+  });
+}
+window.addEventListener('resize', fitAll);
+
+// ─────────────────────────────────────────────────────────
+// Edit capture (delegated, club-aware)
+// ─────────────────────────────────────────────────────────
+document.getElementById('club-view').addEventListener('input', (e) => {
+  if (!currentClub) return;
+  const t = e.target;
+
+  // Wi-Fi
+  const cardEl = t.closest('.card');
+  if (cardEl && t.dataset.field) {
+    const key = lsKey('wifi', currentClub.id);
+    const state = loadObj(key);
+    state[t.dataset.field] = t.textContent;
+    saveObj(key, state);
+    if (t.dataset.field === 'network') {
+      t.classList.remove('short', 'long', 'xlong'); t.classList.add(netCls(t.textContent));
+    }
+    if (t.dataset.field === 'name') {
+      t.classList.remove('long');
+      if (t.textContent.length > 8) t.classList.add('long');
+    }
+    return;
+  }
+
+  // Events poster
+  const posterEl = t.closest('.poster');
+  if (posterEl) {
+    const key = lsKey('poster', currentClub.id);
+    const state = applyPoster(currentClub);
+    const evRoot = t.closest('[data-ev]');
+    if (evRoot && t.dataset.evfield) {
+      const i = +evRoot.dataset.ev;
+      state.events[i] = state.events[i] || {};
+      state.events[i][t.dataset.evfield] = t.textContent;
+      saveObj(key, state);
+      return;
+    }
+    if (t.dataset.pfield) {
+      state[t.dataset.pfield] = t.textContent;
+      saveObj(key, state);
+    }
+    return;
+  }
+
+  // Maintenance
+  const mEl = t.closest('.mposter');
+  if (mEl && t.dataset.mfield) {
+    const maintId = mEl.dataset.maint;
+    const key = lsKey('maint', currentClub.id);
+    const all = loadObj(key);
+    all[maintId] = all[maintId] || {};
+    all[maintId][t.dataset.mfield] = t.textContent;
+    saveObj(key, all);
+    return;
+  }
+
+  // Feedback signage
+  const fbEl = t.closest('.fbposter');
+  if (fbEl && t.dataset.fbfield) {
+    const type = fbEl.dataset.fb;
+    const key = lsKey('feedback', currentClub.id);
+    const all = loadObj(key);
+    all[type] = all[type] || {};
+    all[type][t.dataset.fbfield] = t.textContent;
+    saveObj(key, all);
+    return;
+  }
+
+  // Featured spotlight
+  const spEl = t.closest('.spposter');
+  if (spEl && t.dataset.spfield) {
+    const key = lsKey('spotlight', currentClub.id);
+    const all = loadObj(key);
+    all[t.dataset.spfield] = t.textContent;
+    saveObj(key, all);
+    return;
+  }
+
+  // Welcome card
+  const welEl = t.closest('.welcard');
+  if (welEl && t.dataset.welfield) {
+    const key = lsKey('welcome', currentClub.id);
+    const all = loadObj(key);
+    all[t.dataset.welfield] = t.textContent;
+    saveObj(key, all);
+    return;
+  }
+
+  // Member spotlight
+  const mbEl = t.closest('.mbposter');
+  if (mbEl && t.dataset.mbfield) {
+    const key = lsKey('member', currentClub.id);
+    const all = loadObj(key);
+    all[t.dataset.mbfield] = t.textContent;
+    saveObj(key, all);
+  }
+});
+
+// ─────────────────────────────────────────────────────────
+// PDF export
+// ─────────────────────────────────────────────────────────
+const stage = document.getElementById('stage');
+const statusEl = document.getElementById('status');
+function setStatus(msg) { if (statusEl) statusEl.textContent = msg; }
+async function waitForFonts() {
+  if (!document.fonts) return;
+  // Explicitly load the two custom faces at a representative size so the
+  // renderer has correct metrics before capture (avoids fallback-font spacing).
+  try {
+    await Promise.all([
+      document.fonts.load('600 96px "Tungsten"'),
+      document.fonts.load('700 88px "DIN 2014"'),
+      document.fonts.load('400 40px "DM Serif Display"'),
+      document.fonts.load('500 18px "DM Sans"'),
+    ]);
+  } catch (e) { /* non-fatal */ }
+  if (document.fonts.ready) await document.fonts.ready;
+}
+
+async function captureToCanvas(htmlString, intrinsicW, intrinsicH, bgColor) {
+  stage.innerHTML = htmlString;
+  stage.style.width = intrinsicW + 'px';
+  stage.style.height = intrinsicH + 'px';
+  await waitForFonts();
+  await Promise.all([...stage.querySelectorAll('img')].map(img => {
+    if (img.complete) return Promise.resolve();
+    return new Promise(r => { img.onload = img.onerror = r; });
+  }));
+  const root = stage.firstElementChild;
+  // html-to-image renders through an SVG <foreignObject>, so the browser's own
+  // layout engine handles letter-spacing, condensed fonts and text-transform.
+  // pixelRatio 3.8 yields ~360 dpi at A4 / ~1000 dpi on the 4in Wi-Fi card —
+  // true print resolution. Fonts auto-embed from same-origin @font-face rules.
+  // Render twice: first pass warms the font-embed cache, second is accurate.
+  const opts = {
+    width: intrinsicW,
+    height: intrinsicH,
+    pixelRatio: 3.8,
+    backgroundColor: bgColor,
+    cacheBust: true,
+    style: { margin: '0', transform: 'none' },
+  };
+  await htmlToImage.toCanvas(root, opts);
+  const canvas = await htmlToImage.toCanvas(root, opts);
+  stage.innerHTML = '';
+  return canvas;
+}
+
+function drawCropMarks(pdf, trimW, trimH, bleedMM) {
+  const pageW = trimW + bleedMM * 2;
+  const pageH = trimH + bleedMM * 2;
+  const gap = 1;
+  pdf.setLineWidth(0.25);
+  pdf.setDrawColor(0, 0, 0);
+  pdf.line(0, bleedMM, bleedMM - gap, bleedMM);
+  pdf.line(bleedMM, 0, bleedMM, bleedMM - gap);
+  pdf.line(pageW - bleedMM + gap, bleedMM, pageW, bleedMM);
+  pdf.line(pageW - bleedMM, 0, pageW - bleedMM, bleedMM - gap);
+  pdf.line(0, pageH - bleedMM, bleedMM - gap, pageH - bleedMM);
+  pdf.line(bleedMM, pageH - bleedMM + gap, bleedMM, pageH);
+  pdf.line(pageW - bleedMM + gap, pageH - bleedMM, pageW, pageH - bleedMM);
+  pdf.line(pageW - bleedMM, pageH - bleedMM + gap, pageW - bleedMM, pageH);
+}
+
+function hexToRgb(hex) {
+  const h = hex.replace('#', '');
+  return [parseInt(h.slice(0,2),16), parseInt(h.slice(2,4),16), parseInt(h.slice(4,6),16)];
+}
+
+function buildPdf(canvas, opts) {
+  const { jsPDF } = window.jspdf;
+  const { trimW, trimH, bgColor, withBleed, filename } = opts;
+  const bleed = withBleed ? 5 : 0;
+  const pageW = trimW + bleed * 2;
+  const pageH = trimH + bleed * 2;
+  const pdf = new jsPDF({ unit: 'mm', format: [pageW, pageH], orientation: 'portrait' });
+  if (withBleed) {
+    const [r, g, b] = hexToRgb(bgColor);
+    pdf.setFillColor(r, g, b);
+    pdf.rect(0, 0, pageW, pageH, 'F');
+  }
+  // Lossless PNG keeps text edges crisp — no JPEG ringing around type, which
+  // matters most for print. 'SLOW' lets jsPDF apply tighter (lossless) deflate.
+  pdf.addImage(canvas.toDataURL('image/png'), 'PNG', bleed, bleed, trimW, trimH, undefined, 'SLOW');
+  if (withBleed) drawCropMarks(pdf, trimW, trimH, bleed);
+  pdf.save(filename);
+}
+
+async function downloadWifi(club, withBleed) {
+  setStatus(`Rendering ${club.name} Wi-Fi…`);
+  const html = cardHtml(applyWifi(club), { editable: false });
+  const canvas = await captureToCanvas(html, 1080, 1080, '#2C2A26');
+  buildPdf(canvas, {
+    trimW: 101.6, trimH: 101.6, bgColor: '#2C2A26',
+    withBleed,
+    filename: `UNTIL_${club.name.replace(/\s+/g,'_')}_WiFi${withBleed ? '_bleed' : ''}.pdf`,
+  });
+  setStatus('Saved.');
+}
+async function downloadEvents(club, withBleed) {
+  const fmtKey = eventsFmt(club.id);
+  const fmt = EVENTS_FORMATS[fmtKey];
+  const [pw, ph] = fmt.dims;
+  setStatus(`Rendering ${club.name} events…`);
+  const html = posterHtml(applyPoster(club), club, { editable: false, dims: fmt.dims, fmtKey });
+  const canvas = await captureToCanvas(html, pw, ph, '#F2F4F7');
+  const base = `UNTIL_${club.name.replace(/\s+/g,'_')}_Events`;
+  if (fmt.out === 'png') {
+    // High-res PNG for digital screens — no paper/bleed.
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = `${base}_screen.png`;
+    a.click();
+  } else {
+    buildPdf(canvas, {
+      trimW: fmt.mm[0], trimH: fmt.mm[1], bgColor: '#F2F4F7',
+      withBleed,
+      filename: `${base}_${fmtKey.toUpperCase()}${withBleed ? '_bleed' : ''}.pdf`,
+    });
+  }
+  setStatus('Saved.');
+}
+async function downloadSpotlight(club, withBleed) {
+  const fmtKey = spotlightFmt(club.id);
+  const fmt = EVENTS_FORMATS[fmtKey];
+  const [pw, ph] = fmt.dims;
+  setStatus(`Rendering ${club.name} featured event…`);
+  const html = spotlightHtml(applySpotlight(club), club, { editable: false, dims: fmt.dims, fmtKey, style: spotlightStyle(club.id) });
+  const canvas = await captureToCanvas(html, pw, ph, spotlightStyle(club.id) === 'type' ? '#F2F4F7' : '#cfd6dd');
+  const base = `UNTIL_${club.name.replace(/\s+/g,'_')}_Featured_Event`;
+  if (fmt.out === 'png') {
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = `${base}_screen.png`;
+    a.click();
+  } else {
+    buildPdf(canvas, {
+      trimW: fmt.mm[0], trimH: fmt.mm[1], bgColor: '#04082A',
+      withBleed,
+      filename: `${base}_${fmtKey.toUpperCase()}${withBleed ? '_bleed' : ''}.pdf`,
+    });
+  }
+  setStatus('Saved.');
+}
+async function downloadMaint(club, maintId, withBleed) {
+  const m = applyMaint(club, maintId);
+  const allowed = m.fmts || ['a4'];
+  const fmtKey = maintFmt(club.id, maintId, allowed);
+  const fmt = EVENTS_FORMATS[fmtKey];
+  const [pw, ph] = fmt.dims;
+  setStatus(`Rendering ${m.title}…`);
+  const html = maintHtml(m, club, { editable: false, dims: fmt.dims, fmtKey });
+  const canvas = await captureToCanvas(html, pw, ph, '#F9FAFB');
+  const base = `UNTIL_${club.name.replace(/\s+/g,'_')}_${m.title.replace(/\s+/g,'_')}`;
+  if (fmt.out === 'png') {
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = `${base}_screen.png`;
+    a.click();
+  } else {
+    buildPdf(canvas, {
+      trimW: fmt.mm[0], trimH: fmt.mm[1], bgColor: '#F9FAFB',
+      withBleed,
+      filename: `${base}_${fmtKey.toUpperCase()}${withBleed ? '_bleed' : ''}.pdf`,
+    });
+  }
+  setStatus('Saved.');
+}
+
+async function downloadFeedback(club, type, withBleed) {
+  const fmtKey = feedbackFmt(club.id, type);
+  const fmt = EVENTS_FORMATS[fmtKey];
+  const [pw, ph] = fmt.dims;
+  const fb = applyFeedback(club, type);
+  setStatus(`Rendering ${club.name} feedback…`);
+  const html = feedbackHtml(fb, club, { editable: false, dims: fmt.dims, fmtKey });
+  const canvas = await captureToCanvas(html, pw, ph, '#F9FAFB');
+  const base = `UNTIL_${club.name.replace(/\s+/g,'_')}_Feedback_${type}`;
+  if (fmt.out === 'png') {
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = `${base}_screen.png`;
+    a.click();
+  } else {
+    buildPdf(canvas, {
+      trimW: fmt.mm[0], trimH: fmt.mm[1], bgColor: '#F9FAFB',
+      withBleed,
+      filename: `${base}_${fmtKey.toUpperCase()}${withBleed ? '_bleed' : ''}.pdf`,
+    });
+  }
+  setStatus('Saved.');
+}
+
+function bleedOn(item) {
+  const cb = item.querySelector('[data-bleed]');
+  return !!(cb && cb.checked);
+}
+async function downloadWelcome(club, withBleed) {
+  setStatus(`Rendering ${club.name} welcome card…`);
+  const canvas = await captureToCanvas(welcomeHtml(applyWelcome(club), club, { editable: false }), 1080, 1080, '#2C2A26');
+  buildPdf(canvas, { trimW: 101.6, trimH: 101.6, bgColor: '#2C2A26', withBleed,
+    filename: `UNTIL_${club.name.replace(/\s+/g,'_')}_Welcome${withBleed ? '_bleed' : ''}.pdf` });
+  setStatus('Saved.');
+}
+async function downloadMember(club, withBleed) {
+  const fmtKey = memberFmt(club.id);
+  const fmt = EVENTS_FORMATS[fmtKey];
+  const [pw, ph] = fmt.dims;
+  setStatus(`Rendering ${club.name} member spotlight…`);
+  const html = memberHtml(applyMember(club), club, { editable: false, dims: fmt.dims, fmtKey });
+  const canvas = await captureToCanvas(html, pw, ph, '#F2F4F7');
+  const base = `UNTIL_${club.name.replace(/\s+/g,'_')}_Member_Spotlight`;
+  if (fmt.out === 'png') {
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png'); a.download = `${base}_screen.png`; a.click();
+  } else {
+    buildPdf(canvas, { trimW: fmt.mm[0], trimH: fmt.mm[1], bgColor: '#F2F4F7', withBleed,
+      filename: `${base}_${fmtKey.toUpperCase()}${withBleed ? '_bleed' : ''}.pdf` });
+  }
+  setStatus('Saved.');
+}
+
+document.getElementById('club-view').addEventListener('change', (e) => {
+  const styleSel = e.target.closest('[data-spstyle]');
+  if (styleSel && currentClub) {
+    spotlightStyleByClub[currentClub.id] = styleSel.value;
+    renderEventsItem(currentClub);
+    return;
+  }
+  const sel = e.target.closest('[data-fmt]');
+  if (!sel || !currentClub) return;
+  const item = sel.closest('.item');
+  if (item.dataset.kind === 'feedback') {
+    feedbackFmtByKey[`${currentClub.id}:${item.dataset.fbType}`] = sel.value;
+    renderFeedbackItem(currentClub);
+  } else if (item.dataset.kind === 'maint') {
+    maintFmtByKey[`${currentClub.id}:${item.dataset.maintId}`] = sel.value;
+    renderMaintItems(currentClub);
+  } else if (item.dataset.kind === 'spotlight') {
+    spotlightFmtByClub[currentClub.id] = sel.value;
+    renderEventsItem(currentClub);
+  } else if (item.dataset.kind === 'member') {
+    memberFmtByClub[currentClub.id] = sel.value;
+    renderMemberItem(currentClub);
+  } else {
+    eventsFmtByClub[currentClub.id] = sel.value;
+    renderEventsItem(currentClub);
+  }
+});
+
+document.getElementById('club-view').addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-action]');
+  if (!btn || !currentClub) return;
+  const item = btn.closest('.item');
+  const kind = item.dataset.kind;
+  const action = btn.dataset.action;
+  const withBleed = bleedOn(item);
+  try {
+    btn.dataset.busy = '1';
+    if (action === 'download') {
+      if (kind === 'wifi') await downloadWifi(currentClub, withBleed);
+      else if (kind === 'events') await downloadEvents(currentClub, withBleed);
+      else if (kind === 'spotlight') await downloadSpotlight(currentClub, withBleed);
+      else if (kind === 'welcome') await downloadWelcome(currentClub, withBleed);
+      else if (kind === 'member') await downloadMember(currentClub, withBleed);
+      else if (kind === 'maint') await downloadMaint(currentClub, item.dataset.maintId, withBleed);
+      else if (kind === 'feedback') await downloadFeedback(currentClub, item.dataset.fbType, withBleed);
+    } else if (action === 'reset') {
+      if (kind === 'wifi') {
+        localStorage.removeItem(lsKey('wifi', currentClub.id));
+      } else if (kind === 'events') {
+        localStorage.removeItem(lsKey('poster', currentClub.id));
+      } else if (kind === 'spotlight') {
+        localStorage.removeItem(lsKey('spotlight', currentClub.id));
+      } else if (kind === 'maint') {
+        const key = lsKey('maint', currentClub.id);
+        const all = loadObj(key);
+        delete all[item.dataset.maintId];
+        saveObj(key, all);
+      } else if (kind === 'feedback') {
+        const key = lsKey('feedback', currentClub.id);
+        const all = loadObj(key);
+        delete all[item.dataset.fbType];
+        saveObj(key, all);
+      } else if (kind === 'welcome') {
+        localStorage.removeItem(lsKey('welcome', currentClub.id));
+      } else if (kind === 'member') {
+        localStorage.removeItem(lsKey('member', currentClub.id));
+      }
+      renderClubView(currentClub);
+      setStatus('Reset.');
+    } else if (action === 'photo') {
+      if (kind === 'member') {
+        // Pick a member image from the existing image library.
+        openLibraryPicker((src) => {
+          MEMBER_PHOTO[currentClub.id] = src;
+          saveObj(lsKey('memberphoto', currentClub.id), { src });
+          renderMemberItem(currentClub);
+          setStatus('Member image updated.');
+        });
+        delete btn.dataset.busy;
+        return;
+      }
+      // Featured event still accepts a file upload.
+      const input = document.createElement('input');
+      input.type = 'file'; input.accept = 'image/*';
+      input.onchange = () => {
+        const file = input.files && input.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          SPOTLIGHT_PHOTO[currentClub.id] = reader.result;
+          saveObj(lsKey('spotphoto', currentClub.id), { src: reader.result });
+          renderEventsItem(currentClub);
+          setStatus('Photo added.');
+        };
+        reader.readAsDataURL(file);
+      };
+      input.click();
+    }
+  } catch (err) {
+    console.error(err); setStatus('Error: ' + err.message);
+  } finally { delete btn.dataset.busy; }
+});
+
+// Tabs
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', 'false'));
+    tab.setAttribute('aria-selected', 'true');
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('is-active'));
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('is-active');
+    fitSoon();
+  });
+});
+
+// Library picker overlay — lets the user pick a member image from the hub's
+// own image library (used by the Member Spotlight "Replace from library").
+function openLibraryPicker(onPick) {
+  const members = LIB_IMAGES.filter(i => i[1] === 'Member Headshots');
+  const list = (members.length ? members : LIB_IMAGES);
+  const ov = document.createElement('div');
+  ov.className = 'lib-picker';
+  ov.innerHTML = `
+    <div class="lib-picker-box">
+      <div class="lib-picker-hd"><b>Choose a member</b><button class="lib-picker-x" aria-label="Close">✕</button></div>
+      <div class="lib-picker-grid">
+        ${list.map(([file, , name]) => {
+          const src = 'assets/brand/library/' + file;
+          return `<button class="lib-pick" data-src="${src}"><img src="${src}" alt="${name||''}" loading="lazy"/><span>${name||''}</span></button>`;
+        }).join('')}
+      </div>
+    </div>`;
+  document.body.appendChild(ov);
+  ov.addEventListener('click', (e) => {
+    if (e.target === ov || e.target.closest('.lib-picker-x')) { ov.remove(); return; }
+    const b = e.target.closest('.lib-pick');
+    if (b) { onPick(b.dataset.src); ov.remove(); }
+  });
+}
+
+// Start on the landing view.
+showView('landing');
+
+// ── Image library: build grid + category filters ──────────
+const LIB_IMAGES = [
+  ['training-01.jpg','Training',''],['training-02.jpg','Training',''],['training-03.jpg','Training',''],
+  ['training-04.jpg','Training',''],['training-05.jpg','Training',''],['training-06.jpg','Training',''],
+  ['training-07.jpg','Training',''],['training-08.jpg','Training',''],['training-09.jpg','Training',''],
+  ['training-10.jpg','Training',''],['training-11.jpg','Training',''],['training-12.jpg','Training',''],
+  ['training-13.jpg','Training',''],['training-14.jpg','Training',''],['training-15.jpg','Training',''],
+  ['training-16.jpg','Training',''],
+  ['community-01.jpg','Community','Enoch'],['community-02.jpg','Community','Enoch'],['community-03.jpg','Community','Enoch'],
+  ['community-04.jpg','Community',''],['community-05.jpg','Community',''],['community-06.jpg','Community',''],
+  ['clinical-01.jpg','Clinical',''],['tech-01.jpg','Technology',''],
+  ['../members/dr-saira.jpg','Member Headshots','Dr Saira'],
+  ['../members/aneira.jpg','Member Headshots','Aneira'],
+  ['../members/brad.jpg','Member Headshots','Brad'],
+  ['../members/charlie-goodchild.jpg','Member Headshots','Charlie Goodchild'],
+  ['../members/marjolein.jpg','Member Headshots','Marjolein'],
+  ['../members/teresa.jpg','Member Headshots','Teresa'],
+  ['../members/emily-lockwood.jpg','Member Headshots','Emily Lockwood'],
+  ['../members/jason-jackson.jpg','Member Headshots','Jason Jackson'],
+];
+(function buildLibrary() {
+  const grid = document.getElementById('lib-grid');
+  const filters = document.getElementById('lib-filters');
+  if (!grid || !filters) return;
+  const cats = ['All', ...Array.from(new Set(LIB_IMAGES.map(i => i[1])))];
+  let active = 'All';
+  filters.innerHTML = cats.map(c =>
+    `<button class="lib-filter" data-cat="${c}" aria-pressed="${c === 'All'}">${c}</button>`).join('');
+  function render() {
+    grid.innerHTML = LIB_IMAGES
+      .filter(([, cat]) => active === 'All' || cat === active)
+      .map(([file, cat, name]) => `
+        <figure class="lib-item">
+          <span class="lib-tag">${cat}</span>
+          ${name ? `<span class="lib-name">${name}</span>` : ''}
+          <img src="assets/brand/library/${file}" alt="${name || cat}" loading="lazy" />
+          <a class="lib-dl" href="assets/brand/library/${file}" download target="_blank" rel="noopener">Download</a>
+        </figure>`).join('');
+  }
+  filters.addEventListener('click', (e) => {
+    const b = e.target.closest('.lib-filter');
+    if (!b) return;
+    active = b.dataset.cat;
+    filters.querySelectorAll('.lib-filter').forEach(x => x.setAttribute('aria-pressed', x.dataset.cat === active));
+    render();
+  });
+  render();
+})();
+
+// ── Colour swatches: click to copy hex ────────────────────
+document.getElementById('corp-colours')?.addEventListener('click', (e) => {
+  const sw = e.target.closest('.swatch');
+  if (!sw) return;
+  const hex = sw.querySelector('.sw-hex').textContent.trim();
+  navigator.clipboard?.writeText(hex);
+  const name = sw.querySelector('.sw-name');
+  const orig = name.textContent;
+  name.textContent = 'Copied!';
+  setTimeout(() => { name.textContent = orig; }, 900);
+});
+
+// ─────────────────────────────────────────────────────────
+// Keep the preview visible when editing.
+// When a contenteditable element receives focus, the browser scrolls it
+// into view — which, because each editable lives inside a scale()'d
+// container, can push the WHOLE document and visually "lose" the design.
+// Snapshot the scroll position on focus and restore it next tick.
+// ─────────────────────────────────────────────────────────
+document.addEventListener('focusin', (e) => {
+  if (!e.target.isContentEditable) return;
+  const sx = window.scrollX, sy = window.scrollY;
+  // Two RAFs in case the browser defers its scrollIntoView by a frame.
+  requestAnimationFrame(() => {
+    window.scrollTo(sx, sy);
+    requestAnimationFrame(() => window.scrollTo(sx, sy));
+  });
+});
+</script>
+
+</body>
+</html>
+
+<style id="__om-edit-overrides">
+#club-grid >button:nth-child(3) .tile-meta { font-family: sans-serif !important }
+</style>
