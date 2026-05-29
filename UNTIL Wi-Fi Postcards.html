@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>UNTIL · Wi-Fi Postcards (4 clubs)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+<style>
+  @font-face {
+    font-family: "DIN 2014";
+    src: url("fonts/DIN_2014_Bold.otf") format("opentype");
+    font-weight: 700 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --ink-charcoal: #2C2A26;
+    --ink-navy: #020417;
+    --ink-bone: #f5f1ea;
+
+    --font-display: "DIN 2014", "DM Sans", system-ui, sans-serif;
+    --font-body: "DM Sans", system-ui, sans-serif;
+    --font-serif: "DM Serif Display", "Times New Roman", serif;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #f0eee9;
+    color: #2C2A26;
+    font-family: var(--font-body);
+    min-height: 100vh;
+  }
+
+  /* ──────────────────────────────────────────────────── */
+  /*  POSTCARD CARD                                       */
+  /* ──────────────────────────────────────────────────── */
+  .card {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 80px;
+    box-sizing: border-box;
+  }
+
+  /* Card tones */
+  .card[data-tone="charcoal"] { --bg: var(--ink-charcoal); --fg: #fff; --accent: var(--ink-bone); --line: rgba(245,241,234,.18); }
+  .card[data-tone="bone"]     { --bg: var(--ink-bone);    --fg: var(--ink-navy); --accent: var(--ink-navy); --line: rgba(2,4,23,.18); }
+  .card[data-tone="navy"]     { --bg: var(--ink-navy);    --fg: var(--ink-bone); --accent: var(--ink-bone); --line: rgba(245,241,234,.18); }
+
+  /* ── Header row: UNTIL · branch list · roundel ───────── */
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .head-logo {
+    height: 38px;
+    width: auto;
+    display: block;
+  }
+  .card[data-tone="bone"] .head-logo,
+  .card[data-tone="navy"] .head-logo {
+    /* White PNG → recolor to navy/bone via filter so artwork stays unmodified */
+    filter: var(--mark-filter);
+  }
+  .card[data-tone="bone"] { --mark-filter: brightness(0) saturate(100%) invert(7%) sepia(40%) saturate(2600%) hue-rotate(220deg) brightness(96%) contrast(105%); }
+  .card[data-tone="navy"] { --mark-filter: brightness(0) saturate(100%) invert(100%) sepia(8%) saturate(200%) hue-rotate(8deg) brightness(95%) contrast(95%); }
+
+  .head-branches {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--fg);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .head-branches .b { opacity: 0.4; white-space: nowrap; }
+  .head-branches .b.is-current { opacity: 1; }
+  .head-branches .dot { opacity: 0.4; transform: translateY(-0.08em); font-weight: 700; }
+
+  /* ── Hero: Wi-Fi label + network + password ──────────── */
+  .card-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 56px;
+    padding: 60px 0;
+  }
+
+  .welcome {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--fg);
+    margin: 0 0 24px 0;
+    opacity: 0.85;
+  }
+
+  .location {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 88px;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    text-transform: uppercase;
+    color: var(--fg);
+    margin: 0;
+  }
+  /* Two-line variant for long location names — same rhythm, no crowding */
+  .location[data-len="long"] {
+    font-size: 76px;
+    line-height: 0.98;
+  }
+
+  .wifi-block {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 48px 0;
+  }
+
+  .wifi-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .wifi-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .wifi-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--fg);
+    opacity: 0.55;
+  }
+
+  .wifi-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 72px;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    color: var(--fg);
+    font-variant-numeric: tabular-nums;
+    text-transform: uppercase;
+  }
+  /* Auto-shrink long network names so they always fit one line */
+  .wifi-value[data-len="long"] { font-size: 60px; }
+  .wifi-value[data-len="xlong"] { font-size: 52px; }
+
+  /* QR placeholder removed — keeping styles out keeps the postcard system clean. */
+    place-items: center;
+    text-align: center;
+    color: var(--fg);
+    opacity: 0.85;
+    font-family: var(--font-body);
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    padding: 14px;
+    box-sizing: border-box;
+  }
+  .wifi-qr .glyph {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 48px;
+    letter-spacing: 0;
+    margin-bottom: 6px;
+    opacity: 0.85;
+  }
+
+  /* Footer */
+  .card-foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .foot-meta {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg);
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+  .foot-tagline {
+    flex: 1 1 auto;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 40px;
+    line-height: 1.15;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--fg);
+    opacity: 1;
+    max-width: 540px;
+    margin: 0;
+  }
+  .foot-addr {
+    text-align: right;
+  }
+
+  /* Roundel + QR styles removed — the postcard is now type-only. */
+
+  /* Editable hover */
+  [contenteditable] { outline: none; }
+  [contenteditable]:focus {
+    outline: 1px dashed currentColor;
+    outline-offset: 4px;
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+<div id="canvas-root"></div>
+
+<!-- React + design canvas -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="postcards.jsx"></script>
+
+</body>
+</html>

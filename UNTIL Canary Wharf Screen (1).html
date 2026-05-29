@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>UNTIL — Canary Wharf · Digital Screen</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+<style>
+  /* Actual UNTIL brand font — file from the design system */
+  @font-face {
+    font-family: "DIN 2014";
+    src: url("fonts/DIN_2014_Bold.otf") format("opentype");
+    font-weight: 700 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  :root {
+    --canvas-w: 1080px;
+    --canvas-h: 1920px;
+
+    /* Brief-spec + UNTIL brand */
+    --ink-charcoal: #2C2A26;
+    --ink-navy: #020417;
+    --ink-bone: #f5f1ea;
+
+    /* Brand type stack (matches the PDF brief: DIN 2014 + DM Serif Display) */
+    --font-display: "DIN 2014", "DM Sans", system-ui, sans-serif;
+    --font-body: "DM Sans", system-ui, sans-serif;
+    --font-italic: "DM Serif Display", "Times New Roman", serif;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #131210;
+    color: #fff;
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Scale-to-fit stage — absolute centering so a 1920px canvas can
+     overflow the viewport on both axes and still land centered. */
+  #stage {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .canvas {
+    width: var(--canvas-w);
+    height: var(--canvas-h);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(var(--canvas-scale, 0.4));
+    transform-origin: center center;
+    box-shadow: 0 30px 80px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.04);
+    overflow: hidden;
+    background: var(--bg, var(--ink-charcoal));
+  }
+
+  /* ──────────────────────────────────────────────────── */
+  /*  The screen                                          */
+  /* ──────────────────────────────────────────────────── */
+  .screen {
+    width: 100%;
+    height: 100%;
+    background: var(--bg, var(--ink-charcoal));
+    color: var(--fg, #fff);
+    padding: 96px 88px 88px 88px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* Block 1 — wordmark stack */
+  .wordmark-block { margin-top: var(--top-pad, 280px); }
+
+  .welcome {
+    font-family: var(--font-italic);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: 0.005em;
+    color: var(--fg, #fff);
+    margin: 0 0 28px 6px;
+  }
+
+  .until-mark {
+    display: block;
+    width: var(--mark-w, 100%);
+    height: auto;
+    margin-left: var(--mark-ml, 0);
+    /* Tint via filter so the artwork itself stays unmodified. */
+    filter: var(--mark-filter, none);
+  }
+
+  .canary-wharf {
+    display: block;
+    margin: 22px 0 0 0;
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: var(--canary-track, 0.42em);
+    text-indent: var(--canary-track, 0.42em);
+    color: var(--fg, #fff);
+    text-transform: uppercase;
+  }
+
+  /* Block 2 — dominant statement (SERIF, per brand book) */
+  .statement {
+    margin: 0;
+    margin-top: 160px;
+    font-family: var(--font-italic);
+    font-style: normal;
+    font-weight: 400;
+    font-size: var(--statement-fs, 78px);
+    line-height: 1.05;
+    letter-spacing: -0.005em;
+    color: var(--fg, #fff);
+    max-width: 900px;
+  }
+
+  .statement span { display: block; }
+
+  /* Block 3 — triptych */
+  .triptych {
+    margin-top: 80px;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.55;
+    letter-spacing: 0.005em;
+    color: var(--fg, #fff);
+    opacity: 0.95;
+  }
+
+  .triptych .line { display: block; }
+
+  .triptych .plus {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    padding: 0 0.16em;
+    color: var(--fg, #fff);
+  }
+
+  /* Block 4 — sign-off */
+  .signoff {
+    margin-top: auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-top: 80px;
+  }
+
+  .signoff-mark {
+    width: 220px;
+    height: auto;
+    filter: var(--mark-filter, none);
+  }
+
+  .signoff-roundel {
+    width: 240px;
+    flex: 0 0 auto;
+  }
+  .signoff-roundel svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .signoff-roundel .r-ring  { fill: var(--fg, #fff); }
+  .signoff-roundel .r-inner { fill: var(--bg, var(--ink-charcoal)); }
+  .signoff-roundel .r-bar   { fill: var(--fg, #fff); }
+  .signoff-roundel .r-text  { fill: var(--bg, var(--ink-charcoal)); }
+
+  .signoff-meta {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg, #fff);
+    opacity: 0.7;
+    text-align: right;
+    line-height: 1.6;
+  }
+  .signoff-meta[hidden] { display: none; }
+
+  /* ── Backgrounds ────────────────────────────────────── */
+  .canvas[data-bg="charcoal"], .canvas[data-bg="charcoal"] .screen {
+    --bg: var(--ink-charcoal); --fg: #fff; --mark-filter: none;
+  }
+  .canvas[data-bg="navy"], .canvas[data-bg="navy"] .screen {
+    --bg: var(--ink-navy); --fg: #fff; --mark-filter: none;
+  }
+  .canvas[data-bg="bone"], .canvas[data-bg="bone"] .screen {
+    --bg: var(--ink-bone); --fg: var(--ink-navy);
+    /* White logo → near-navy via filter chain (brightness 0 then re-tint) */
+    --mark-filter: brightness(0) saturate(100%) invert(7%) sepia(40%) saturate(2600%) hue-rotate(220deg) brightness(96%) contrast(105%);
+  }
+
+  /* ── Top branch nav ────────────────────────────────── */
+  .branchnav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fg, #fff);
+  }
+  .branchnav .branch {
+    opacity: 0.45;
+    transition: opacity 0.2s ease;
+  }
+  .branchnav .branch.is-current {
+    opacity: 1;
+  }
+  .branchnav .sep {
+    opacity: 0.35;
+    font-weight: 700;
+    transform: translateY(-0.05em);
+  }
+
+  /* Make the editable cursor invisible when not focused */
+  [contenteditable] { outline: none; }
+  [contenteditable]:focus { outline: 1px dashed rgba(255,255,255,.25); outline-offset: 4px; }
+  .canvas[data-bg="bone"] [contenteditable]:focus { outline-color: rgba(2,4,23,.25); }
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <div class="canvas" id="canvas" data-bg="charcoal" data-screen-label="01 Canary Wharf launch">
+    <div class="screen" id="screen">
+      <nav class="branchnav" aria-label="UNTIL clubs">
+        <span class="branch" contenteditable="true">Soho</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span class="branch" contenteditable="true">Marylebone</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span class="branch" contenteditable="true">Liverpool Street</span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span class="branch is-current" contenteditable="true">Canary Wharf</span>
+      </nav>
+
+      <div class="wordmark-block">
+        <p class="welcome" contenteditable="true">Welcome to</p>
+
+        <img
+          class="until-mark"
+          id="mark-hero"
+          src="assets/until-wordmark-white.png"
+          alt="UNTIL"
+          draggable="false"
+        />
+
+        <span class="canary-wharf" contenteditable="true">Canary Wharf</span>
+      </div>
+
+      <h1 class="statement">
+        <span contenteditable="true">London's best</span>
+        <span contenteditable="true">health professionals</span>
+        <span contenteditable="true">are here.</span>
+      </h1>
+
+      <div class="triptych">
+        <span class="line" contenteditable="true">
+          Physiotherapy <span class="plus">+</span> Dentistry <span class="plus">+</span> Dermatology
+        </span>
+        <span class="line" contenteditable="true">
+          Personal Trainers <span class="plus">+</span> Doctors <span class="plus">+</span> Nutritionists
+        </span>
+        <span class="line" contenteditable="true">
+          Osteopaths <span class="plus">+</span> Nurses <span class="plus">+</span> Counsellors
+        </span>
+        <span class="line" contenteditable="true">
+          Chiropractors <span class="plus">+</span> Psychologists <span class="plus">+</span> Acupuncturists
+        </span>
+        <span class="line" contenteditable="true">
+          Podiatrists <span class="plus">+</span> Orthodontists <span class="plus">+</span> Massage Therapists
+        </span>
+        <span class="line" contenteditable="true">
+          Health Coaches <span class="plus">+</span> Strength &amp; Conditioning <span class="plus">+</span> Medical Aesthetics
+        </span>
+      </div>
+
+      <div class="signoff">
+        <div class="signoff-roundel" aria-label="Canary Wharf station">
+          <svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg" role="img">
+            <title>Canary Wharf station</title>
+            <!-- Brand-recolored roundel: outer ring + bar in current fg,
+                 negative space punched through to background. -->
+            <circle cx="160" cy="120" r="108" class="r-ring" />
+            <circle cx="160" cy="120" r="78" class="r-inner" />
+            <rect x="24" y="100" width="272" height="40" class="r-bar" />
+            <text x="160" y="127" text-anchor="middle"
+                  font-family="DM Sans, system-ui, sans-serif"
+                  font-weight="700" font-size="22"
+                  letter-spacing="0.5" class="r-text">CANARY WHARF</text>
+          </svg>
+        </div>
+        <div class="signoff-meta" id="signoff-meta" contenteditable="true">
+          Cabot Square, Canary Wharf<br/>London E14 · until.co.uk/wharf
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="tweaks-root"></div>
+
+<!-- Fit-to-viewport: runs immediately, no React/Babel dependency -->
+<script>
+(function () {
+  function fit() {
+    var pad = 32;
+    var sx = (window.innerWidth - pad * 2) / 1080;
+    var sy = (window.innerHeight - pad * 2) / 1920;
+    var s = Math.min(sx, sy, 1);
+    document.documentElement.style.setProperty('--canvas-scale', s);
+  }
+  fit();
+  window.addEventListener('resize', fit);
+  document.addEventListener('DOMContentLoaded', fit);
+})();
+</script>
+
+<!-- React + Tweaks panel (loaded after; screen renders without it) -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "bg": "charcoal",
+  "showSignoffMeta": true,
+  "statementSize": 78,
+  "untilWidth": 100,
+  "canaryTracking": 0.42,
+  "topPad": 160
+}/*EDITMODE-END*/;
+
+function applyTweaks(t) {
+  const canvas = document.getElementById('canvas');
+  const root = document.documentElement;
+  canvas.setAttribute('data-bg', t.bg);
+  root.style.setProperty('--statement-fs', t.statementSize + 'px');
+  root.style.setProperty('--mark-w', t.untilWidth + '%');
+  root.style.setProperty('--mark-ml', t.untilWidth < 100 ? ((100 - t.untilWidth) / 2) + '%' : '0');
+  root.style.setProperty('--canary-track', t.canaryTracking + 'em');
+  root.style.setProperty('--top-pad', t.topPad + 'px');
+  document.getElementById('signoff-meta').hidden = !t.showSignoffMeta;
+}
+
+// Apply once at startup
+applyTweaks(TWEAK_DEFAULTS);
+
+function App() {
+  const [tweaks, setTweak] = window.useTweaks(TWEAK_DEFAULTS);
+  const { TweaksPanel, TweakSection, TweakRadio, TweakSlider, TweakToggle } = window;
+
+  React.useEffect(() => { applyTweaks(tweaks); }, [tweaks]);
+
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Background">
+        <TweakRadio
+          label="Tone"
+          value={tweaks.bg}
+          onChange={(v) => setTweak('bg', v)}
+          options={[
+            { label: 'Charcoal', value: 'charcoal' },
+            { label: 'Navy', value: 'navy' },
+            { label: 'Bone', value: 'bone' },
+          ]}
+        />
+      </TweakSection>
+      <TweakSection label="Layout">
+        <TweakSlider label="Top space" value={tweaks.topPad}
+          min={120} max={420} step={10} unit="px"
+          onChange={(v) => setTweak('topPad', v)} />
+        <TweakSlider label="UNTIL width" value={tweaks.untilWidth}
+          min={70} max={100} step={1} unit="%"
+          onChange={(v) => setTweak('untilWidth', v)} />
+        <TweakSlider label="Canary tracking" value={tweaks.canaryTracking}
+          min={0.2} max={0.8} step={0.02} unit="em"
+          onChange={(v) => setTweak('canaryTracking', v)} />
+        <TweakSlider label="Statement size" value={tweaks.statementSize}
+          min={56} max={140} step={2} unit="px"
+          onChange={(v) => setTweak('statementSize', v)} />
+      </TweakSection>
+      <TweakSection label="Sign-off">
+        <TweakToggle label="Show meta (date + URL)"
+          value={tweaks.showSignoffMeta}
+          onChange={(v) => setTweak('showSignoffMeta', v)} />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+// Wait until tweaks-panel.jsx has exported its globals
+function mountWhenReady() {
+  if (window.useTweaks && window.TweaksPanel) {
+    ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<App />);
+  } else {
+    setTimeout(mountWhenReady, 30);
+  }
+}
+mountWhenReady();
+</script>
+
+</body>
+</html>

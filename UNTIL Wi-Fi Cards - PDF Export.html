@@ -1,0 +1,1519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>UNTIL · Marketing Material Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+
+<style>
+  @font-face {
+    font-family: "DIN 2014";
+    src: url("fonts/DIN_2014_Bold.otf") format("opentype");
+    font-weight: 700 900;
+    font-style: normal;
+    font-display: block;
+  }
+  @font-face {
+    font-family: "Tungsten";
+    src: url("fonts/Tungsten-Semibold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: block;
+  }
+
+  :root {
+    --font-display: "DIN 2014", "DM Sans", system-ui, sans-serif;
+    --font-tungsten: "Tungsten", "DIN 2014", "DM Sans", system-ui, sans-serif;
+    --font-body: "DM Sans", system-ui, sans-serif;
+    --font-serif: "DM Serif Display", "Times New Roman", serif;
+
+    /* UNTIL brand palette — official sign-off */
+    /* Primary */
+    --blue-900:  #01030E;  /* deepest ink */
+    --blue-800:  #04082A;
+    --paper:     #FFFFFF;
+
+    /* Secondary blues */
+    --blue-700:  #080F53;
+    --blue-600:  #111EA6;
+    --blue-500:  #1526D0;
+    --blue-400:  #4451D9;
+    --blue-300:  #737DE3;
+    --blue-200:  #A1A8EC;
+    --blue-100:  #B9BEF1;
+    --blue-50:   #D0D4F6;
+    --blue-25:   #E0E2F4;
+
+    /* Greys */
+    --gray-900:  #101828;
+    --gray-700:  #344054;
+    --gray-600:  #475467;
+    --gray-500:  #667085;
+    --gray-400:  #667085;
+    --gray-300:  #D0D5DD;
+    --gray-200:  #D0D5DD;
+    --gray-100:  #F2F4F7;
+    --gray-50:   #F9FAFB;
+    --gray-25:   #FCFCFD;
+
+    /* Approved next-gen accents */
+    --c-sage:    #809EA0;  /* sage green */
+    --c-grey:    #B7B9AE;  /* warm neutral grey */
+    --c-bluegrey:#B7C0C1;  /* cool light grey — new brand */
+
+    /* Working aliases */
+    --ink:       var(--blue-900);
+    --bone:      var(--gray-100);    /* events poster bg — light brand grey */
+    --stone:     var(--gray-50);     /* maintenance poster bg — even lighter */
+    --navy:      var(--blue-900);
+    --charcoal:  var(--blue-900);
+
+    --rule:      rgba(1,3,14,0.15);
+  }
+
+  html, body { margin: 0; padding: 0; background: var(--gray-50); font-family: var(--font-body); color: var(--ink); }
+  body { padding: 20px 20px 60px; min-height: 100vh; box-sizing: border-box; }
+
+  /* ── Top bar ─────────────────────────────────────────── */
+  .topbar {
+    max-width: 1440px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+  }
+  .topbar-brand {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .topbar-brand img { height: 20px; width: auto; display: block; }
+  .topbar-brand .sep {
+    width: 1px; height: 20px;
+    background: rgba(0,0,0,0.12);
+  }
+  .topbar h1 {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 16px;
+  }
+  .topbar p {
+    margin: 2px 0 0 0;
+    font-size: 11.5px;
+    opacity: 0.6;
+  }
+  .topbar-right {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .crumb {
+    font: 500 11px/1 var(--font-body);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .crumb .arrow { opacity: 0.4; }
+
+  /* ── Buttons ─────────────────────────────────────────── */
+  .btn {
+    appearance: none;
+    border: 1px solid #2C2A26;
+    background: #2C2A26;
+    color: #fff;
+    font: 500 13px/1 var(--font-body);
+    letter-spacing: 0.05em;
+    padding: 12px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .btn:hover { background: #000; }
+  .btn[data-busy="1"] { opacity: 0.6; cursor: wait; }
+  .btn-ghost {
+    appearance: none;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.18);
+    color: #2C2A26;
+    font: 500 12px/1 var(--font-body);
+    letter-spacing: 0.08em;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .btn-ghost:hover { background: rgba(0,0,0,0.04); }
+  .reset-btn {
+    appearance: none;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.15);
+    color: #2C2A26;
+    font: 500 11px/1 var(--font-body);
+    letter-spacing: 0.06em;
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .reset-btn:hover { opacity: 1; }
+  .bleed-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 6px;
+    font: 500 10.5px/1 var(--font-body);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #2C2A26;
+    cursor: pointer;
+    user-select: none;
+  }
+  .bleed-check input { accent-color: #2C2A26; cursor: pointer; margin: 0; }
+
+  .fmt-select {
+    appearance: none;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.18);
+    color: #2C2A26;
+    font: 500 11px/1 var(--font-body);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 9px 28px 9px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%232C2A26' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+
+  /* ── HOME view ───────────────────────────────────────── */
+  .home {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  .home-intro {
+    margin-bottom: 28px;
+    padding: 8px 4px;
+  }
+  .home-intro h2 {
+    margin: 0 0 6px 0;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.1;
+    color: var(--navy);
+  }
+  .home-intro p {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: #2C2A26;
+    opacity: 0.7;
+    max-width: 560px;
+  }
+
+  .club-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 1100px) {
+    .club-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 540px) {
+    .club-grid { grid-template-columns: 1fr; }
+  }
+  .club-tile {
+    appearance: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    background: var(--tile-bg, var(--ink));
+    color: var(--tile-fg, var(--paper));
+    border-radius: 10px;
+    padding: 22px 22px 20px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    font-family: var(--font-body);
+  }
+  .club-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.12);
+  }
+  /* Per-club accents — primaries lead; sage + a true neutral grey balance.
+     No purple-leaning blues (Blue 50/100/200 etc) on the home tiles. */
+  .club-tile[data-id="soho"]       { --tile-bg: var(--blue-800); --tile-fg: var(--paper); }
+  .club-tile[data-id="marylebone"] { --tile-bg: var(--gray-100); --tile-fg: var(--blue-900); }
+  .club-tile[data-id="liverpool"]  { --tile-bg: var(--c-sage);   --tile-fg: var(--paper); }
+  .club-tile[data-id="canary"]     { --tile-bg: var(--blue-900); --tile-fg: var(--paper); }
+  .club-tile[data-tone="bone"] {
+    background: var(--bone);
+    color: var(--navy);
+  }
+  .club-tile[data-tone="navy"] {
+    background: var(--navy);
+    color: var(--bone);
+  }
+  .tile-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .tile-logo { height: 18px; width: auto; opacity: 0.85; }
+  .club-tile[data-tone="bone"] .tile-logo { filter: none; }  .tile-badge {
+    font: 500 9.5px/1 var(--font-body);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+  .tile-name {
+    font-family: var(--font-tungsten);
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 0.94;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .tile-name.long { font-size: 32px; }
+  .tile-meta {
+    font: 500 9.5px/1.55 var(--font-body);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-top: 4px;
+  }
+  .tile-cta {
+    font: 500 10.5px/1 var(--font-body);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tile-cta::after {
+    content: "→";
+    transition: transform 0.18s ease;
+  }
+  .club-tile:hover .tile-cta::after {
+    transform: translateX(4px);
+  }
+
+  /* ── CLUB view ───────────────────────────────────────── */
+  .club-view { display: none; }
+  .club-view.is-active { display: block; }
+  .home.is-hidden { display: none; }
+
+  .tabs {
+    max-width: 1440px;
+    margin: 0 auto 20px;
+    display: flex;
+    gap: 4px;
+    padding: 5px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+    width: fit-content;
+  }
+  .tab {
+    appearance: none;
+    border: none;
+    background: transparent;
+    font: 500 12px/1 var(--font-body);
+    letter-spacing: 0.06em;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: #2C2A26;
+    opacity: 0.55;
+    transition: all 0.15s ease;
+  }
+  .tab:hover { opacity: 0.85; }
+  .tab[aria-selected="true"] {
+    background: #2C2A26;
+    color: #fff;
+    opacity: 1;
+  }
+  .tab-panel { display: none; }
+  .tab-panel.is-active { display: block; }
+
+  /* ── Grid (designs in club view) ─────────────────────── */
+  .grid {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .grid > * { min-width: 0; }
+  .grid.solo { grid-template-columns: minmax(0, 1fr); max-width: 520px; }
+  @media (max-width: 1100px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: minmax(0, 1fr); }
+    .grid.solo { max-width: 100%; }
+  }
+  .item {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+  }
+  .item-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .item-head h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .item-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .item-help { margin: 0; font-size: 12px; color: #2C2A26; opacity: 0.55; }
+
+  .preview {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #2C2A26;
+    position: relative;
+  }
+  .preview-card { aspect-ratio: 1 / 1; }
+  .preview-poster { aspect-ratio: 210 / 297; background: var(--bone); }
+  .preview .scale-wrap { transform-origin: top left; }
+
+  .preview [contenteditable] { outline: none; cursor: text; }
+  .preview-card [contenteditable]:hover { background: rgba(255,255,255,0.06); border-radius: 4px; }
+  .preview-card [contenteditable]:focus {
+    background: rgba(255,255,255,0.10);
+    outline: 1px dashed rgba(255,255,255,0.4);
+    outline-offset: 4px; border-radius: 4px;
+  }
+  .preview-poster [contenteditable]:hover { background: rgba(2,4,23,0.05); border-radius: 4px; }
+  .preview-poster [contenteditable]:focus {
+    background: rgba(2,4,23,0.08);
+    outline: 1px dashed rgba(2,4,23,0.35);
+    outline-offset: 4px; border-radius: 4px;
+  }
+
+  /* ── Wi-Fi card (1080×1080) ─────────────────────────── */
+  .card {
+    width: 1080px; height: 1080px;
+    background: var(--charcoal); color: #fff;
+    font-family: var(--font-body);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 80px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-head { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .head-logo { height: 38px; width: auto; display: block; }
+  .head-branches {
+    font-family: var(--font-body); font-weight: 500; font-size: 14px;
+    letter-spacing: 0.2em; text-transform: uppercase; color: #fff;
+    display: flex; gap: 10px; align-items: center; white-space: nowrap; flex-shrink: 0;
+  }
+  .head-branches .b { opacity: 0.4; white-space: nowrap; }
+  .head-branches .b.is-current { opacity: 1; }
+  .head-branches .dot { opacity: 0.4; font-weight: 700; transform: translateY(-0.08em); }
+  .card-hero { display: flex; flex-direction: column; justify-content: center; gap: 56px; padding: 60px 0; }
+  .welcome {
+    font-family: var(--font-serif); font-weight: 400; font-size: 48px;
+    line-height: 1; color: #fff; opacity: 0.85; margin: 0 0 24px 0;
+  }
+  .location {
+    font-family: var(--font-display); font-weight: 700; font-size: 88px;
+    line-height: 1; letter-spacing: -0.005em; text-transform: uppercase; color: #fff; margin: 0;
+  }
+  .location.long { font-size: 76px; line-height: 0.98; }
+  .wifi-block {
+    display: flex; flex-direction: column; gap: 32px;
+    border-top: 1px solid rgba(245,241,234,.18);
+    border-bottom: 1px solid rgba(245,241,234,.18);
+    padding: 48px 0;
+  }
+  .wifi-fields { display: flex; flex-direction: column; gap: 32px; }
+  .wifi-row { display: flex; flex-direction: column; gap: 4px; }
+  .wifi-label {
+    font-family: var(--font-body); font-weight: 500; font-size: 14px;
+    letter-spacing: 0.32em; text-transform: uppercase; color: #fff; opacity: 0.55;
+  }
+  .wifi-value {
+    font-family: var(--font-tungsten); font-weight: 600; font-size: 96px;
+    line-height: 1; letter-spacing: 0.005em; color: #fff;
+    text-transform: uppercase; font-variant-numeric: tabular-nums;
+  }
+  .wifi-value.long { font-size: 84px; }
+  .wifi-value.xlong { font-size: 72px; }
+  .card-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
+  .foot-tagline {
+    font-family: var(--font-serif); font-weight: 400; font-size: 40px;
+    line-height: 1.15; color: #fff; max-width: 540px; margin: 0;
+  }
+  .foot-addr {
+    font-family: var(--font-body); font-weight: 500; font-size: 18px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: #fff;
+    line-height: 1.6; opacity: 0.85; text-align: right;
+  }
+  .foot-addr > span { display: inline-block; margin-inline-end: -0.18em; }
+
+  /* Per-club accent applied via data-club. Used as small accent moments —
+     icon halo on maintenance posters, month badge on events, accent rules. */
+  [data-club="soho"]       { --club-accent: var(--blue-800); --club-accent-fg: var(--paper); }
+  [data-club="marylebone"] { --club-accent: var(--c-grey);   --club-accent-fg: var(--blue-900); }
+  [data-club="liverpool"]  { --club-accent: var(--c-sage);   --club-accent-fg: var(--paper); }
+  [data-club="canary"]     { --club-accent: var(--blue-900); --club-accent-fg: var(--paper); }
+
+  /* ── A4 posters (shared) ─────────────────────────────── */
+  .poster, .mposter {
+    width: 794px; height: 1123px;
+    background: var(--bone); color: var(--navy);
+    font-family: var(--font-body);
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  /* Maintenance posters get a cool stone tint to visually distinguish them
+     from the warm cream events poster. */
+  .mposter { background: var(--stone); }
+  .preview-poster.preview-maint { background: var(--stone); }
+  .poster-frame, .mposter-frame {
+    position: absolute; inset: 30px;
+    border: 1px solid rgba(2,4,23,0.18);
+    pointer-events: none;
+  }
+  .p-logo, .mp-logo { height: 24px; width: auto; display: block; }
+  .p-branches, .mp-branches {
+    font-family: var(--font-display); font-weight: 700; font-size: 9.5px;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--navy);
+    display: flex; gap: 10px; align-items: center; white-space: nowrap;
+  }
+  .p-branches .b, .mp-branches .b { opacity: 0.4; }
+  .p-branches .b.is-current, .mp-branches .b.is-current { opacity: 1; }
+  .p-branches .dot, .mp-branches .dot { opacity: 0.4; font-weight: 700; transform: translateY(-0.06em); }
+
+  /* Events poster */
+  .poster { padding: 54px 60px 50px; }
+  .p-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(2,4,23,0.18);
+  }
+  .p-hero {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .p-eyebrow {
+    font-family: var(--font-serif); font-weight: 400; font-size: 18px;
+    color: var(--navy); margin: 0 0 10px 0;
+  }
+  .p-title {
+    font-family: var(--font-tungsten); font-weight: 600;
+    font-size: 110px; line-height: 0.86;
+    letter-spacing: 0.005em;
+    color: var(--navy); margin: 0;
+    text-transform: uppercase;
+  }
+  .p-month {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--club-accent-fg, var(--ink));
+    text-align: right;
+    padding: 8px 14px;
+    background: var(--club-accent, var(--c-grey));
+    border-radius: 999px;
+    align-self: end;
+    margin-bottom: 8px;
+  }
+  .p-divider { height: 1px; background: rgba(2,4,23,0.18); margin: 28px 0 0; }
+  .events { list-style: none; margin: 0; padding: 0; flex: 1 1 auto; display: flex; flex-direction: column; }
+  .ev {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px; align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(2,4,23,0.18);
+  }
+  .ev:last-child { border-bottom: none; }
+  .ev-date { display: flex; flex-direction: column; gap: 4px; }
+  .ev-dow {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+    opacity: 0.55;
+  }
+  .ev-day {
+    font-family: var(--font-tungsten); font-weight: 600;
+    font-size: 64px; line-height: 0.86; color: var(--navy);
+  }
+  .ev-mon {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 15px; line-height: 1; opacity: 0.7; margin-top: 2px;
+  }
+  .ev-body { min-width: 0; }
+  .ev-title {
+    font-family: var(--font-tungsten); font-weight: 600;
+    font-size: 38px; line-height: 1.02; letter-spacing: 0.005em;
+    text-transform: uppercase; margin: 0 0 7px 0; color: var(--navy);
+  }
+  .ev-meta {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 17px; line-height: 1.35;
+    color: var(--navy); opacity: 0.78; margin: 0;
+  }
+  .p-foot {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid rgba(2,4,23,0.18);
+    display: flex; align-items: flex-end;
+    justify-content: space-between; gap: 24px;
+    flex-shrink: 0;
+  }
+  .p-foot-line {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 18px; line-height: 1.3; margin: 0; max-width: 70%;
+  }
+  .p-foot-addr {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; text-align: right;
+    opacity: 0.75; line-height: 1.7;
+  }
+  .p-foot-addr > span { display: inline-block; margin-inline-end: -0.2em; }
+
+  /* Digital-screen (9:16, 1080×1920) — scale the design UP to own the taller,
+     wider canvas instead of stranding the A4 layout at the top. Larger hero,
+     roomier event rows that spread down the full height. */
+  .poster.fmt-screen { padding: 90px 80px 80px; }
+  .poster.fmt-screen .p-logo { height: 34px; }
+  .poster.fmt-screen .p-branches { font-size: 13px; letter-spacing: 0.24em; gap: 14px; }
+  .poster.fmt-screen .p-head { padding-bottom: 26px; }
+  .poster.fmt-screen .p-hero { margin-top: 70px; }
+  .poster.fmt-screen .p-eyebrow { font-size: 30px; margin-bottom: 18px; }
+  .poster.fmt-screen .p-title { font-size: 188px; line-height: 0.84; }
+  .poster.fmt-screen .p-month { font-size: 18px; padding: 12px 20px; }
+  .poster.fmt-screen .p-divider { margin-top: 46px; }
+  .poster.fmt-screen .ev { grid-template-columns: 220px 1fr; gap: 40px; padding: 30px 0; }
+  .poster.fmt-screen .ev-dow { font-size: 15px; letter-spacing: 0.28em; }
+  .poster.fmt-screen .ev-day { font-size: 104px; }
+  .poster.fmt-screen .ev-mon { font-size: 26px; }
+  .poster.fmt-screen .ev-title { font-size: 50px; margin-bottom: 12px; }
+  .poster.fmt-screen .ev-meta { font-size: 24px; }
+  .poster.fmt-screen .p-foot { padding-top: 30px; }
+  .poster.fmt-screen .p-foot-line { font-size: 28px; }
+  .poster.fmt-screen .p-foot-addr { font-size: 15px; }
+  .poster.fmt-screen .poster-frame { inset: 40px; }
+
+  /* Maintenance poster */
+  .mposter { padding: 70px 70px 60px; }
+  .mp-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(2,4,23,0.18);
+  }
+  .mp-body {
+    flex: 1 1 auto;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    gap: 36px;
+    padding: 24px 20px;
+  }
+  /* Icon sits inside a soft accent halo — picks up the club color cleanly
+     without flooding the poster with ink. When the accent is dark (Canary,
+     Liverpool) the icon flips to paper so it reads against the halo. */
+  .mp-icon-wrap {
+    width: 240px; height: 240px;
+    background: var(--club-accent, var(--c-grey));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .mp-icon { width: 130px; height: 130px; color: var(--club-accent-fg, var(--ink)); flex-shrink: 0; }
+  .mp-icon svg { width: 100%; height: 100%; display: block; }
+  .mp-eyebrow {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 11px; letter-spacing: 0.32em;
+    text-transform: uppercase; color: var(--club-accent-fg, var(--ink));
+    background: var(--club-accent, var(--c-grey));
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin: 0;
+  }
+  .mp-headline {
+    font-family: var(--font-tungsten); font-weight: 600;
+    font-size: 96px; line-height: 0.9;
+    letter-spacing: 0.005em;
+    text-transform: uppercase; color: var(--ink);
+    margin: 0; max-width: 600px;
+  }
+  .mp-message {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 20px; line-height: 1.4;
+    color: var(--ink); opacity: 0.85;
+    margin: 0; max-width: 480px;
+  }
+  .mp-foot {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid rgba(2,4,23,0.18);
+    display: flex; align-items: flex-end;
+    justify-content: space-between; gap: 24px;
+    flex-shrink: 0;
+  }
+  .mp-foot-line {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: 16px; line-height: 1.3; margin: 0; max-width: 70%;
+  }
+  .mp-foot-addr {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; text-align: right;
+    opacity: 0.75; line-height: 1.7;
+  }
+  .mp-foot-addr > span { display: inline-block; margin-inline-end: -0.2em; }
+
+  /* Off-screen render stage */
+  #stage { position: fixed; top: 0; left: 100vw; pointer-events: none; }
+
+  .status {
+    max-width: 1440px;
+    margin: 20px auto 0;
+    padding: 10px 14px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #2C2A26;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+    min-height: 16px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <img src="assets/logo-navy.svg" alt="UNTIL" />
+    <div class="sep"></div>
+    <div>
+      <h1>Marketing Material Hub</h1>
+      <p>Print-ready templates for club managers. Pick a club to begin.</p>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="crumb" id="crumb"></div>
+    <button class="btn-ghost" id="home-btn" style="display:none">← All Clubs</button>
+  </div>
+</div>
+
+<!-- HOME view -->
+<section class="home" id="home">
+  <div class="home-intro">
+    <h2>Choose your club</h2>
+    <p>Each club has its own set of editable templates — Wi-Fi card, events poster, and maintenance signs — all preloaded with the right branch, address, and details.</p>
+  </div>
+  <div class="club-grid" id="club-grid"></div>
+</section>
+
+<!-- CLUB view (single, dynamically populated) -->
+<section class="club-view" id="club-view">
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-tab="wifi">Wi-Fi Card</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="events">Events Poster</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="maintenance">Maintenance Posters</button>
+  </div>
+  <div class="tab-panel is-active" id="panel-wifi"><div class="grid solo" id="wifi-grid"></div></div>
+  <div class="tab-panel" id="panel-events"><div class="grid solo" id="events-grid"></div></div>
+  <div class="tab-panel" id="panel-maintenance"><div class="grid" id="maintenance-grid"></div></div>
+</section>
+
+<div id="stage"></div>
+
+<script>
+// ─────────────────────────────────────────────────────────
+// Data
+// ─────────────────────────────────────────────────────────
+const BRANCHES = ['Soho', 'Marylebone', 'Liverpool Street', 'Canary Wharf'];
+const LOGO_DARK = 'assets/logo-navy.svg';
+const LOGO_LIGHT = 'assets/until-wordmark-white.png';
+const HOUSE_LINE = "London's best health professionals are here.";
+
+// Per-club identity: name, network, address. Each club gets its own
+// templates with these values pre-filled and its branch highlighted.
+const CLUBS = [
+  {
+    id: 'soho', name: 'Soho', tone: 'charcoal',
+    network: 'UNTIL_SOHO', password: 'WELCOME24',
+    addr1: '111 CHARING CROSS RD', addr2: 'LONDON WC2H 0DT', addr3: 'UNTIL.CO.UK',
+    address: '111 Charing Cross Rd', postcode: 'London WC2H 0DT',
+    monthDefault: 'JUNE 2026',
+  },
+  {
+    id: 'marylebone', name: 'Marylebone', tone: 'bone',
+    network: 'UNTIL_MARYLEBONE', password: 'WELCOME24',
+    addr1: '1 ORCHARD STREET', addr2: 'LONDON W1H 6HJ', addr3: 'UNTIL.CO.UK',
+    address: '1 Orchard Street', postcode: 'London W1H 6HJ',
+    monthDefault: 'JUNE 2026',
+  },
+  {
+    id: 'liverpool', name: 'Liverpool Street', tone: 'navy',
+    network: 'UNTIL_LIVERPOOL', password: 'WELCOME24',
+    addr1: '280 BISHOPSGATE', addr2: 'LONDON EC2M 4RB', addr3: 'UNTIL.CO.UK',
+    address: '280 Bishopsgate', postcode: 'London EC2M 4RB',
+    monthDefault: 'JUNE 2026',
+  },
+  {
+    id: 'canary', name: 'Canary Wharf', tone: 'charcoal',
+    network: 'UNTIL_WHARF', password: 'WELCOME24',
+    addr1: 'UNIT 7, YY, 30 S COLONNADE', addr2: 'CANARY WHARF, LONDON E14 5HX', addr3: 'UNTIL.CO.UK',
+    address: 'Unit 7, YY, 30 South Colonnade', postcode: 'Canary Wharf, London E14 5HX',
+    monthDefault: 'JUNE 2026',
+  },
+];
+const CLUB_BY_ID = Object.fromEntries(CLUBS.map(c => [c.id, c]));
+
+// Events poster defaults — per club, branch + address + month auto-filled.
+function defaultPoster(club) {
+  return {
+    eyebrow: `What's on at ${club.name}`,
+    title1: 'UPCOMING',
+    title2: 'EVENTS',
+    month: club.monthDefault,
+    events: [
+      { dow: 'MON', day: '09', mon: 'June', title: 'Community Lunch', meta: '12pm  ·  Theme: Salad Bar' },
+      { dow: 'MON', day: '16', mon: 'June', title: 'VALD Intermediate Workshop', meta: '10am – 12pm  ·  CPD Room' },
+      { dow: 'TUE', day: '17', mon: 'June', title: 'Ambitious about Autism Bake Sale', meta: '10am' },
+      { dow: 'TUE', day: '24', mon: 'June', title: 'Community Brunch', meta: '10am  ·  Theme: Avocado Toast Bar' },
+    ],
+    footLine: HOUSE_LINE,
+    addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+  };
+}
+
+// Inline SVG icons (line-art, navy via currentColor)
+const ICONS = {
+  fridge: `<svg viewBox="0 0 100 140" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="18" y="8" width="64" height="124" rx="5"/>
+    <line x1="18" y1="52" x2="82" y2="52"/>
+    <line x1="69" y1="22" x2="69" y2="40"/>
+    <line x1="69" y1="66" x2="69" y2="86"/>
+  </svg>`,
+  clock: `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="50" cy="50" r="42"/>
+    <path d="M50 22 L50 50 L68 58"/>
+    <line x1="50" y1="12" x2="50" y2="16"/>
+    <line x1="50" y1="84" x2="50" y2="88"/>
+    <line x1="12" y1="50" x2="16" y2="50"/>
+    <line x1="84" y1="50" x2="88" y2="50"/>
+  </svg>`,
+  shower: `<svg viewBox="0 0 100 130" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M50 6 L50 24"/>
+    <path d="M22 38 C 22 30 32 24 50 24 C 68 24 78 30 78 38 L 78 42 L 22 42 Z"/>
+    <line x1="32" y1="54" x2="28" y2="74"/>
+    <line x1="42" y1="54" x2="38" y2="80"/>
+    <line x1="50" y1="54" x2="48" y2="86"/>
+    <line x1="58" y1="54" x2="62" y2="80"/>
+    <line x1="68" y1="54" x2="72" y2="74"/>
+  </svg>`,
+};
+
+function defaultMaint(club) {
+  return {
+    fridge: {
+      id: 'fridge', iconKey: 'fridge', title: 'Fridges emptied every Saturday',
+      eyebrow: 'KITCHEN NOTICE',
+      headline: 'FRIDGES EMPTIED EVERY SATURDAY',
+      message: 'Please label and date any items you wish to keep. Anything unlabelled will be cleared from the fridges every Saturday afternoon. Thank you.',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+    back5: {
+      id: 'back5', iconKey: 'clock', title: 'Back in 5 minutes',
+      eyebrow: 'PLEASE EXCUSE US',
+      headline: 'BACK IN FIVE MINUTES',
+      message: 'We have stepped away from the desk briefly and will return shortly. Please ring the bell or wait a moment — we’ll be with you very soon.',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+    shower: {
+      id: 'shower', iconKey: 'shower', title: 'Shower out of order',
+      eyebrow: 'OUT OF SERVICE',
+      headline: 'SHOWER OUT OF ORDER',
+      message: 'This shower is temporarily unavailable — no hot water. We are working to restore it. Please use an alternative shower in the meantime. Thank you for your patience.',
+      footLine: HOUSE_LINE,
+      addr1: club.addr1, addr2: club.addr2, addr3: club.addr3,
+    },
+  };
+}
+const MAINT_ORDER = ['fridge', 'back5', 'shower'];
+
+// ─────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────
+function netCls(n) { return n.length > 14 ? 'xlong' : n.length > 10 ? 'long' : 'short'; }
+function locCls(n) { return n.length > 8 ? 'long' : 'short'; }
+function esc(s) { return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+// Persistence keyed by club id so each club has its own edits.
+// v2 bumps the schema after the address + palette refresh — old edits don't
+// shadow the new defaults.
+function lsKey(kind, clubId) { return `until-${kind}-${clubId}-v2`; }
+function loadObj(key) { try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch { return {}; } }
+function saveObj(key, o) { localStorage.setItem(key, JSON.stringify(o)); }
+
+function applyWifi(c) { return Object.assign({}, c, loadObj(lsKey('wifi', c.id))); }
+function applyPoster(c) {
+  const def = defaultPoster(c);
+  const saved = loadObj(lsKey('poster', c.id));
+  if (!Object.keys(saved).length) return def;
+  return Object.assign({}, def, saved, {
+    events: (saved.events && saved.events.length) ? saved.events : def.events,
+  });
+}
+function applyMaint(c, id) {
+  const def = defaultMaint(c)[id];
+  const all = loadObj(lsKey('maint', c.id));
+  return Object.assign({}, def, all[id] || {});
+}
+
+function branchesHtml(current) {
+  return BRANCHES.map((b, i) => {
+    const cur = b === current;
+    const sep = i < BRANCHES.length - 1 ? '<span class="dot">·</span>' : '';
+    return `<span class="b${cur ? ' is-current' : ''}">${esc(b)}</span>${sep}`;
+  }).join('');
+}
+
+// ─────────────────────────────────────────────────────────
+// Markup
+// ─────────────────────────────────────────────────────────
+function cardHtml(c, opts = {}) {
+  const editable = opts.editable ? 'contenteditable="true" spellcheck="false"' : '';
+  return `<section class="card" data-club="${c.id}">
+    <header class="card-head">
+      <img class="head-logo" src="${LOGO_LIGHT}" alt="UNTIL" crossorigin="anonymous" />
+      <nav class="head-branches">${branchesHtml(c.name)}</nav>
+    </header>
+    <div class="card-hero">
+      <div>
+        <p class="welcome" ${editable} data-field="welcome">Welcome to</p>
+        <h1 class="location ${locCls(c.name)}" ${editable} data-field="name">${esc(c.name)}</h1>
+      </div>
+      <div class="wifi-block">
+        <div class="wifi-fields">
+          <div class="wifi-row">
+            <span class="wifi-label" ${editable} data-field="networkLabel">Wi-Fi Network</span>
+            <span class="wifi-value ${netCls(c.network)}" ${editable} data-field="network">${esc(c.network)}</span>
+          </div>
+          <div class="wifi-row">
+            <span class="wifi-label" ${editable} data-field="passwordLabel">Password</span>
+            <span class="wifi-value" ${editable} data-field="password">${esc(c.password)}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="card-foot">
+      <p class="foot-tagline">London's best health professionals are <em>here</em>.</p>
+      <div class="foot-addr">
+        <span ${editable} data-field="address">${esc(c.address)}</span><br/>
+        <span ${editable} data-field="postcode">${esc(c.postcode)}</span><br/>
+        <span ${editable} data-field="url">until.co.uk</span>
+      </div>
+    </footer>
+  </section>`;
+}
+
+function posterHtml(state, club, opts = {}) {
+  const editable = opts.editable ? 'contenteditable="true" spellcheck="false"' : '';
+  const [pw, ph] = opts.dims || [794, 1123];
+  const fmtCls = opts.fmtKey === 'screen' ? ' fmt-screen' : '';
+  const eventsList = state.events.map((e, i) => `
+    <li class="ev" data-ev="${i}">
+      <div class="ev-date">
+        <span class="ev-dow" ${editable} data-evfield="dow">${esc(e.dow)}</span>
+        <span class="ev-day" ${editable} data-evfield="day">${esc(e.day)}</span>
+        <span class="ev-mon" ${editable} data-evfield="mon">${esc(e.mon)}</span>
+      </div>
+      <div class="ev-body">
+        <h3 class="ev-title" ${editable} data-evfield="title">${esc(e.title)}</h3>
+        <p class="ev-meta" ${editable} data-evfield="meta">${esc(e.meta)}</p>
+      </div>
+    </li>
+  `).join('');
+
+  return `<article class="poster${fmtCls}" data-club="${club.id}" data-iw="${pw}" data-ih="${ph}" style="width:${pw}px;height:${ph}px;">
+    <div class="poster-frame"></div>
+    <header class="p-head">
+      <img class="p-logo" src="${LOGO_DARK}" alt="UNTIL" crossorigin="anonymous" />
+      <nav class="p-branches">${branchesHtml(club.name)}</nav>
+    </header>
+    <section class="p-hero">
+      <div>
+        <p class="p-eyebrow" ${editable} data-pfield="eyebrow">${esc(state.eyebrow)}</p>
+        <h1 class="p-title">
+          <span ${editable} data-pfield="title1">${esc(state.title1)}</span><br/>
+          <span ${editable} data-pfield="title2">${esc(state.title2)}</span>
+        </h1>
+      </div>
+      <p class="p-month" ${editable} data-pfield="month">${esc(state.month)}</p>
+    </section>
+    <div class="p-divider"></div>
+    <ol class="events">${eventsList}</ol>
+    <footer class="p-foot">
+      <p class="p-foot-line">${esc(state.footLine)}</p>
+      <div class="p-foot-addr">
+        <span ${editable} data-pfield="addr1">${esc(state.addr1)}</span><br/>
+        <span ${editable} data-pfield="addr2">${esc(state.addr2)}</span><br/>
+        <span ${editable} data-pfield="addr3">${esc(state.addr3)}</span>
+      </div>
+    </footer>
+  </article>`;
+}
+
+function maintHtml(state, club, opts = {}) {
+  const editable = opts.editable ? 'contenteditable="true" spellcheck="false"' : '';
+  return `<article class="mposter" data-club="${club.id}" data-maint="${state.id}">
+    <div class="mposter-frame"></div>
+    <header class="mp-head">
+      <img class="mp-logo" src="${LOGO_DARK}" alt="UNTIL" crossorigin="anonymous" />
+      <nav class="mp-branches">${branchesHtml(club.name)}</nav>
+    </header>
+    <div class="mp-body">
+      <div class="mp-icon-wrap">
+        <div class="mp-icon">${ICONS[state.iconKey] || ''}</div>
+      </div>
+      <p class="mp-eyebrow" ${editable} data-mfield="eyebrow">${esc(state.eyebrow)}</p>
+      <h1 class="mp-headline" ${editable} data-mfield="headline">${esc(state.headline)}</h1>
+      <p class="mp-message" ${editable} data-mfield="message">${esc(state.message)}</p>
+    </div>
+    <footer class="mp-foot">
+      <p class="mp-foot-line">${esc(state.footLine)}</p>
+      <div class="mp-foot-addr">
+        <span ${editable} data-mfield="addr1">${esc(state.addr1)}</span><br/>
+        <span ${editable} data-mfield="addr2">${esc(state.addr2)}</span><br/>
+        <span ${editable} data-mfield="addr3">${esc(state.addr3)}</span>
+      </div>
+    </footer>
+  </article>`;
+}
+
+// ─────────────────────────────────────────────────────────
+// HOME — club picker
+// ─────────────────────────────────────────────────────────
+const clubGrid = document.getElementById('club-grid');
+for (const c of CLUBS) {
+  const tile = document.createElement('button');
+  tile.className = 'club-tile';
+  tile.dataset.tone = c.tone;
+  tile.dataset.id = c.id;
+  // Light logo for dark tile backgrounds, dark logo for light backgrounds.
+  // Currently only Marylebone (Gray 100) is a light tile.
+  const logoSrc = c.id === 'marylebone' ? LOGO_DARK : LOGO_LIGHT;
+  tile.innerHTML = `
+    <div class="tile-head">
+      <img class="tile-logo" src="${logoSrc}" alt="UNTIL" />
+      <span class="tile-badge">London</span>
+    </div>
+    <div>
+      <h3 class="tile-name${c.name.length > 8 ? ' long' : ''}">${esc(c.name)}</h3>
+      <p class="tile-meta">${esc(c.address.toUpperCase())} · ${esc(c.postcode.toUpperCase())}</p>
+    </div>
+    <div class="tile-cta">Open templates</div>
+  `;
+  clubGrid.appendChild(tile);
+}
+
+// ─────────────────────────────────────────────────────────
+// CLUB view — populated when a club is selected
+// ─────────────────────────────────────────────────────────
+let currentClub = null;
+
+function actionsHtml(extra = '') {
+  return `<div class="item-actions">
+    ${extra}
+    <label class="bleed-check" title="Adds 3mm bleed and corner crop marks">
+      <input type="checkbox" data-bleed/> Bleed + crops
+    </label>
+    <button class="reset-btn" data-action="reset">Reset</button>
+    <button class="btn" data-action="download">Download PDF</button>
+  </div>`;
+}
+
+// Events poster formats. A4/A5 export as PDF (paper); the digital screen
+// exports as a high-res PNG sized for a portrait display.
+const EVENTS_FORMATS = {
+  a4:     { label: 'A4 — PDF',                 dims: [794, 1123],  out: 'pdf', mm: [210, 297] },
+  a5:     { label: 'A5 — PDF',                 dims: [794, 1123],  out: 'pdf', mm: [148, 210] },
+  screen: { label: 'Digital screen 9:16 — PNG', dims: [1080, 1920], out: 'png' },
+};
+const eventsFmtByClub = {};                 // club.id -> format key (default a4)
+function eventsFmt(clubId) { return eventsFmtByClub[clubId] || 'a4'; }
+
+function renderEventsItem(club) {
+  const fmtKey = eventsFmt(club.id);
+  const fmt = EVENTS_FORMATS[fmtKey];
+  const [pw, ph] = fmt.dims;
+  const options = Object.entries(EVENTS_FORMATS).map(([k, f]) =>
+    `<option value="${k}"${k === fmtKey ? ' selected' : ''}>${f.label}</option>`).join('');
+  document.getElementById('events-grid').innerHTML = `
+    <div class="item" data-kind="events" data-id="${club.id}">
+      <div class="item-head">
+        <h2>${esc(club.name)} · Upcoming Events</h2>
+        <div class="item-actions">
+          <select class="fmt-select" data-fmt aria-label="Format">${options}</select>
+          <label class="bleed-check" title="Adds 3mm bleed and corner crop marks (print only)">
+            <input type="checkbox" data-bleed/> Bleed + crops
+          </label>
+          <button class="reset-btn" data-action="reset">Reset</button>
+          <button class="btn" data-action="download">Download</button>
+        </div>
+      </div>
+      <p class="item-help">${fmtKey === 'screen'
+        ? 'Portrait digital-screen artwork (1080 × 1920). High-res PNG, ready to upload to an in-club screen.'
+        : 'Click any text to edit. ' + (fmtKey === 'a5' ? 'A5' : 'A4') + ' PDF, prints edge-to-edge.'}</p>
+      <div class="preview preview-poster" style="aspect-ratio:${pw}/${ph}">
+        <div class="scale-wrap">${posterHtml(applyPoster(club), club, { editable: true, dims: fmt.dims, fmtKey })}</div>
+      </div>
+    </div>
+  `;
+  observePreviews();
+  fitSoon();
+}
+
+function renderClubView(club) {
+  currentClub = club;
+  document.getElementById('wifi-grid').innerHTML = `
+    <div class="item" data-kind="wifi" data-id="${club.id}">
+      <div class="item-head">
+        <h2>${esc(club.name)} · Wi-Fi Card</h2>
+        ${actionsHtml()}
+      </div>
+      <p class="item-help">Square 1080 × 1080. Click any text to edit.</p>
+      <div class="preview preview-card">
+        <div class="scale-wrap">${cardHtml(applyWifi(club), { editable: true })}</div>
+      </div>
+    </div>
+  `;
+
+  // Events
+  // Events (own renderer — supports format selection)
+  renderEventsItem(club);
+
+  // Maintenance
+  const maintGrid = document.getElementById('maintenance-grid');
+  maintGrid.innerHTML = '';
+  for (const id of MAINT_ORDER) {
+    const m = applyMaint(club, id);
+    const item = document.createElement('div');
+    item.className = 'item';
+    item.dataset.kind = 'maint';
+    item.dataset.id = club.id;
+    item.dataset.maintId = id;
+    item.innerHTML = `
+      <div class="item-head">
+        <h2>${esc(m.title)}</h2>
+        ${actionsHtml()}
+      </div>
+      <p class="item-help">A4 portrait. Click any text to edit.</p>
+      <div class="preview preview-poster">
+        <div class="scale-wrap">${maintHtml(m, club, { editable: true })}</div>
+      </div>
+    `;
+    maintGrid.appendChild(item);
+  }
+
+  document.getElementById('home').classList.add('is-hidden');
+  document.getElementById('club-view').classList.add('is-active');
+  document.getElementById('home-btn').style.display = '';
+  document.getElementById('crumb').innerHTML = `Marketing Hub <span class="arrow">›</span> ${esc(club.name)}`;
+  window.scrollTo(0, 0);
+  observePreviews();
+  fitSoon();
+}
+
+function goHome() {
+  document.getElementById('club-view').classList.remove('is-active');
+  document.getElementById('home').classList.remove('is-hidden');
+  document.getElementById('home-btn').style.display = 'none';
+  document.getElementById('crumb').innerHTML = '';
+  currentClub = null;
+  window.scrollTo(0, 0);
+}
+
+clubGrid.addEventListener('click', (e) => {
+  const tile = e.target.closest('.club-tile');
+  if (!tile) return;
+  const club = CLUB_BY_ID[tile.dataset.id];
+  if (club) renderClubView(club);
+});
+
+document.getElementById('home-btn').addEventListener('click', goHome);
+
+// ─────────────────────────────────────────────────────────
+// Fit-to-container scaler
+// ─────────────────────────────────────────────────────────
+// Intrinsic (unscaled) pixel size of a design root. Posters can carry an
+// explicit format via data-iw/data-ih (set by the format selector); fall back
+// to A4 / square-card defaults.
+function previewIntrinsic(child) {
+  if (child.classList.contains('card')) return [1080, 1080];
+  const w = parseInt(child.dataset.iw, 10) || 794;
+  const h = parseInt(child.dataset.ih, 10) || 1123;
+  return [w, h];
+}
+
+function fitOne(preview) {
+  const wrap = preview.querySelector('.scale-wrap');
+  if (!wrap) return;
+  const child = wrap.firstElementChild;
+  if (!child) return;
+  const w = preview.clientWidth;
+  if (!w) return;                       // hidden tab → skip; observer re-fires when shown
+  const [iw, ih] = previewIntrinsic(child);
+  const s = w / iw;
+  wrap.style.transform = `scale(${s})`;
+  wrap.style.width = (iw * s) + 'px';
+  wrap.style.height = (ih * s) + 'px';
+}
+
+function fitAll() { document.querySelectorAll('.preview').forEach(fitOne); }
+
+// Robust multi-pass fit. Layout/zoom bugs came from fitting on a single frame
+// before the panel had its width (or before web-fonts reflowed). Re-running
+// across several frames + short timeouts guarantees the scale lands even when
+// the heavy CDN libs delay first paint.
+function fitSoon() {
+  fitAll();
+  requestAnimationFrame(fitAll);
+  setTimeout(fitAll, 60);
+  setTimeout(fitAll, 200);
+  setTimeout(fitAll, 500);
+}
+
+// A ResizeObserver re-fits each preview the moment it actually gets its width —
+// this kills the "zoomed-in until you switch tabs" race (a hidden tab reports
+// 0 width, then fits automatically when revealed) without relying on timers.
+const _fitObserver = (typeof ResizeObserver !== 'undefined')
+  ? new ResizeObserver(entries => { for (const e of entries) fitOne(e.target); })
+  : null;
+const _observed = new WeakSet();
+function observePreviews() {
+  document.querySelectorAll('.preview').forEach(p => {
+    if (_fitObserver && !_observed.has(p)) {
+      _fitObserver.observe(p);
+      _observed.add(p);
+    }
+    // Stop the browser from scrolling the caret (and the whole scaled design)
+    // out of the frame while editing contenteditable text.
+    if (!p.dataset.scrollLock) {
+      p.dataset.scrollLock = '1';
+      p.addEventListener('scroll', () => { p.scrollLeft = 0; p.scrollTop = 0; });
+    }
+  });
+}
+window.addEventListener('resize', fitAll);
+
+// ─────────────────────────────────────────────────────────
+// Edit capture (delegated, club-aware)
+// ─────────────────────────────────────────────────────────
+document.getElementById('club-view').addEventListener('input', (e) => {
+  if (!currentClub) return;
+  const t = e.target;
+
+  // Wi-Fi
+  const cardEl = t.closest('.card');
+  if (cardEl && t.dataset.field) {
+    const key = lsKey('wifi', currentClub.id);
+    const state = loadObj(key);
+    state[t.dataset.field] = t.textContent;
+    saveObj(key, state);
+    if (t.dataset.field === 'network') {
+      t.classList.remove('short', 'long', 'xlong'); t.classList.add(netCls(t.textContent));
+    }
+    if (t.dataset.field === 'name') {
+      t.classList.remove('long');
+      if (t.textContent.length > 8) t.classList.add('long');
+    }
+    return;
+  }
+
+  // Events poster
+  const posterEl = t.closest('.poster');
+  if (posterEl) {
+    const key = lsKey('poster', currentClub.id);
+    const state = applyPoster(currentClub);
+    const evRoot = t.closest('[data-ev]');
+    if (evRoot && t.dataset.evfield) {
+      const i = +evRoot.dataset.ev;
+      state.events[i] = state.events[i] || {};
+      state.events[i][t.dataset.evfield] = t.textContent;
+      saveObj(key, state);
+      return;
+    }
+    if (t.dataset.pfield) {
+      state[t.dataset.pfield] = t.textContent;
+      saveObj(key, state);
+    }
+    return;
+  }
+
+  // Maintenance
+  const mEl = t.closest('.mposter');
+  if (mEl && t.dataset.mfield) {
+    const maintId = mEl.dataset.maint;
+    const key = lsKey('maint', currentClub.id);
+    const all = loadObj(key);
+    all[maintId] = all[maintId] || {};
+    all[maintId][t.dataset.mfield] = t.textContent;
+    saveObj(key, all);
+  }
+});
+
+// ─────────────────────────────────────────────────────────
+// PDF export
+// ─────────────────────────────────────────────────────────
+const stage = document.getElementById('stage');
+const statusEl = document.getElementById('status');
+function setStatus(msg) { if (statusEl) statusEl.textContent = msg; }
+async function waitForFonts() {
+  if (!document.fonts) return;
+  // Explicitly load the two custom faces at a representative size so the
+  // renderer has correct metrics before capture (avoids fallback-font spacing).
+  try {
+    await Promise.all([
+      document.fonts.load('600 96px "Tungsten"'),
+      document.fonts.load('700 88px "DIN 2014"'),
+      document.fonts.load('400 40px "DM Serif Display"'),
+      document.fonts.load('500 18px "DM Sans"'),
+    ]);
+  } catch (e) { /* non-fatal */ }
+  if (document.fonts.ready) await document.fonts.ready;
+}
+
+async function captureToCanvas(htmlString, intrinsicW, intrinsicH, bgColor) {
+  stage.innerHTML = htmlString;
+  stage.style.width = intrinsicW + 'px';
+  stage.style.height = intrinsicH + 'px';
+  await waitForFonts();
+  await Promise.all([...stage.querySelectorAll('img')].map(img => {
+    if (img.complete) return Promise.resolve();
+    return new Promise(r => { img.onload = img.onerror = r; });
+  }));
+  const root = stage.firstElementChild;
+  // html-to-image renders through an SVG <foreignObject>, so the browser's own
+  // layout engine handles letter-spacing, condensed fonts and text-transform.
+  // pixelRatio 3.8 yields ~360 dpi at A4 / ~1000 dpi on the 4in Wi-Fi card —
+  // true print resolution. Fonts auto-embed from same-origin @font-face rules.
+  // Render twice: first pass warms the font-embed cache, second is accurate.
+  const opts = {
+    width: intrinsicW,
+    height: intrinsicH,
+    pixelRatio: 3.8,
+    backgroundColor: bgColor,
+    cacheBust: true,
+    style: { margin: '0', transform: 'none' },
+  };
+  await htmlToImage.toCanvas(root, opts);
+  const canvas = await htmlToImage.toCanvas(root, opts);
+  stage.innerHTML = '';
+  return canvas;
+}
+
+function drawCropMarks(pdf, trimW, trimH, bleedMM) {
+  const pageW = trimW + bleedMM * 2;
+  const pageH = trimH + bleedMM * 2;
+  const gap = 1;
+  pdf.setLineWidth(0.25);
+  pdf.setDrawColor(0, 0, 0);
+  pdf.line(0, bleedMM, bleedMM - gap, bleedMM);
+  pdf.line(bleedMM, 0, bleedMM, bleedMM - gap);
+  pdf.line(pageW - bleedMM + gap, bleedMM, pageW, bleedMM);
+  pdf.line(pageW - bleedMM, 0, pageW - bleedMM, bleedMM - gap);
+  pdf.line(0, pageH - bleedMM, bleedMM - gap, pageH - bleedMM);
+  pdf.line(bleedMM, pageH - bleedMM + gap, bleedMM, pageH);
+  pdf.line(pageW - bleedMM + gap, pageH - bleedMM, pageW, pageH - bleedMM);
+  pdf.line(pageW - bleedMM, pageH - bleedMM + gap, pageW - bleedMM, pageH);
+}
+
+function hexToRgb(hex) {
+  const h = hex.replace('#', '');
+  return [parseInt(h.slice(0,2),16), parseInt(h.slice(2,4),16), parseInt(h.slice(4,6),16)];
+}
+
+function buildPdf(canvas, opts) {
+  const { jsPDF } = window.jspdf;
+  const { trimW, trimH, bgColor, withBleed, filename } = opts;
+  const bleed = withBleed ? 5 : 0;
+  const pageW = trimW + bleed * 2;
+  const pageH = trimH + bleed * 2;
+  const pdf = new jsPDF({ unit: 'mm', format: [pageW, pageH], orientation: 'portrait' });
+  if (withBleed) {
+    const [r, g, b] = hexToRgb(bgColor);
+    pdf.setFillColor(r, g, b);
+    pdf.rect(0, 0, pageW, pageH, 'F');
+  }
+  // Lossless PNG keeps text edges crisp — no JPEG ringing around type, which
+  // matters most for print. 'SLOW' lets jsPDF apply tighter (lossless) deflate.
+  pdf.addImage(canvas.toDataURL('image/png'), 'PNG', bleed, bleed, trimW, trimH, undefined, 'SLOW');
+  if (withBleed) drawCropMarks(pdf, trimW, trimH, bleed);
+  pdf.save(filename);
+}
+
+async function downloadWifi(club, withBleed) {
+  setStatus(`Rendering ${club.name} Wi-Fi…`);
+  const html = cardHtml(applyWifi(club), { editable: false });
+  const canvas = await captureToCanvas(html, 1080, 1080, '#2C2A26');
+  buildPdf(canvas, {
+    trimW: 101.6, trimH: 101.6, bgColor: '#2C2A26',
+    withBleed,
+    filename: `UNTIL_${club.name.replace(/\s+/g,'_')}_WiFi${withBleed ? '_bleed' : ''}.pdf`,
+  });
+  setStatus('Saved.');
+}
+async function downloadEvents(club, withBleed) {
+  const fmtKey = eventsFmt(club.id);
+  const fmt = EVENTS_FORMATS[fmtKey];
+  const [pw, ph] = fmt.dims;
+  setStatus(`Rendering ${club.name} events…`);
+  const html = posterHtml(applyPoster(club), club, { editable: false, dims: fmt.dims, fmtKey });
+  const canvas = await captureToCanvas(html, pw, ph, '#F2F4F7');
+  const base = `UNTIL_${club.name.replace(/\s+/g,'_')}_Events`;
+  if (fmt.out === 'png') {
+    // High-res PNG for digital screens — no paper/bleed.
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = `${base}_screen.png`;
+    a.click();
+  } else {
+    buildPdf(canvas, {
+      trimW: fmt.mm[0], trimH: fmt.mm[1], bgColor: '#F2F4F7',
+      withBleed,
+      filename: `${base}_${fmtKey.toUpperCase()}${withBleed ? '_bleed' : ''}.pdf`,
+    });
+  }
+  setStatus('Saved.');
+}
+async function downloadMaint(club, maintId, withBleed) {
+  const m = applyMaint(club, maintId);
+  setStatus(`Rendering ${m.title}…`);
+  const html = maintHtml(m, club, { editable: false });
+  const canvas = await captureToCanvas(html, 794, 1123, '#F9FAFB');
+  buildPdf(canvas, {
+    trimW: 210, trimH: 297, bgColor: '#F9FAFB',
+    withBleed,
+    filename: `UNTIL_${club.name.replace(/\s+/g,'_')}_${m.title.replace(/\s+/g,'_')}${withBleed ? '_bleed' : ''}.pdf`,
+  });
+  setStatus('Saved.');
+}
+
+function bleedOn(item) {
+  const cb = item.querySelector('[data-bleed]');
+  return !!(cb && cb.checked);
+}
+
+document.getElementById('club-view').addEventListener('change', (e) => {
+  const sel = e.target.closest('[data-fmt]');
+  if (!sel || !currentClub) return;
+  eventsFmtByClub[currentClub.id] = sel.value;
+  renderEventsItem(currentClub);
+});
+
+document.getElementById('club-view').addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-action]');
+  if (!btn || !currentClub) return;
+  const item = btn.closest('.item');
+  const kind = item.dataset.kind;
+  const action = btn.dataset.action;
+  const withBleed = bleedOn(item);
+  try {
+    btn.dataset.busy = '1';
+    if (action === 'download') {
+      if (kind === 'wifi') await downloadWifi(currentClub, withBleed);
+      else if (kind === 'events') await downloadEvents(currentClub, withBleed);
+      else if (kind === 'maint') await downloadMaint(currentClub, item.dataset.maintId, withBleed);
+    } else if (action === 'reset') {
+      if (kind === 'wifi') {
+        localStorage.removeItem(lsKey('wifi', currentClub.id));
+      } else if (kind === 'events') {
+        localStorage.removeItem(lsKey('poster', currentClub.id));
+      } else if (kind === 'maint') {
+        const key = lsKey('maint', currentClub.id);
+        const all = loadObj(key);
+        delete all[item.dataset.maintId];
+        saveObj(key, all);
+      }
+      renderClubView(currentClub);
+      setStatus('Reset.');
+    }
+  } catch (err) {
+    console.error(err); setStatus('Error: ' + err.message);
+  } finally { delete btn.dataset.busy; }
+});
+
+// Tabs
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', 'false'));
+    tab.setAttribute('aria-selected', 'true');
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('is-active'));
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('is-active');
+    fitSoon();
+  });
+});
+
+// ─────────────────────────────────────────────────────────
+// Keep the preview visible when editing.
+// When a contenteditable element receives focus, the browser scrolls it
+// into view — which, because each editable lives inside a scale()'d
+// container, can push the WHOLE document and visually "lose" the design.
+// Snapshot the scroll position on focus and restore it next tick.
+// ─────────────────────────────────────────────────────────
+document.addEventListener('focusin', (e) => {
+  if (!e.target.isContentEditable) return;
+  const sx = window.scrollX, sy = window.scrollY;
+  // Two RAFs in case the browser defers its scrollIntoView by a frame.
+  requestAnimationFrame(() => {
+    window.scrollTo(sx, sy);
+    requestAnimationFrame(() => window.scrollTo(sx, sy));
+  });
+});
+</script>
+
+</body>
+</html>
+
+<style id="__om-edit-overrides">
+#club-grid >button:nth-child(3) .tile-meta { font-family: sans-serif !important }
+</style>
